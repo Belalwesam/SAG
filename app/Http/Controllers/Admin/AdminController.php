@@ -12,35 +12,37 @@ use App\Http\Requests\Admin\AdminUpdateRequest;
 
 class AdminController extends Controller
 {
-  public function index()
-  {
-    $roles = Role::all();
-    return view('admin.pages.admins.index', compact('roles'));
-  }
+    public function index()
+    {
+        $roles = Role::where('name' , '!=' , 'Super Admin');
+        return view('admin.pages.admins.index', compact('roles'));
+    }
 
-  public function getAdminsList()
-  {
-    $data = Admin::with('roles')->get();
-    return DataTables::of($data)
-      ->addIndexColumn()
-      ->editColumn('created_at', function ($row) {
-        return $row->created_at->format('d-m-Y');
-      })
-      ->addColumn('role', function ($row) {
-        return $row->getRole();
-      })
-      ->addColumn('initials', function ($row) {
-        $initials = "<div class='avatar'>
+    public function getAdminsList()
+    {
+        $data = Admin::whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'super admin');
+        })->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($row) {
+                return $row->created_at->format('d-m-Y');
+            })
+            ->addColumn('role', function ($row) {
+                return $row->getRole();
+            })
+            ->addColumn('initials', function ($row) {
+                $initials = "<div class='avatar'>
                             <span class='avatar-initial rounded-circle bg-info'>{$row->getInitials()}</span>
                         </div>";
 
-        return $initials;
-      })
-      ->addColumn('actions', function ($row) {
-        $edit_text = trans('general.edit');
-        $delete_text = trans('general.delete');
-        $role = $row->roles->firstWhere('name', $row->getRole());
-        $btns = <<<HTML
+                return $initials;
+            })
+            ->addColumn('actions', function ($row) {
+                $edit_text = trans('general.edit');
+                $delete_text = trans('general.delete');
+                $role = $row->roles->firstWhere('name', $row->getRole());
+                $btns = <<<HTML
                     <div class="dropdown d-flex justify-content-center">
                         <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
                           <i class="bx bx-dots-vertical-rounded"></i>
@@ -63,32 +65,32 @@ class AdminController extends Controller
                         </div>
                 HTML;
 
-        return $btns;
-      })
-      ->rawColumns(['initials', 'actions'])
-      ->make(true);
-  }
-
-  public function store(AdminStoreRequest $request)
-  {
-    $admin = Admin::create($request->validated());
-    $admin->syncRoles(Role::find($request->role));
-    return http_response_code(200);
-  }
-
-  public function update(AdminUpdateRequest $request)
-  {
-    $admin = Admin::findOrFail($request->id);
-    $admin->update($request->validated());
-    $admin->syncRoles(Role::find($request->role));
-    if ($request->has('password') && $request->filled('password')) {
-      $admin->update(['password' => bcrypt($request->password)]);
+                return $btns;
+            })
+            ->rawColumns(['initials', 'actions'])
+            ->make(true);
     }
-    return http_response_code(200);
-  }
-  public function destroy(Request $request)
-  {
-    Admin::findOrFail($request->id)->delete();
-    return http_response_code(200);
-  }
+
+    public function store(AdminStoreRequest $request)
+    {
+        $admin = Admin::create($request->validated());
+        $admin->syncRoles(Role::find($request->role));
+        return http_response_code(200);
+    }
+
+    public function update(AdminUpdateRequest $request)
+    {
+        $admin = Admin::findOrFail($request->id);
+        $admin->update($request->validated());
+        $admin->syncRoles(Role::find($request->role));
+        if ($request->has('password') && $request->filled('password')) {
+            $admin->update(['password' => bcrypt($request->password)]);
+        }
+        return http_response_code(200);
+    }
+    public function destroy(Request $request)
+    {
+        Admin::findOrFail($request->id)->delete();
+        return http_response_code(200);
+    }
 }
