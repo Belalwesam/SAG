@@ -51,7 +51,6 @@ class AdminPermissionsSeeder extends Seeder
         #loop over groups and create permissions accordingly
         foreach ($permissions as $key => $value) {
             foreach ($value as $permission) {
-
                 Permission::firstOrCreate(["name" => $permission['en']], [
                     'name' => $permission['en'],
                     'name_ar' => $permission['ar'],

@@ -38,7 +38,7 @@
                      </g>
                  </svg>
              </span>
-             <span class="app-brand-text demo menu-text fw-bold ms-2">Frest</span>
+             <span class="app-brand-text demo menu-text fw-bold ms-2">SAG</span>
          </a>
 
          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -53,7 +53,7 @@
 
      <ul class="menu-inner py-1">
          <!-- Dashboard -->
-         <li class="menu-header small text-uppercase"><span class="menu-header-text">Dashboard</span></li>
+         <li class="menu-header small text-uppercase"><span class="menu-header-text">@lang('nav.dashboard')</span></li>
          <li class="menu-item">
              <a href="{{ route('admin.index') }}" class="menu-link">
                  <i class="menu-icon tf-icons bx bxs-dashboard"></i>
@@ -80,16 +80,6 @@
                  <a href="{{ route('admin.admins.index') }}" class="menu-link">
                      <i class="menu-icon tf-icons bx bxs-user-circle"></i>
                      <div data-i18n="@lang('nav.admins')">@lang('nav.admins')</div>
-                 </a>
-             </li>
-         @endif
-         @if (auth()->user()->hasAbilityTo('see categories'))
-             <!-- Adminstrators -->
-             <li class="menu-header small text-uppercase"><span class="menu-header-text">@lang('nav.categories')</span></li>
-             <li class="menu-item">
-                 <a href="{{ route('admin.categories.index') }}" class="menu-link">
-                     <i class="menu-icon tf-icons bx bx-selection"></i>
-                     <div data-i18n="@lang('nav.categories')">@lang('nav.categories')</div>
                  </a>
              </li>
          @endif
