@@ -34,7 +34,13 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-end">
                         <div class="role-heading">
-                            <h4 class="mb-1">{{ $role->name }}</h4>
+                            <h4 class="mb-1">
+                                @if (app()->getLocale() == 'ar')
+                                    {{ $role->name_ar }}
+                                @else
+                                    {{ $role->name }}
+                                @endif
+                            </h4>
                             @if (auth('admin')->user()->hasAbilityTo('edit roles'))
                                 <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editRoleModal"
                                     data-name = "{{ $role->name }}" data-id = "{{ $role->id }}"
