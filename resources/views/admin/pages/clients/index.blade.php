@@ -341,7 +341,7 @@
                             url: "{!! route('admin.clients.delete') !!}",
                             data: data,
                             success: function(response) {
-                                successMessage("@lang('general.edit_success')")
+                                successMessage("@lang('general.delete_success')")
                                 datatable.ajax.reload()
                             },
                             error: function(response) {

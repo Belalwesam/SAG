@@ -62,7 +62,17 @@ class ClientController extends Controller
         return http_response_code(200);
     }
 
-    public function destroy(Request $request) {}
+    public function destroy(Request $request)
+    {
+        $client = User::findOrFail($request->id);
+        if ($client->image) {
+            Storage::delete('/' . $client->image);
+        }
+
+        $client->delete();
+
+        return http_response_code(200);
+    }
 
     public function getClientsList()
     {
