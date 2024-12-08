@@ -1,4 +1,13 @@
 {
-    "name en" : "Name in English",
-    "name ar" : "Name in Arabic"
+    "name en": "Name in English",
+    "name ar": "Name in Arabic",
+    "clients": "Clients",
+    "clients list": "Clients List",
+    "add new client": "Add New Client",
+    "name": "Name",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "image": "Image",
+    "hours": "Maintenance Hours"
 }

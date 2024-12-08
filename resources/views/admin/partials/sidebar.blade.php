@@ -83,6 +83,40 @@
                  </a>
              </li>
          @endif
+
+         @if (auth()->user()->hasAbilityTo('see clients'))
+             <!-- Adminstrators -->
+             <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('clients') }}</span></li>
+             <li class="menu-item">
+                 <a href="{{ route('admin.clients.index') }}" class="menu-link">
+                     <i class="menu-icon tf-icons bx bx-group"></i>
+                     <div data-i18n="{{ __('clients') }}">{{ __('clients') }}</div>
+                 </a>
+             </li>
+         @endif
+
+
+         {{-- @if (auth()->user()->hasAbilityTo('see clients'))
+             <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('clients') }}</span></li>
+             <li class="menu-item" style="">
+                 <a href="javascript:void(0)" class="menu-link menu-toggle">
+                     <i class="menu-icon tf-icons bx bx-group"></i>
+                     <div data-i18n="{{ __('clients') }}">{{ __('clients') }}</div>
+                 </a>
+                 <ul class="menu-sub">
+                     <li class="menu-item">
+                         <a href="icons-boxicons.html" class="menu-link">
+                             <div data-i18n="{{ __('clients list') }}">{{ __('clients list') }}</div>
+                         </a>
+                     </li>
+                     <li class="menu-item">
+                         <a href="{{ route('admin.clients') }}" class="menu-link">
+                             <div data-i18n="{{ __('add new client') }}">{{ __('add new client') }}</div>
+                         </a>
+                     </li>
+                 </ul>
+             </li>
+         @endif --}}
      </ul>
  </aside>
  <!-- / Menu -->

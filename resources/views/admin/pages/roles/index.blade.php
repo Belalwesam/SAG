@@ -158,7 +158,12 @@
                                                         <div class="form-check me-3 me-lg-5">
                                                             <input class="form-check-input permission-checkbox"
                                                                 value={{ $permission->id }} type="checkbox">
-                                                            <label class="form-check-label"> {{ $permission->name }}
+                                                            <label class="form-check-label">
+                                                                @if (app()->getLocale() == 'ar')
+                                                                    {{ $permission->name_ar }}
+                                                                @else
+                                                                    {{ $permission->name }}
+                                                                @endif
                                                             </label>
                                                         </div>
                                                     @endforeach

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -20,7 +21,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 #localization middlewares and prefixing
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect']], function () {
-    #add localized routes here and the prexfix them with admin keyword 
+    #add localized routes here and the prexfix them with admin keyword
     Route::prefix('admin')->group(function () {
         #auth routes
         Route::view('login', 'admin.auth.login')->name('admin.login_form')->middleware('guest:admin');
@@ -29,7 +30,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
         #routes that need authetication to interact with
         Route::group(['middleware' => 'auth:admin', 'as' => 'admin.'], function () {
-            #placeholder route 
+            #placeholder route
             Route::view('/', 'admin.pages.index')->name('index');
 
 
@@ -58,13 +59,26 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
 
             #categories crud routes (prefix is stand alone because of overlapping)
-            Route::prefix('categories')->group(function () {
-                Route::group(['as' => 'categories.', 'controller' => CategoryController::class, 'middleware' => ['can:see categories']], function () {
+            // Route::prefix('categories')->group(function () {
+            //     Route::group(['as' => 'categories.', 'controller' => CategoryController::class, 'middleware' => ['can:see categories']], function () {
+            //         Route::get('/', 'index')->name('index');
+            //         Route::post('/', 'store')->name('store');
+            //         Route::patch('/', 'update')->name('update');
+            //         Route::delete('/', 'destroy')->name('delete');
+            //         Route::get('/categories-list', 'getCategoriesList')->name('categories_list'); // get role users for datatable
+            //     });
+            // });
+
+
+
+            #categories crud routes (prefix is stand alone because of overlapping)
+            Route::prefix('clients')->group(function () {
+                Route::group(['as' => 'clients.', 'controller' => ClientController::class, 'middleware' => ['can:see clients']], function () {
                     Route::get('/', 'index')->name('index');
                     Route::post('/', 'store')->name('store');
                     Route::patch('/', 'update')->name('update');
                     Route::delete('/', 'destroy')->name('delete');
-                    Route::get('/categories-list', 'getCategoriesList')->name('categories_list'); // get role users for datatable
+                    Route::get('/clients-list', 'getClientsList')->name('clients_list'); // get role users for datatable
                 });
             });
         });
