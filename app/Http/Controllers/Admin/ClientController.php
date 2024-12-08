@@ -65,9 +65,9 @@ class ClientController extends Controller
     public function destroy(Request $request)
     {
         $client = User::findOrFail($request->id);
-        if ($client->image) {
-            Storage::delete('/' . $client->image);
-        }
+        // if ($client->image) {
+        //     Storage::delete('/' . $client->image);
+        // }
 
         $client->delete();
 
