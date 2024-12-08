@@ -31,7 +31,7 @@
                     <tr>
                         <th>{{ __('image') }}</th>
                         <th>@lang('categories.name')</th>
-                        <th>{{ __("email") }}</th>
+                        <th>{{ __('email') }}</th>
                         <th>{{ __('hours') }}</th>
                         <th>@lang('categories.created_at')</th>
                         <th class="d-flex justify-content-center" data-searchable="false" data-orderable="false">
@@ -103,9 +103,33 @@
                 <div class="modal-body">
                     <form action="#" id="editCategoryForm">
                         <div class="form-group mb-3">
-                            <label for="edit_name" class="form-label">@lang('categories.name')</label>
-                            <input type="text" name="edit_name" placeholder="@lang('categories.name')" id="edit_name"
+                            <label for="edit_name" class="form-label">{{ __('name') }}</label>
+                            <input type="text" name="edit_name" placeholder="{{ __('name') }}" id="edit_name"
                                 class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_username" class="form-label">{{ __('username') }}</label>
+                            <input type="text" name="edit_username" placeholder="{{ __('username') }}"
+                                id="edit_username" class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_email" class="form-label">{{ __('email') }}</label>
+                            <input type="email" name="edit_email" placeholder="{{ __('email') }}" id="edit_email"
+                                class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_password" class="form-label">{{ __('password') }}</label>
+                            <input type="password" name="edit_password" placeholder="{{ __('password') }}"
+                                id="edit_password" class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_hours" class="form-label">{{ __('hours') }}</label>
+                            <input type="number" step="1" name="edit_hours" placeholder="{{ __('hours') }}"
+                                id="edit_hours" class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_image" class="form-label">{{ __('image') }}</label>
+                            <input type="file" name="edit_image" id="edit_image" class="form-control">
                         </div>
                         <input type="hidden" id="edit_id">
                     </form>
@@ -147,9 +171,6 @@
                         next: '@lang('general.next')'
                     }
                 },
-                order: [
-                    [1, 'desc']
-                ],
                 processing: true,
                 serverSide: true,
                 ajax: "{!! route('admin.clients.clients_list') !!}",
@@ -160,6 +181,10 @@
                     {
                         data: 'name',
                         name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
                     },
                     {
                         data: 'hours',
@@ -237,21 +262,34 @@
             //populate table when pressing edit admin (from table)
             $('body').on('click', '.edit-btn', function() {
                 $('#edit_name').val($(this).data('name'))
+                $('#edit_email').val($(this).data('email'))
+                $('#edit_hours').val($(this).data('hours'))
+                $('#edit_username').val($(this).data('username'))
                 $('#edit_id').val($(this).data('id'))
             })
             //edit ajax request
             $('body').on('click', '#submit-edit-btn', function() {
-                let data = {
-                    _token: "{!! csrf_token() !!}",
-                    name: $('#edit_name').val(),
-                    id: $('#edit_id').val(),
+                let fd = new FormData();
+                fd.append('name', $('#edit_name').val())
+                fd.append('id', $('#edit_id').val())
+                fd.append('username', $('#edit_username').val())
+                fd.append('email', $('#edit_email').val())
+                fd.append('password', $('#edit_password').val())
+                fd.append('hours', $('#edit_hours').val())
+                fd.append('_token', "{!! csrf_token() !!}")
+                fd.append('_method', "PATCH")
+
+                if (document.getElementById('edit_image').files[0]) {
+                    fd.append('image', document.getElementById('edit_image').files[0])
                 }
                 let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
 
                 $.ajax({
-                    method: 'PATCH',
+                    method: 'POST',
                     url: "{!! route('admin.clients.update') !!}",
-                    data: data,
+                    data: fd,
+                    processData: false,
+                    contentType: false,
                     beforeSend: function() {
                         formBtn.html(
                             '<span class="spinner-border" role="status" aria-hidden="true"></span>'

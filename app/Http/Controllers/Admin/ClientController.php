@@ -35,7 +35,32 @@ class ClientController extends Controller
     }
 
 
-    public function update(ClientUpdateRequest $request) {}
+    public function update(ClientUpdateRequest $request)
+    {
+        $client = User::findOrFail($request->id);
+        $client->update([
+            "name" => $request->name,
+            "email" => $request->email,
+            "username" => $request->username,
+            "hours" => $request->hours
+        ]);
+
+        if ($request->hasFile('image')) {
+            if ($client->image) {
+                Storage::delete('/' . $client->image);
+            }
+            $path = Storage::put('/public/clients', $request->image);
+            $client->update(["image" => $path]);
+        }
+
+        if ($request->has('password') && $request->filled('password')) {
+            $client->update([
+                "password" => bcrypt($request->password)
+            ]);
+        }
+
+        return http_response_code(200);
+    }
 
     public function destroy(Request $request) {}
 
@@ -90,7 +115,7 @@ class ClientController extends Controller
                 }
                 return;
             })
-            ->rawColumns(['actions' , 'image'])
+            ->rawColumns(['actions', 'image'])
             ->make(true);
     }
 }
