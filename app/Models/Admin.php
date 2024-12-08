@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
@@ -94,10 +95,25 @@ class Admin extends Authenticatable
     }
 
 
-    #return the role for the admin 
+    #return the role for the admin
     public function getRole()
     {
-        return count($this->getRoleNames()) > 0 ? $this->getRoleNames()[0] : 'Default';
+        $has_roles = count($this->getRoleNames()) > 0 ? true : false;
+
+        if ($has_roles) {
+            $role = Role::where('name', $this->getRoleNames()[0])->first();
+
+            if ($role) {
+                if (app()->getLocale() == 'ar') {
+                    return $role->name_ar;
+                } else {
+                    return $role->name;
+                }
+            }
+        } else {
+            return 'Default';
+        }
+        // return count($this->getRoleNames()) > 0 ? $this->getRoleNames()[0] : 'Default';
     }
 
     #check if the autherticated admin has the permission to do an action through roles and permissions
