@@ -29,7 +29,10 @@
             <table class="datatables-categories table border-top">
                 <thead>
                     <tr>
+                        <th>{{ __('image') }}</th>
                         <th>@lang('categories.name')</th>
+                        <th>{{ __("email") }}</th>
+                        <th>{{ __('hours') }}</th>
                         <th>@lang('categories.created_at')</th>
                         <th class="d-flex justify-content-center" data-searchable="false" data-orderable="false">
                             @lang('general.actions')</th>
@@ -90,12 +93,11 @@
     </div>
 
     <!-- Edit Modal -->
-    <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editCategoryModalLabel">@lang('general.edit')</h5>
+                    <h5 class="modal-title" id="editClientModalLabel">@lang('general.edit')</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -152,13 +154,22 @@
                 serverSide: true,
                 ajax: "{!! route('admin.clients.clients_list') !!}",
                 columns: [{
+                        data: "image",
+                        name: "image"
+                    },
+                    {
                         data: 'name',
                         name: 'name'
+                    },
+                    {
+                        data: 'hours',
+                        name: 'hours'
                     },
                     {
                         data: 'created_at',
                         name: 'created_at'
                     },
+
                     {
                         name: 'actions',
                         data: 'actions',
@@ -177,7 +188,6 @@
 
             //create new ajax request
             $('body').on('click', '#submit-create-btn', function() {
-
                 let fd = new FormData();
                 fd.append('name', $('#name').val())
                 fd.append('username', $('#username').val())
@@ -250,7 +260,7 @@
                     },
                     success: function(response) {
                         successMessage("@lang('general.edit_success')")
-                        $('#editCategoryModal').modal('toggle')
+                        $('#editClientModal').modal('toggle')
                         datatable.ajax.reload()
                     },
                     error: function(response) {
