@@ -38,6 +38,7 @@
                             @if (auth('admin')->user()->hasAbilityTo('edit roles'))
                                 <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editRoleModal"
                                     data-name = "{{ $role->name }}" data-id = "{{ $role->id }}"
+                                    data-name-ar = "{{ $role->name_ar }}"
                                     data-permissions = "{{ $role->permissions->pluck('id') }}"
                                     class="role-edit-btn"><small>@lang('roles.edit_role')</small></a>
                             @endif
@@ -135,7 +136,8 @@
                                         </td>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="selectAllCheckbox">
+                                                <input class="form-check-input" type="checkbox"
+                                                    id="selectAllCheckbox">
                                                 <label class="form-check-label" for="selectAll">
                                                     @lang('general.select_all')</label>
                                             </div>
@@ -331,6 +333,7 @@
             let data = {
                 _token: "{!! csrf_token() !!}",
                 name: $('#name').val(),
+                name_ar: $('#name_ar').val(),
                 permissions: permissions
             }
 
@@ -388,6 +391,7 @@
             let name = $(this).data('name')
             let id = $(this).data('id')
             $('#edit_name').val(name)
+            $('#edit_name_ar').val($(this).data('name-ar'))
             $('#edit_id').val(id)
             $('.edit_permission-checkbox').each(function() {
                 let permissionId = +($(this).val())
@@ -405,6 +409,7 @@
             let data = {
                 _token: "{!! csrf_token() !!}",
                 name: $('#edit_name').val(),
+                name_ar: $('#edit_name_ar').val(),
                 id: $('#edit_id').val(),
                 permissions: permissions
             }
