@@ -19,9 +19,10 @@ class ClientController extends Controller
     public function store(ClientStoreRequest $request)
     {
         $data = $request->validated();
-
         unset($data['image']);
+        unset($data['password']);
 
+        $data['password'] = bcrypt($request->password);
         $client = User::create($data);
 
         if ($request->hasFile('image')) {

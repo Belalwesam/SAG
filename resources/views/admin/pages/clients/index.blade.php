@@ -49,7 +49,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" id="addCategoryForm">
+                    <form action="#" id="addClientForm">
                         <div class="form-group mb-3">
                             <label for="name" class="form-label">{{ __('name') }}</label>
                             <input type="text" name="name" placeholder="{{ __('name') }}" id="name"
@@ -177,16 +177,27 @@
 
             //create new ajax request
             $('body').on('click', '#submit-create-btn', function() {
-                let data = {
-                    _token: "{!! csrf_token() !!}",
-                    name: $('#name').val(),
+
+                let fd = new FormData();
+                fd.append('name', $('#name').val())
+                fd.append('username', $('#username').val())
+                fd.append('email', $('#email').val())
+                fd.append('password', $('#password').val())
+                fd.append('hours', $('#hours').val())
+                fd.append('_token', "{!! csrf_token() !!}")
+
+                if (document.getElementById('image').files[0]) {
+                    fd.append('image', document.getElementById('image').files[0])
                 }
                 let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
 
                 $.ajax({
                     method: 'POST',
                     url: "{!! route('admin.clients.store') !!}",
-                    data: data,
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+
                     beforeSend: function() {
                         formBtn.html(
                             '<span class="spinner-border" role="status" aria-hidden="true"></span>'
@@ -196,7 +207,7 @@
                     success: function(response) {
                         successMessage("@lang('general.create_success')")
                         $('#addClientModal').modal('toggle')
-                        document.getElementById("addCategoryForm").reset();
+                        document.getElementById("addClientForm").reset();
                         datatable.ajax.reload()
                     },
                     error: function(response) {
