@@ -108,9 +108,15 @@
                 <form id="addRoleForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework"
                     onsubmit="return false" novalidate="novalidate">
                     <div class="col-12 mb-4 fv-plugins-icon-container">
-                        <label class="form-label" for="name">@lang('roles.role_name')</label>
+                        <label class="form-label" for="name">{{ __('name en') }}</label>
                         <input type="text" id="name" name="name" class="form-control"
-                            placeholder="@lang('roles.role_name')" tabindex="-1">
+                            placeholder="{{ __('name en') }}" tabindex="-1">
+                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                    <div class="col-12 mb-4 fv-plugins-icon-container">
+                        <label class="form-label" for="name_ar">{{ __('name ar') }}</label>
+                        <input type="text" id="name_ar" name="name_ar" class="form-control"
+                            placeholder="{{ __('name ar') }}" tabindex="-1">
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <div class="col-12">
@@ -200,9 +206,15 @@
                 <form id="editRoleForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework"
                     onsubmit="return false" novalidate="novalidate">
                     <div class="col-12 mb-4 fv-plugins-icon-container">
-                        <label class="form-label" for="edit_name">@lang('roles.role_name')</label>
+                        <label class="form-label" for="edit_name">{{ __('name en') }}</label>
                         <input type="text" id="edit_name" name="edit_name" class="form-control"
-                            placeholder="@lang('roles.role_name')" tabindex="-1">
+                            placeholder="{{ __('name en') }}" tabindex="-1">
+                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                    <div class="col-12 mb-4 fv-plugins-icon-container">
+                        <label class="form-label" for="edit_name_ar">{{ __('name ar') }}</label>
+                        <input type="text" id="edit_name_ar" name="edit_name_ar" class="form-control"
+                            placeholder="{{ __('name ar') }}" tabindex="-1">
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <div class="col-12">
@@ -278,7 +290,7 @@
 <script>
     $('document').ready(function() {
 
-        //create datatable 
+        //create datatable
         let table = $('.datatables-users')
         table.DataTable({
             order: [],
@@ -363,7 +375,7 @@
             }
         })
 
-        //clicking the edit button transfers data to the form 
+        //clicking the edit button transfers data to the form
         $('body').on('click', '.role-edit-btn', function() {
             $(".is-invalid").each(function() {
                 $(this).removeClass("is-invalid");

@@ -64,6 +64,7 @@ class AdminPermissionsSeeder extends Seeder
         #create the super admin role and sync all permissions to it
         $super_admin_role = Role::create([
             'name' => 'Super Admin',
+            'name_ar' => "سوبر ادمن",
             'guard_name' => 'admin'
         ]);
 
