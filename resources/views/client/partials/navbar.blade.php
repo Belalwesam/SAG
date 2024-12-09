@@ -378,7 +378,7 @@
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <div class="avatar">
                             <span
-                                class="avatar-initial rounded-circle bg-info">{{ auth('admin')->user()->getInitials() }}</span>
+                                class="avatar-initial rounded-circle bg-info">{{ auth()->user()->getInitials() }}</span>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -387,13 +387,18 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar avatar-online">
-                                            <img src="{{ asset('dashboard/assets/img/avatars/1.png') }}"
-                                                alt = "users avatar" class="rounded-circle" />
+                                            @if (auth()->user()->image)
+                                                <img src="{{ Storage::url(auth()->user()->image) }}"
+                                                    alt = "users avatar" class="rounded-circle" />
+                                            @else
+                                                <img src="{{ asset('dashboard/assets/img/avatars/1.png') }}"
+                                                    alt = "users avatar" class="rounded-circle" />
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <span class="fw-semibold d-block lh-1">{{ auth('admin')->user()->name }}</span>
-                                        <small>{{ auth('admin')->user()->getRole() }}</small>
+                                        <span class="fw-semibold d-block lh-1">{{ auth()->user()->name }}</span>
+                                        <small>{{ auth()->user()->email }}</small>
                                     </div>
                                 </div>
                             </a>
@@ -402,7 +407,7 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{{ route('admin.logout') }}">
+                            <a class="dropdown-item" href="{{ route('client.logout') }}">
                                 <i class="bx bx-power-off me-2"></i>
                                 <span class="align-middle">Log Out</span>
                             </a>

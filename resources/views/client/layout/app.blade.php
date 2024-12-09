@@ -56,12 +56,12 @@
         <div class="layout-container">
 
             <!-- Menu -->
-            @include('admin.partials.sidebar')
+            @include('client.partials.sidebar')
             <!-- / Menu -->
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
-                @include('admin.partials.navbar')
+                @include('client.partials.navbar')
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
@@ -76,7 +76,7 @@
                     <!-- / Content -->
 
                     <!-- Footer -->
-                    @include('admin.partials.footer')
+                    @include('client.partials.footer')
                     <!-- / Footer -->
 
                     <div class="content-backdrop fade"></div>

@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable , SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -46,4 +46,42 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    #get initials to be displayed through the app
+    public function getInitials()
+    {
+        $name = $this->name;
+        $words = preg_split('/\s+/', $name, -1, PREG_SPLIT_NO_EMPTY);
+        $initials = '';
+
+        if (count($words) === 1) {
+            $firstChar = mb_substr($name, 0, 1);
+            $secondChar = mb_substr($name, 1, 1);
+
+            $initials .= $firstChar . $secondChar;
+        } else {
+            $firstWord = $words[0] ?? '';
+            $lastWord = end($words) ?: '';
+
+            $firstCharFirstWord = mb_substr($firstWord, 0, 1);
+            $firstCharLastWord = mb_substr($lastWord, 0, 1);
+
+            if (preg_match('/\p{Arabic}/u', $firstCharFirstWord)) {
+                $initials .= $firstCharFirstWord . ' ';
+            } else {
+                $initials .= strtoupper($firstCharFirstWord);
+            }
+
+            if ($firstWord !== $lastWord) {
+                if (preg_match('/\p{Arabic}/u', $firstCharLastWord)) {
+                    $initials .= $firstCharLastWord . ' ';
+                } else {
+                    $initials .= strtoupper($firstCharLastWord);
+                }
+            }
+        }
+
+        return trim($initials);
+    }
 }

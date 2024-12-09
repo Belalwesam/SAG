@@ -60,63 +60,6 @@
                  <div data-i18n="@lang('nav.dashboard')">@lang('nav.dashboard')</div>
              </a>
          </li>
-
-
-         @if (auth()->user()->hasAbilityTo('see roles'))
-             <!-- Roles & Permissions -->
-             <li class="menu-header small text-uppercase"><span class="menu-header-text">@lang('nav.roles_and_permissions')</span></li>
-             <li class="menu-item">
-                 <a href="{{ route('admin.roles.index') }}" class="menu-link">
-                     <i class="menu-icon tf-icons bx bxs-check-shield"></i>
-                     <div data-i18n="@lang('nav.roles_and_permissions')">@lang('nav.roles_and_permissions')</div>
-                 </a>
-             </li>
-         @endif
-
-         @if (auth()->user()->hasAbilityTo('see admins'))
-             <!-- Adminstrators -->
-             <li class="menu-header small text-uppercase"><span class="menu-header-text">@lang('nav.adminstrators')</span></li>
-             <li class="menu-item">
-                 <a href="{{ route('admin.admins.index') }}" class="menu-link">
-                     <i class="menu-icon tf-icons bx bxs-user-circle"></i>
-                     <div data-i18n="@lang('nav.admins')">@lang('nav.admins')</div>
-                 </a>
-             </li>
-         @endif
-
-         @if (auth()->user()->hasAbilityTo('see clients'))
-             <!-- Adminstrators -->
-             <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('clients') }}</span></li>
-             <li class="menu-item">
-                 <a href="{{ route('admin.clients.index') }}" class="menu-link">
-                     <i class="menu-icon tf-icons bx bx-group"></i>
-                     <div data-i18n="{{ __('clients') }}">{{ __('clients') }}</div>
-                 </a>
-             </li>
-         @endif
-
-
-         {{-- @if (auth()->user()->hasAbilityTo('see clients'))
-             <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('clients') }}</span></li>
-             <li class="menu-item" style="">
-                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                     <i class="menu-icon tf-icons bx bx-group"></i>
-                     <div data-i18n="{{ __('clients') }}">{{ __('clients') }}</div>
-                 </a>
-                 <ul class="menu-sub">
-                     <li class="menu-item">
-                         <a href="icons-boxicons.html" class="menu-link">
-                             <div data-i18n="{{ __('clients list') }}">{{ __('clients list') }}</div>
-                         </a>
-                     </li>
-                     <li class="menu-item">
-                         <a href="{{ route('admin.clients') }}" class="menu-link">
-                             <div data-i18n="{{ __('add new client') }}">{{ __('add new client') }}</div>
-                         </a>
-                     </li>
-                 </ul>
-             </li>
-         @endif --}}
      </ul>
  </aside>
  <!-- / Menu -->
