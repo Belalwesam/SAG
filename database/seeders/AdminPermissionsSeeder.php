@@ -60,6 +60,20 @@ class AdminPermissionsSeeder extends Seeder
                     "ar" => "تعديل العملاء"
                 ],
             ],
+            "projects" => [
+                [
+                    "en" => 'see projects',
+                    "ar" => "عرض المشاريع"
+                ],
+                [
+                    "en" => 'create projects',
+                    "ar" => "إنشاء المشاريع"
+                ],
+                [
+                    "en" => 'edit projects',
+                    "ar" => "تعديل المشاريع"
+                ],
+            ],
         ];
 
         #loop over groups and create permissions accordingly

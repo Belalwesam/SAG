@@ -9,5 +9,9 @@
     "email": "Email",
     "password": "Password",
     "image": "Image",
-    "hours": "Maintenance Hours"
+    "hours": "Maintenance Hours",
+    "projects" : "Projects",
+    "projects list" : "Projects List",
+    "add new project" : "Add New Project",
+    "client" : "Client"
 }

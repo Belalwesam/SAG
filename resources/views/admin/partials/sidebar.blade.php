@@ -95,6 +95,17 @@
              </li>
          @endif
 
+         @if (auth()->user()->hasAbilityTo('see projects'))
+             <!-- Adminstrators -->
+             <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('projects') }}</span></li>
+             <li class="menu-item">
+                 <a href="{{ route('admin.projects.index') }}" class="menu-link">
+                     <i class="menu-icon tf-icons bx bx-cog"></i>
+                     <div data-i18n="{{ __('projects') }}">{{ __('projects') }}</div>
+                 </a>
+             </li>
+         @endif
+
 
          {{-- @if (auth()->user()->hasAbilityTo('see clients'))
              <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('clients') }}</span></li>
