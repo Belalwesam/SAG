@@ -13,6 +13,6 @@
     "projects": "المشاريع",
     "projects list": "قائمة المشاريع",
     "add new project": "إضافة مشروع جديد",
-    "client" : "العميل"
-
+    "client": "العميل",
+    "projects list of": "مشاريع العميل :client"
 }

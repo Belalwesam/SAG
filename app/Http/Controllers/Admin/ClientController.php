@@ -97,6 +97,8 @@ class ClientController extends Controller
             ->addColumn('actions', function ($row) {
                 $edit_text = trans('general.edit');
                 $delete_text = trans('general.delete');
+                $projects_text = trans('projects');
+                $projects_route = route('admin.clients.projects', $row->id);
                 $btns = <<<HTML
                     <div class="dropdown d-flex justify-content-center">
                         <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -116,6 +118,9 @@ class ClientController extends Controller
                               <a class="dropdown-item delete-btn"
                                 data-id = "{$row->id}"
                               href="javascript:void(0);"><i class="bx bx-trash me-0 me-2 text-danger"></i>{$delete_text}</a></li>
+                              <li>
+                              <a class="dropdown-item"
+                              href="{$projects_route}"><i class="bx bx-cog me-0 me-2 text-success"></i>{$projects_text}</a></li>
                           </ul>
                         </div>
                 HTML;
@@ -127,5 +132,12 @@ class ClientController extends Controller
             })
             ->rawColumns(['actions', 'image'])
             ->make(true);
+    }
+
+    public function projects($id)
+    {
+        $project_client = User::findOrFail($id);
+        $clients = User::whereNotIn('id' , [$project_client->id]);
+        return view('admin.pages.clients.projects', compact('project_client' , 'clients'));
     }
 }

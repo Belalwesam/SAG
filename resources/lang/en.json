@@ -13,5 +13,6 @@
     "projects" : "Projects",
     "projects list" : "Projects List",
     "add new project" : "Add New Project",
-    "client" : "Client"
+    "client" : "Client",
+    "projects list of" : "Projects of :client"
 }

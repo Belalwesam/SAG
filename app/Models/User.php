@@ -84,4 +84,9 @@ class User extends Authenticatable
 
         return trim($initials);
     }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'user_id');
+    }
 }

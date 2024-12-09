@@ -68,7 +68,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::get('/clients-list', 'getClientsList')->name('clients_list'); // get role users for datatable
 
                     # client prokects route
-                    Route::get('/{id}/profile', 'profile')->name('profile');
+                    Route::get('/{id}/projects', 'projects')->name('projects');
                 });
             });
 
@@ -82,9 +82,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::patch('/', 'update')->name('update');
                     Route::delete('/', 'destroy')->name('delete');
                     Route::get('/projects-list', 'getProjectsList')->name('projects_list'); // get role users for datatable
-
-                    # client prokects route
-                    Route::get('/{id}/projects', 'projects')->name('projects');
                 });
             });
         });

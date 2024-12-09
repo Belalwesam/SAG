@@ -39,6 +39,11 @@ class ProjectController extends Controller
     public function getProjectsList()
     {
         $data = Project::latest()->get();
+
+        if (request()->client_id) {
+            $client = User::findOrFail(request()->client_id);
+            $data = $client->projects()->latest()->get();
+        }
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {
