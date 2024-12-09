@@ -9,7 +9,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Login To Dashboard</title>
+    <title>Login To Client Portal</title>
 
     <meta name="description" content="" />
 
@@ -99,14 +99,14 @@
                                         </g>
                                     </svg>
                                 </span>
-                                <span class="app-brand-text demo h3 mb-0 fw-bold">Frest</span>
+                                <span class="app-brand-text demo h3 mb-0 fw-bold">SAG</span>
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2">@lang('auth.welcome') 🚀</h4>
+                        <h4 class="mb-2"> Welcome to Client Portal @lang('auth.welcome') 🚀</h4>
                         <p class="mb-4">@lang('auth.welcome_sub')</p>
 
-                        <form id="formAuthentication" class="mb-3" action="{{ route('admin.login') }}"
+                        <form id="formAuthentication" class="mb-3" action="{{ route('client.login') }}"
                             method="POST">
 
                             @if (session('processFail'))
@@ -117,17 +117,6 @@
                                 </div>
                             @endif
                             @csrf
-                            {{-- <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="username"
-                  name="username"
-                  placeholder="Enter your username"
-                  autofocus
-                />
-              </div> --}}
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="email" name="login_field"
                                     placeholder="@lang('auth.login_field')" />
@@ -151,46 +140,11 @@
                                     </small>
                                 @enderror
                             </div>
-
-                            {{-- <div class="mb-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                  <label class="form-check-label" for="terms-conditions">
-                    I agree to
-                    <a href="javascript:void(0);">privacy policy & terms</a>
-                  </label>
-                </div>
-              </div> --}}
                             <button class="btn btn-primary d-grid w-100" type="submit">@lang('auth.login')</button>
                         </form>
 
-                        {{-- <p class="text-center">
-              <span>Already have an account?</span>
-              <a href="auth-login-basic.html">
-                <span>Sign in instead</span>
-              </a>
-            </p>
-
-            <div class="divider my-4">
-              <div class="divider-text">or</div>
-            </div> --}}
-
-                        {{-- <div class="d-flex justify-content-center">
-              <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
-                <i class="tf-icons bx bxl-facebook"></i>
-              </a>
-
-              <a href="javascript:;" class="btn btn-icon btn-label-google-plus me-3">
-                <i class="tf-icons bx bxl-google-plus"></i>
-              </a>
-
-              <a href="javascript:;" class="btn btn-icon btn-label-twitter">
-                <i class="tf-icons bx bxl-twitter"></i>
-              </a>
-            </div> --}}
                     </div>
                 </div>
-                <!-- Register Card -->
             </div>
         </div>
     </div>
