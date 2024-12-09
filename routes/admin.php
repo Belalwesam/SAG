@@ -57,21 +57,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                 });
             });
 
-
-            #categories crud routes (prefix is stand alone because of overlapping)
-            // Route::prefix('categories')->group(function () {
-            //     Route::group(['as' => 'categories.', 'controller' => CategoryController::class, 'middleware' => ['can:see categories']], function () {
-            //         Route::get('/', 'index')->name('index');
-            //         Route::post('/', 'store')->name('store');
-            //         Route::patch('/', 'update')->name('update');
-            //         Route::delete('/', 'destroy')->name('delete');
-            //         Route::get('/categories-list', 'getCategoriesList')->name('categories_list'); // get role users for datatable
-            //     });
-            // });
-
-
-
-            #categories crud routes (prefix is stand alone because of overlapping)
+            #clients crud routes (prefix is stand alone because of overlapping)
             Route::prefix('clients')->group(function () {
                 Route::group(['as' => 'clients.', 'controller' => ClientController::class, 'middleware' => ['can:see clients']], function () {
                     Route::get('/', 'index')->name('index');
@@ -79,6 +65,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::patch('/', 'update')->name('update');
                     Route::delete('/', 'destroy')->name('delete');
                     Route::get('/clients-list', 'getClientsList')->name('clients_list'); // get role users for datatable
+
+                    # client prokects route
+                    Route::get('/{id}/projects', 'projects')->name('projects');
                 });
             });
         });
