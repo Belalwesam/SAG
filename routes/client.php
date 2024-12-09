@@ -28,6 +28,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::group(['middleware' => 'auth', 'as' => 'client.'], function () {
             #placeholder route
             Route::view('/', 'client.pages.index')->name('index');
+
+
+            # tickets routes
         });
     });
 });
