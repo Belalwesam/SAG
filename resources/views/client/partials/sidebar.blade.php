@@ -60,6 +60,27 @@
                  <div data-i18n="@lang('nav.dashboard')">@lang('nav.dashboard')</div>
              </a>
          </li>
+
+
+         <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('tickets') }}</span></li>
+         <li class="menu-item" style="">
+             <a href="javascript:void(0);" class="menu-link menu-toggle">
+                 <i class="menu-icon tf-icons bx bx-support"></i>
+                 <div data-i18n="{{ __('tickets') }}">{{ __('tickets') }}</div>
+             </a>
+             <ul class="menu-sub">
+                 <li class="menu-item">
+                     <a href="{{ route('client.tickets.index') }}" class="menu-link">
+                         <div data-i18n="{{ __('tickets list') }}">{{ __('tickets list') }}</div>
+                     </a>
+                 </li>
+                 <li class="menu-item">
+                     <a href="{{ route('client.tickets.create') }}" class="menu-link">
+                         <div data-i18n="{{ __('submit new ticket') }}">{{ __('submit new ticket') }}</div>
+                     </a>
+                 </li>
+             </ul>
+         </li>
      </ul>
  </aside>
  <!-- / Menu -->

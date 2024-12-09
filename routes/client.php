@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\AuthController;
+use App\Http\Controllers\Client\TicketController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -31,6 +32,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
 
             # tickets routes
+            Route::group(["prefix" => "tickets", "controller" => TicketController::class , "as" => "tickets."], function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/', 'store')->name('store');
+            });
         });
     });
 });

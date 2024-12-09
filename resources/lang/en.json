@@ -10,9 +10,12 @@
     "password": "Password",
     "image": "Image",
     "hours": "Maintenance Hours",
-    "projects" : "Projects",
-    "projects list" : "Projects List",
-    "add new project" : "Add New Project",
-    "client" : "Client",
-    "projects list of" : "Projects of :client"
+    "projects": "Projects",
+    "projects list": "Projects List",
+    "add new project": "Add New Project",
+    "client": "Client",
+    "projects list of": "Projects of :client",
+    "submit new ticket": "Submit New Ticket",
+    "tickets list": "Tickets List",
+    "tickets" : "Support Tickets"
 }
