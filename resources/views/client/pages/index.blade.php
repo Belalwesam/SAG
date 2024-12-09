@@ -1,7 +1,7 @@
-@extends('admin.layout.app')
+@extends('client.layout.app')
 @section('title')
     @lang('nav.dashboard')
 @endsection
 @section('content')
-    the content goes here
+    client index page
 @endsection
