@@ -68,7 +68,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::get('/clients-list', 'getClientsList')->name('clients_list'); // get role users for datatable
 
                     # client prokects route
-                    Route::get('/{id}/projects', 'projects')->name('projects');
+                    Route::get('/{id}/profile', 'profile')->name('profile');
                 });
             });
 
