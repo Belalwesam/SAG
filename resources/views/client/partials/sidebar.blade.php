@@ -55,7 +55,7 @@
          <!-- Dashboard -->
          <li class="menu-header small text-uppercase"><span class="menu-header-text">@lang('nav.dashboard')</span></li>
          <li class="menu-item">
-             <a href="{{ route('admin.index') }}" class="menu-link">
+             <a href="{{ route('client.index') }}" class="menu-link">
                  <i class="menu-icon tf-icons bx bxs-dashboard"></i>
                  <div data-i18n="@lang('nav.dashboard')">@lang('nav.dashboard')</div>
              </a>
