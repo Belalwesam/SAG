@@ -17,5 +17,7 @@
     "projects list of": "مشاريع العميل :client",
     "submit new ticket": "انشاء تذكرة جديدة",
     "tickets list": "فائمة التذاكر",
-    "tickets": "تذاكر الدعم الفني"
+    "tickets": "تذاكر الدعم الفني",
+    "subject": "الموضوع",
+    "project": "المشروع"
 }

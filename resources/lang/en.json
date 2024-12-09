@@ -17,5 +17,7 @@
     "projects list of": "Projects of :client",
     "submit new ticket": "Submit New Ticket",
     "tickets list": "Tickets List",
-    "tickets" : "Support Tickets"
+    "tickets" : "Support Tickets",
+    "subject" : "Subject",
+    "project" : "Project"
 }
