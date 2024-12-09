@@ -49,6 +49,21 @@
                         </small>
                     @enderror
                 </div>
+                <div class="form-group mb-4">
+                    <label for="subject" class="form-label">
+                        {{ __('priority') }}
+                    </label>
+                    <select name="priority" id="priority" class="form-select" id="priority">
+                        <option value="low">{{ __('low') }}</option>
+                        <option value="medium">{{ __('medium') }}</option>
+                        <option value="high">{{ __('high') }}</option>
+                    </select>
+                    @error('project')
+                        <small class="text-danger">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
             </form>
         </div>
     </div>

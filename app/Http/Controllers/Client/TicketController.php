@@ -15,6 +15,6 @@ class TicketController extends Controller
     public function create()
     {
         $projects = auth()->user()->projects;
-        return view('client.pages.tickets.create' , compact('projects'));
+        return view('client.pages.tickets.create', compact('projects'));
     }
 }
