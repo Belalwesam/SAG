@@ -213,6 +213,7 @@
             //populate table when pressing edit admin (from table)
             $('body').on('click', '.edit-btn', function() {
                 $('#edit_name').val($(this).data('name'))
+                $('#edit_user_id').val($(this).data('user'))
                 $('#edit_id').val($(this).data('id'))
             })
             //edit ajax request
@@ -220,6 +221,7 @@
                 let data = {
                     _token: "{!! csrf_token() !!}",
                     name: $('#edit_name').val(),
+                    user_id: $('#edit_user_id').val(),
                     id: $('#edit_id').val(),
                 }
                 let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
