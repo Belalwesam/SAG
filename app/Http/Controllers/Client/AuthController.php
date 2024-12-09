@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\Client;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -24,8 +24,9 @@ class AuthController extends Controller
         } else {
             $credntials['username'] = $request->login_field;
         }
-        if (Auth::guard('admin')->attempt($credntials)) {
-            return to_route('admin.index');
+
+        if (Auth::attempt($credntials)) {
+            return to_route('client.index');
         }
 
         return back()->with('processFail', 'failed');
@@ -33,7 +34,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Auth::guard('admin')->logout();
-        return to_route('admin.login');
+        Auth::logout();
+        return to_route('client.login');
     }
 }

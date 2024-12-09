@@ -1,11 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\Auth\AuthController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ClientController;
-use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Client\AuthController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -29,9 +25,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('/logout', [AuthController::class, 'logout'])->name('client.logout')->middleware('auth');
 
         #routes that need authetication to interact with
-        // Route::group(['middleware' => 'auth:admin', 'as' => 'admin.'], function () {
-        //     #placeholder route
-        //     Route::view('/', 'admin.pages.index')->name('index');
-        // });
+        Route::group(['middleware' => 'auth', 'as' => 'client.'], function () {
+            #placeholder route
+            Route::view('/', 'client.pages.index')->name('index');
+        });
     });
 });
