@@ -24,5 +24,6 @@
     "low": "Low",
     "medium": "Medium",
     "high": "High",
-    "description" : "Description"
+    "description" : "Description",
+    "attachments" : "Attachments (images , videos , pdf files)"
 }

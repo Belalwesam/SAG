@@ -65,8 +65,6 @@
                         </small>
                     @enderror
                 </div>
-
-
                 <div class="form-group mb-4">
                     <label for="subject" class="form-label">
                         {{ __('description') }}
@@ -79,7 +77,11 @@
                         </small>
                     @enderror
                 </div>
-
+                <div class="form-group mb-4">
+                    <label for="subject" class="form-label">
+                        {{ __('attachments') }}
+                    </label>
+                </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">
                         {{ __('general.create') }}
