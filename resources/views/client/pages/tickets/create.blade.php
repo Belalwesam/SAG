@@ -64,6 +64,26 @@
                         </small>
                     @enderror
                 </div>
+
+
+                <div class="form-group mb-4">
+                    <label for="subject" class="form-label">
+                        {{ __('description') }}
+                    </label>
+                    <textarea name="description" class="form-control" id="description" cols="30" rows="5"
+                        placeholder="{{ __('description') }}"></textarea>
+                    @error('description')
+                        <small class="text-danger">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('general.create') }}
+                    </button>
+                </div>
             </form>
         </div>
     </div>
