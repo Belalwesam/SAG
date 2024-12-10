@@ -1,5 +1,6 @@
 @extends('client.layout.app')
-
+@section('css-vendor')
+@endsection
 @section('title')
     {{ __('submit new ticket') }}
 @endsection
