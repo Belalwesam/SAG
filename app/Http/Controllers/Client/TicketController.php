@@ -17,4 +17,9 @@ class TicketController extends Controller
         $projects = auth()->user()->projects;
         return view('client.pages.tickets.create', compact('projects'));
     }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
 }
