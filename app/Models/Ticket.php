@@ -18,7 +18,8 @@ class Ticket extends Model
         "admin_id",
         "estimated_hours",
         "handeled",
-        "ticket_id"
+        "ticket_id",
+        "handeled_at"
     ];
 
     public function project()

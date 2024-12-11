@@ -20,8 +20,9 @@ return new class extends Migration
             $table->string('subject');
             $table->text('description');
             $table->enum('status', ['completed', 'pending', 'rejected', 'processing'])->default('pending');
-            $table->enum('priority', ['low', 'medium', 'hight']);
+            $table->enum('priority', ['low', 'medium', 'high']);
             $table->boolean('handeled')->default(0);
+            $table->timestamp('handeled_at')->nullable();
             $table->integer('estimated_hours')->nullable();
             $table->timestamps();
         });
