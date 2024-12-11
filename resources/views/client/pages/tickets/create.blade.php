@@ -83,7 +83,7 @@
                         {{ __('attachments') }}
                     </label>
                 </div>
-                <input type="file" name="hiddenFileInput[]" id="hiddenFileInput">
+                <input type="file" name="hiddenFileInput[]" id="hiddenFileInput" style="opacity: 0; visibility:hidden; height:0; position:absolute;">
                 <div class="form-group mb-4">
                     <div class="dropzone needsclick" id="dropzone-multi">
                         <div class="dz-message needsclick">

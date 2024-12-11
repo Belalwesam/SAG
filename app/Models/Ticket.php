@@ -8,4 +8,34 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'subject',
+        "user_id",
+        "project_id",
+        "priority",
+        "description",
+        "status",
+        "admin_id",
+        "estimated_hours",
+        "handled",
+    ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_id');
+    }
+
+    public function projectWithTrashed()
+    {
+        return $this->belongsTo(Project::class, 'project_id')->withTrashed();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function userWithTrashed()
+    {
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
+    }
 }
