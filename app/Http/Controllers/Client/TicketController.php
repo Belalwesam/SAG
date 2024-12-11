@@ -31,11 +31,10 @@ class TicketController extends Controller
             "priority" => $request->priority,
             "ticket_id" => $ticket_id
         ]);
-
-        if ($request->files && count($request->files) > 0) {
-            foreach ($request->files as $file) {
+        if ($request->hiddenFileInput && count($request->hiddenFileInput) > 0) {
+            foreach ($request->hiddenFileInput as $file) {
                 $file_type = '';
-                $mime_type = $file[0]->getMimeType();
+                $mime_type = $file->getMimeType();
                 if (str_starts_with($mime_type, 'image/')) {
                     $file_type = 'image';
                 }
@@ -46,8 +45,8 @@ class TicketController extends Controller
                     $file_type = 'pdf';
                 }
 
-                $storage_path = 'tickets/' . $ticket->ticket_id;
-                $path = Storage::putFileAs($storage_path, $file[0], $file[0]->getClientOriginalName());
+                $storage_path = 'public/tickets/' . $ticket->ticket_id;
+                $path = Storage::putFileAs($storage_path, $file, $file->getClientOriginalName());
                 $ticket->files()->create([
                     "type" => $file_type,
                     "path" => $path
