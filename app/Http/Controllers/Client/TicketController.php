@@ -12,7 +12,7 @@ class TicketController extends Controller
 {
     public function index()
     {
-        return ('here are the tickets index');
+        return view('client.pages.tickets.index');
     }
 
     public function create()
@@ -55,5 +55,12 @@ class TicketController extends Controller
         }
 
         return back()->with('success', __("general.create_success"));
+    }
+
+
+
+    public function getTicketsList()
+    {
+        return '';
     }
 }

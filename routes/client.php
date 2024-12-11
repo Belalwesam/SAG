@@ -32,10 +32,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
 
             # tickets routes
-            Route::group(["prefix" => "tickets", "controller" => TicketController::class , "as" => "tickets."], function () {
+            Route::group(["prefix" => "tickets", "controller" => TicketController::class, "as" => "tickets."], function () {
                 Route::get('/', 'index')->name('index');
                 Route::get('/create', 'create')->name('create');
                 Route::post('/', 'store')->name('store');
+                Route::get('/tickets-list', 'getTicketsList')->name('tickets_list');
             });
         });
     });
