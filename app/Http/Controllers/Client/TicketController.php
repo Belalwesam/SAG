@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\Ticket;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\TicketSubmitRequest;
-use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
@@ -21,6 +22,13 @@ class TicketController extends Controller
 
     public function store(TicketSubmitRequest $request)
     {
-        dd($request->all());
+        $ticket_id = uniqid();
+        $user = auth()->user()->tickets()->create([
+            "subject" => $request->subject,
+            "project_id" => $request->project_id,
+            "description" => $request->description,
+            "priority" => $request->priority,
+            "ticket_id" => $ticket_id
+        ]);
     }
 }

@@ -17,7 +17,7 @@ class Ticket extends Model
         "status",
         "admin_id",
         "estimated_hours",
-        "handled",
+        "handeled",
         "ticket_id"
     ];
 

@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('project_id')->constrained('projects')->cascadeOnDelete();
-            $table->foreignId('admin_id')->constrained('admins')->cascadeOnDelete();
+            $table->foreignId('admin_id')->nullable()->constrained('admins')->cascadeOnDelete();
             $table->string('ticket_id');
             $table->string('subject');
             $table->text('description');
-            $table->enum('status', ['completed', 'pending', 'rejected', 'processing']);
+            $table->enum('status', ['completed', 'pending', 'rejected', 'processing'])->default('pending');
             $table->enum('priority', ['low', 'medium', 'hight']);
-            $table->boolean('handled')->default(0);
-            $table->integer('estimated_hours')->default(1);
+            $table->boolean('handeled')->default(0);
+            $table->integer('estimated_hours')->nullable();
             $table->timestamps();
         });
     }
