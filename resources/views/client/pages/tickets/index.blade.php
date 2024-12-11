@@ -27,7 +27,7 @@
             <table class="datatables-categories table border-top">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>{{ __('ID') }}</th>
                         <th>{{ __('project') }}</th>
                         <th>{{ __('priority') }}</th>
                         <th>{{ __('status') }}</th>

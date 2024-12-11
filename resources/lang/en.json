@@ -31,5 +31,6 @@
     "pending": "Pending",
     "processing": "Processing",
     "status": "Status",
-    "show details" : "Show Details"
+    "show details" : "Show Details",
+    "ID" : "ID"
 }
