@@ -18,6 +18,7 @@ class Ticket extends Model
         "admin_id",
         "estimated_hours",
         "handled",
+        "ticket_id"
     ];
 
     public function project()
@@ -37,5 +38,10 @@ class Ticket extends Model
     public function userWithTrashed()
     {
         return $this->belongsTo(User::class, 'user_id')->withTrashed();
+    }
+
+    public function files()
+    {
+        return $this->hasMany(File::class, 'ticket_id');
     }
 }

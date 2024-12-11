@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ticket_id')->constrained('tickets')->cascadeOnDelete();
+            $table->string('type');
+            $table->text('path');
             $table->timestamps();
         });
     }
