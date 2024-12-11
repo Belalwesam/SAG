@@ -27,7 +27,10 @@
             <table class="datatables-categories table border-top">
                 <thead>
                     <tr>
-                        <th>@lang('categories.name')</th>
+                        <th>ID</th>
+                        <th>{{ __('project') }}</th>
+                        <th>{{ __('priority') }}</th>
+                        <th>{{ __('status') }}</th>
                         <th>@lang('categories.created_at')</th>
                         <th class="d-flex justify-content-center" data-searchable="false" data-orderable="false">
                             @lang('general.actions')</th>
@@ -71,8 +74,20 @@
                 serverSide: true,
                 ajax: "{!! route('client.tickets.tickets_list') !!}",
                 columns: [{
-                        data: 'name',
-                        name: 'name'
+                        data: 'ticket_id',
+                        name: 'ticket_id'
+                    },
+                    {
+                        data: 'project_id',
+                        name: 'project_id'
+                    },
+                    {
+                        data: 'priority',
+                        name: 'priority'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
                     },
                     {
                         data: 'created_at',

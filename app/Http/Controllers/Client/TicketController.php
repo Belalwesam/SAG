@@ -6,6 +6,7 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\Client\TicketSubmitRequest;
 
 class TicketController extends Controller
@@ -61,6 +62,66 @@ class TicketController extends Controller
 
     public function getTicketsList()
     {
-        return '';
+        $data = auth()->user()->tickets()->latest()->get();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($row) {
+                return $row->created_at->format('d-m-Y h:i a');
+            })
+            ->editColumn('status', function ($row) {
+                $colors_array = [
+                    "pending" => "warning",
+                    "processing" => "info",
+                    "completed" => "success",
+                    "rejected" => "danger"
+                ];
+
+                $status_text = __($row->status);
+                $btns = <<<HTML
+                            <span class="badge rounded-pill bg-{$colors_array[$row->status]}">{$status_text}</span>
+                HTML;
+                return $btns;
+            })
+            ->editColumn('priority', function ($row) {
+                $colors_array = [
+                    "medium" => "warning",
+                    "low" => "success",
+                    "high" => "danger"
+                ];
+
+                $priority_text = __($row->priority);
+                $btns = <<<HTML
+                            <span class="badge rounded-pill bg-{$colors_array[$row->priority]}">{$priority_text}</span>
+                HTML;
+                return $btns;
+            })
+            ->editColumn('project_id', function ($row) {
+                return $row->project->name;
+            })
+            ->addColumn('actions', function ($row) {
+                $edit_text = trans('general.edit');
+                $delete_text = trans('general.delete');
+                $btns = <<<HTML
+                    <div class="dropdown d-flex justify-content-center">
+                        <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item edit-btn"
+                              data-bs-toggle="modal"
+                              data-bs-target = "#editCategoryModal"
+                              href="javascript:void(0);"><i class="bx bx-edit me-0 me-2 text-primary"></i>{$edit_text}</a></li>
+                             <li>
+                              <a class="dropdown-item delete-btn"
+                                data-id = "{$row->id}"
+                              href="javascript:void(0);"><i class="bx bx-trash me-0 me-2 text-danger"></i>{$delete_text}</a></li>
+                          </ul>
+                        </div>
+                HTML;
+                return $btns;
+            })
+            ->rawColumns(['actions', 'priority', 'status'])
+            ->make(true);
     }
 }

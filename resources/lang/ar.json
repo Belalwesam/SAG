@@ -25,5 +25,10 @@
     "medium": "متوسطة",
     "high": "عالية",
     "description": "الوصف",
-    "attachments": "المرفقات (صور , فيديوهات , ملفات pdf)"
+    "attachments": "المرفقات (صور , فيديوهات , ملفات pdf)",
+    "completed" : "مكتملة",
+    "rejected" : "مرفوضة",
+    "pending" : "بانتظار التأكيد",
+    "processing" : "قيد المعالجة",
+    "status" : "الحالة"
 }

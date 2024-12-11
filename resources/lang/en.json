@@ -24,6 +24,11 @@
     "low": "Low",
     "medium": "Medium",
     "high": "High",
-    "description" : "Description",
-    "attachments" : "Attachments (images , videos , pdf files)"
+    "description": "Description",
+    "attachments": "Attachments (images , videos , pdf files)",
+    "completed": "Completed",
+    "rejected": "Rejected",
+    "pending": "Pending",
+    "processing": "Processing",
+    "status": "Status"
 }
