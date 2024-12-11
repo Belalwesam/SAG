@@ -23,15 +23,22 @@ class TicketController extends Controller
     public function store(TicketSubmitRequest $request)
     {
         $ticket_id = uniqid();
-        $ticket = auth()->user()->tickets()->create([
-            "subject" => $request->subject,
-            "project_id" => $request->project_id,
-            "description" => $request->description,
-            "priority" => $request->priority,
-            "ticket_id" => $ticket_id
-        ]);
+        // $ticket = auth()->user()->tickets()->create([
+        //     "subject" => $request->subject,
+        //     "project_id" => $request->project_id,
+        //     "description" => $request->description,
+        //     "priority" => $request->priority,
+        //     "ticket_id" => $ticket_id
+        // ]);
 
         if ($request->files && count($request->files) > 0) {
+            foreach ($request->files as $file) {
+                $file_type = '';
+                $mime_type = $file[0]->getMimeType();
+                if (str_starts_with($mime_type, 'image/')) {
+                    # code...
+                }
+            }
         }
 
         return back()->with('success', __("general.create_success"));
