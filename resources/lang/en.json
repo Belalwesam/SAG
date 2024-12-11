@@ -30,5 +30,6 @@
     "rejected": "Rejected",
     "pending": "Pending",
     "processing": "Processing",
-    "status": "Status"
+    "status": "Status",
+    "show details" : "Show Details"
 }

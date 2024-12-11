@@ -26,9 +26,10 @@
     "high": "عالية",
     "description": "الوصف",
     "attachments": "المرفقات (صور , فيديوهات , ملفات pdf)",
-    "completed" : "مكتملة",
-    "rejected" : "مرفوضة",
-    "pending" : "بانتظار التأكيد",
-    "processing" : "قيد المعالجة",
-    "status" : "الحالة"
+    "completed": "مكتملة",
+    "rejected": "مرفوضة",
+    "pending": "بانتظار التأكيد",
+    "processing": "قيد المعالجة",
+    "status": "الحالة",
+    "show details": "عرض التفاصيل"
 }

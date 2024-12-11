@@ -37,6 +37,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                 Route::get('/create', 'create')->name('create');
                 Route::post('/', 'store')->name('store');
                 Route::get('/tickets-list', 'getTicketsList')->name('tickets_list');
+
+                # view the ticket
+                Route::get('/{ticket_id}/show', 'show')->name('show');
             });
         });
     });

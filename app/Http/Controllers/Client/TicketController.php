@@ -99,8 +99,15 @@ class TicketController extends Controller
             ->editColumn('project_id', function ($row) {
                 return $row->project->name;
             })
+            ->editColumn('ticket_id', function ($row) {
+                $show_route = route('client.tickets.show', $row->ticket_id);
+                return <<<HTML
+                            <a href="{$show_route}">{$row->ticket_id}</a>
+                         HTML;
+            })
             ->addColumn('actions', function ($row) {
-                $edit_text = trans('general.edit');
+                $show_text = __("show details");
+                $show_route = route('client.tickets.show', $row->ticket_id);
                 $delete_text = trans('general.delete');
                 $btns = <<<HTML
                     <div class="dropdown d-flex justify-content-center">
@@ -108,10 +115,8 @@ class TicketController extends Controller
                           <i class="bx bx-dots-vertical-rounded"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item edit-btn"
-                              data-bs-toggle="modal"
-                              data-bs-target = "#editCategoryModal"
-                              href="javascript:void(0);"><i class="bx bx-edit me-0 me-2 text-primary"></i>{$edit_text}</a></li>
+                            <li><a class="dropdown-item"
+                              href="{$show_route}"><i class="bx bx-show me-0 me-2 text-success"></i>{$show_text}</a></li>
                              <li>
                               <a class="dropdown-item delete-btn"
                                 data-id = "{$row->id}"
@@ -121,7 +126,14 @@ class TicketController extends Controller
                 HTML;
                 return $btns;
             })
-            ->rawColumns(['actions', 'priority', 'status'])
+            ->rawColumns(['actions', 'priority', 'status', 'ticket_id'])
             ->make(true);
+    }
+
+
+    public function show($ticket_id)
+    {
+        $ticket = Ticket::with('files')->where('ticket_id', $ticket_id)->firstOrFail();
+        dd($ticket);
     }
 }
