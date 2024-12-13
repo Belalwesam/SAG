@@ -31,6 +31,9 @@
     "pending": "Pending",
     "processing": "Processing",
     "status": "Status",
-    "show details" : "Show Details",
-    "ID" : "ID"
+    "show details": "Show Details",
+    "ID": "ID",
+    "ticket #": "Ticket #:ticket",
+    "files" : "Attached Files",
+    "details" : "Details"
 }

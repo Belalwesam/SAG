@@ -14,4 +14,15 @@ class File extends Model
     {
         return $this->belongsTo(Ticket::class, 'ticket_id');
     }
+
+    public function getSize()
+    {
+        $filePath = $this->path;
+        if (strpos($filePath, 'public/') === 0) {
+            $filePath = substr($filePath, strlen('public/'));
+        }
+
+        $filePath = 'storage/' . $filePath;
+        return number_format(filesize(public_path($filePath)) / (1024 * 1024), 2) . ' MB';
+    }
 }
