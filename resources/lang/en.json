@@ -47,5 +47,6 @@
     "warning": "Warning",
     "no admins found": "No Admins Found",
     "ticket rejected": "Ticket rejected and considered closed.",
-    "please provide hours": "Please specifie the hours"
+    "please provide hours": "Please specifie the hours",
+    "client tickets" : "Client :client Tickets"
 }

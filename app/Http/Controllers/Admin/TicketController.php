@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Admin;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
@@ -130,7 +131,77 @@ class TicketController extends Controller
 
     public function client_tickets($id)
     {
-        dd($id);
-        return view('admin.pages.tickets.client-tickets', compact($id));
+        $client = User::findOrFail($id);
+        return view('admin.pages.tickets.client-tickets', compact('id', 'client'));
+    }
+
+
+    public function getClientTicketsList($id)
+    {
+        $client = User::findOrFail($id);
+        $data = $client->tickets()->latest()->get();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($row) {
+                return $row->created_at->format('d-m-Y h:i a');
+            })
+            ->editColumn('status', function ($row) {
+                $colors_array = [
+                    "pending" => "warning",
+                    "processing" => "info",
+                    "completed" => "success",
+                    "rejected" => "danger"
+                ];
+
+                $status_text = __($row->status);
+                $btns = <<<HTML
+                        <span class="badge rounded-pill bg-{$colors_array[$row->status]}">{$status_text}</span>
+            HTML;
+                return $btns;
+            })
+            ->editColumn('user_id', function ($row) {
+                return $row->user->name;
+            })
+            ->editColumn('priority', function ($row) {
+                $colors_array = [
+                    "medium" => "warning",
+                    "low" => "success",
+                    "high" => "danger"
+                ];
+
+                $priority_text = __($row->priority);
+                $btns = <<<HTML
+                        <span class="badge rounded-pill bg-{$colors_array[$row->priority]}">{$priority_text}</span>
+            HTML;
+                return $btns;
+            })
+            ->editColumn('project_id', function ($row) {
+                return $row->project->name;
+            })
+            ->editColumn('ticket_id', function ($row) {
+                $show_route = route('admin.tickets.show', $row->ticket_id);
+                return <<<HTML
+                        <a href="{$show_route}">{$row->ticket_id}</a>
+                     HTML;
+            })
+            ->addColumn('actions', function ($row) {
+                $show_text = __("show details");
+                $show_route = route('admin.tickets.show', $row->ticket_id);
+                $btns = <<<HTML
+                <div class="dropdown d-flex justify-content-center">
+                    <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item"
+                          href="{$show_route}"><i class="bx bx-show me-0 me-2 text-success"></i>{$show_text}</a></li>
+                         <li>
+                      </ul>
+                    </div>
+            HTML;
+                return $btns;
+            })
+            ->rawColumns(['actions', 'priority', 'status', 'ticket_id'])
+            ->make(true);
     }
 }
