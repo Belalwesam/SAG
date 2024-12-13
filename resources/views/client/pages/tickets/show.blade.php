@@ -94,7 +94,7 @@
             <!-- User Card -->
             <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="pb-2 border-bottom mb-4">Details</h5>
+                    <h5 class="pb-2 border-bottom mb-4">{{ __('details') }}</h5>
                     <div class="info-container">
                         <ul class="list-unstyled">
                             <li class="mb-3">
