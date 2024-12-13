@@ -40,5 +40,10 @@
     "estimated time": "Estimated Time",
     "time hours": "Hours",
     "minutes": "Minutes",
-    "completed at": "Completed At"
+    "completed at": "Completed At",
+    "edit ticket": "Edit Ticket",
+    "please not": "Please Note The Following :",
+    "directions": "Once the status of the ticket updated to <strong>rejected</strong> it will be closed and no hours will be deducted from the client. <br /> Also , once the status of the ticket updated to <strong>completed</strong> the ticket will be considered handled and will be closed and deduct the hours from the client . <br /> Also once the <strong>maintenance hours</strong> for a ticket are submitted the status will be updated to <strong>processing</strong> immediatly.",
+    "warning": "Warning",
+    "no admins found" : "No Admins Found"
 }

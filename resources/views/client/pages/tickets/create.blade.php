@@ -36,7 +36,6 @@
                         {{ __('project') }}
                     </label>
                     <select name="project_id" id="project_id" class="form-select" id="project_id">
-
                         @forelse ($projects as $project)
                             <option value="{{ $project->id }}">
                                 {{ $project->name }}
@@ -83,7 +82,8 @@
                         {{ __('attachments') }}
                     </label>
                 </div>
-                <input type="file" name="hiddenFileInput[]" id="hiddenFileInput" style="opacity: 0; visibility:hidden; height:0; position:absolute;">
+                <input type="file" name="hiddenFileInput[]" id="hiddenFileInput"
+                    style="opacity: 0; visibility:hidden; height:0; position:absolute;">
                 <div class="form-group mb-4">
                     <div class="dropzone needsclick" id="dropzone-multi">
                         <div class="dz-message needsclick">

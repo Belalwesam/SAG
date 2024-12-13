@@ -160,11 +160,71 @@
                                 </li>
                             @endif
                         </ul>
-
                     </div>
                 </div>
             </div>
+            @if (auth('admin')->user()->hasAbilityTo('edit tickets'))
+                <div class="card">
+                    <h5 class="card-header">
+                        {{ __('general.actions') }}
+                    </h5>
+                    <div class="card-body">
+                        <button class="btn btn-primary w-100" data-bs-target="#editTicketModal" data-bs-toggle="modal">
+                            {{ __('general.edit') }}
+                        </button>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
 
+
+    <div class="modal fade" id="editTicketModal" tabindex="-1" aria-labelledby="editTicketModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTicketModalLabel">@lang('categories.add_category')</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="editTicketForm">
+                        <div class="form-group mb-3">
+                            <label for="estimated_hours" class="form-label">{{ __('estimated time') }}</label>
+                            <input type="number" step="0.5" name="estimated_hours"
+                                placeholder="{{ __('estimated time') }}" id="estimated_hours" class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="admin_id" class="form-label">{{ __('admin') }}</label>
+                            <select name="admin_id" id="admin_id" class="form-select">
+                                @forelse ($admins as $admin)
+                                    <option value="{{ $admin->id }}">{{ $admin->name }}</option>
+                                @empty
+                                    <option value="">{{ __("no admins found") }}</option>
+                                @endforelse
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="status" class="form-label">{{ __('status') }}</label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="rejected" @selected($ticket->status == 'rejected')>{{ __('rejected') }}</option>
+                                <option value="pending" @selected($ticket->status == 'pending')>{{ __('pending') }}</option>
+                                <option value="processing" @selected($ticket->status == 'processing')>{{ __('processing') }}</option>
+                                <option value="completed" @selected($ticket->status == 'completed')>{{ __('completed') }}</option>
+                            </select>
+                        </div>
+                        <div class="alert alert-solid-info " role="alert">
+                            <div class="mb-2">
+                                <i class='bx bxs-check-shield mr-2'></i> {{ __('warning') }}
+                            </div>
+                            {!! __('directions') !!}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="submit-create-btn" class="btn btn-primary">@lang('general.edit')</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('general.cancel')</button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

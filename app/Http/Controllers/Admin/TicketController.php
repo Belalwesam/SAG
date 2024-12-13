@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -86,6 +87,9 @@ class TicketController extends Controller
     public function show($ticket_id)
     {
         $ticket = Ticket::with('files', 'user')->where('ticket_id', $ticket_id)->firstOrFail();
-        return view('admin.pages.tickets.show', compact('ticket'));
+        $admins = Admin::whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'Super Admin');
+        })->get();
+        return view('admin.pages.tickets.show', compact('ticket' , 'admins'));
     }
 }

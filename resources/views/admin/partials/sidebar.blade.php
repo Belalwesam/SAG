@@ -62,7 +62,7 @@
          </li>
 
 
-         @if (auth()->user()->hasAbilityTo('see roles'))
+         @if (auth('admin')->user()->hasAbilityTo('see roles'))
              <!-- Roles & Permissions -->
              <li class="menu-header small text-uppercase"><span class="menu-header-text">@lang('nav.roles_and_permissions')</span></li>
              <li class="menu-item">
@@ -73,7 +73,7 @@
              </li>
          @endif
 
-         @if (auth()->user()->hasAbilityTo('see admins'))
+         @if (auth('admin')->user()->hasAbilityTo('see admins'))
              <!-- Adminstrators -->
              <li class="menu-header small text-uppercase"><span class="menu-header-text">@lang('nav.adminstrators')</span></li>
              <li class="menu-item">
@@ -84,7 +84,7 @@
              </li>
          @endif
 
-         @if (auth()->user()->hasAbilityTo('see clients'))
+         @if (auth('admin')->user()->hasAbilityTo('see clients'))
              <!-- Adminstrators -->
              <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('clients') }}</span></li>
              <li class="menu-item">
@@ -95,7 +95,7 @@
              </li>
          @endif
 
-         @if (auth()->user()->hasAbilityTo('see projects'))
+         @if (auth('admin')->user()->hasAbilityTo('see projects'))
              <!-- Adminstrators -->
              <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('projects') }}</span></li>
              <li class="menu-item">
@@ -106,7 +106,7 @@
              </li>
          @endif
 
-         @if (auth()->user()->hasAbilityTo('see tickets'))
+         @if (auth('admin')->user()->hasAbilityTo('see tickets'))
              <!-- Adminstrators -->
              <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('tickets') }}</span></li>
              <li class="menu-item">
