@@ -183,7 +183,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editTicketModalLabel">@lang('categories.add_category')</h5>
+                    <h5 class="modal-title" id="editTicketModalLabel">{{ __('edit ticket') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -199,7 +199,7 @@
                                 @forelse ($admins as $admin)
                                     <option value="{{ $admin->id }}">{{ $admin->name }}</option>
                                 @empty
-                                    <option value="">{{ __("no admins found") }}</option>
+                                    <option value="">{{ __('no admins found') }}</option>
                                 @endforelse
                             </select>
                         </div>
