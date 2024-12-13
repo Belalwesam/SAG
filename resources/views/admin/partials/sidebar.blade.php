@@ -106,6 +106,17 @@
              </li>
          @endif
 
+         @if (auth()->user()->hasAbilityTo('see tickets'))
+             <!-- Adminstrators -->
+             <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('tickets') }}</span></li>
+             <li class="menu-item">
+                 <a href="{{ route('admin.tickets.index') }}" class="menu-link">
+                     <i class="menu-icon tf-icons bx bx-support"></i>
+                     <div data-i18n="{{ __('tickets') }}">{{ __('tickets') }}</div>
+                 </a>
+             </li>
+         @endif
+
 
          {{-- @if (auth()->user()->hasAbilityTo('see clients'))
              <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('clients') }}</span></li>

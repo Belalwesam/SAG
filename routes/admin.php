@@ -91,6 +91,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::prefix('tickets')->group(function () {
                 Route::group(['as' => 'tickets.', 'controller' => TicketController::class, 'middleware' => ['can:see tickets']], function () {
                     Route::get('/', 'index')->name('index');
+                    Route::get('/{ticket_id}/show', 'show')->name('show');
                     Route::get('/tickets-list', 'getTicketsList')->name('tickets_list'); // get role users for datatable
                 });
             });

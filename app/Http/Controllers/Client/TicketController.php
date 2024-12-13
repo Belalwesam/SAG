@@ -117,10 +117,6 @@ class TicketController extends Controller
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item"
                               href="{$show_route}"><i class="bx bx-show me-0 me-2 text-success"></i>{$show_text}</a></li>
-                             <li>
-                              <a class="dropdown-item delete-btn"
-                                data-id = "{$row->id}"
-                              href="javascript:void(0);"><i class="bx bx-trash me-0 me-2 text-danger"></i>{$delete_text}</a></li>
                           </ul>
                         </div>
                 HTML;
