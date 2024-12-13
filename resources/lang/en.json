@@ -34,6 +34,11 @@
     "show details": "Show Details",
     "ID": "ID",
     "ticket #": "Ticket #:ticket",
-    "files" : "Attached Files",
-    "details" : "Details"
+    "files": "Attached Files",
+    "details": "Details",
+    "ticket official": "Ticket official",
+    "estimated time": "Estimated Time",
+    "time hours": "Hours",
+    "minutes": "Minutes",
+    "completed at": "Completed At"
 }

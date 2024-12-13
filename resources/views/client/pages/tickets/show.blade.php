@@ -3,14 +3,12 @@
 @section('title')
     {{ __('submit new ticket') }}
 @endsection
-
 {{-- main content --}}
 @section('content')
     <h4 class="py-3 breadcrumb-wrapper mb-4">
         <span class="text-muted fw-light">{{ __('tickets list') }} /</span>
         {{ __('ticket #', ['ticket' => $ticket->ticket_id]) }}
     </h4>
-
     <div class="row gy-4">
         <div class="col-xl-8 col-lg-7 col-md-7">
             <div class="card mb-3">
@@ -100,8 +98,12 @@
                     <div class="info-container">
                         <ul class="list-unstyled">
                             <li class="mb-3">
+                                <span class="fw-bold me-2">{{ __('ID') }}:</span>
+                                <span>{{ $ticket->ticket_id }}</span>
+                            </li>
+                            <li class="mb-3">
                                 <span class="fw-bold me-2">{{ __('admins.created_at') }}:</span>
-                                <span>{{ $ticket->created_at->format('d-y-Y h:i') }}</span>
+                                <span>{{ $ticket->created_at->format('d-m-Y h:i') }}</span>
                             </li>
                             <li class="mb-3">
                                 <span class="fw-bold me-2">{{ __('project') }}:</span>
@@ -118,42 +120,47 @@
                                 @endif
                             </li>
                             <li class="mb-3">
-                                <span class="fw-bold me-2">Role:</span>
-                                <span>Author</span>
+                                <span class="fw-bold me-2">{{ __('status') }}:</span>
+                                @if ($ticket->status == 'processing')
+                                    <span class="badge bg-label-info">{{ __($ticket->status) }}</span>
+                                @elseif($ticket->status == 'pending')
+                                    <span class="badge bg-label-warning">{{ __($ticket->status) }}</span>
+                                @elseif($ticket->status == 'rejected')
+                                    <span class="badge bg-label-danger">{{ __($ticket->status) }}</span>
+                                @elseif($ticket->status == 'completed')
+                                    <span class="badge bg-label-success">{{ __($ticket->status) }}</span>
+                                @endif
                             </li>
-                            <li class="mb-3">
-                                <span class="fw-bold me-2">Tax id:</span>
-                                <span>Tax-8965</span>
-                            </li>
-                            <li class="mb-3">
-                                <span class="fw-bold me-2">Contact:</span>
-                                <span>(123) 456-7890</span>
-                            </li>
-                            <li class="mb-3">
-                                <span class="fw-bold me-2">Languages:</span>
-                                <span>French</span>
-                            </li>
-                            <li class="mb-3">
-                                <span class="fw-bold me-2">Country:</span>
-                                <span>England</span>
-                            </li>
+                            @if ($ticket->admin_id)
+                                <li class="mb-3">
+                                    <span class="fw-bold me-2">{{ __('ticket official') }}:</span>
+                                    <span>{{ $ticket->admin->name }}</span>
+                                </li>
+                            @endif
+                            @if ($ticket->estimated_hours)
+                                <li class="mb-3">
+                                    <span class="fw-bold me-2">{{ __('estimated hours') }}:</span>
+                                    <span><strong>{{ $ticket->estimated_hours }}</strong>
+                                        @if ($ticket->estimated_hours >= 1)
+                                            {{ __('time hours') }}
+                                        @else
+                                            {{ __('minutes') }}
+                                        @endif
+                                    </span>
+                                </li>
+                            @endif
+                            @if ($ticket->handeled)
+                                <li class="mb-3">
+                                    <span class="fw-bold me-2">{{ __('completed at') }}:</span>
+                                    <span>{{ \Carbon\Carbon::parse($ticket->handeled_at)->format('d-m-Y h:i') }}</span>
+                                </li>
+                            @endif
                         </ul>
-                        {{-- <div class="d-flex justify-content-center pt-3">
-                            <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser"
-                                data-bs-toggle="modal">Edit</a>
-                            <a href="javascript:;" class="btn btn-label-danger suspend-user">Suspended</a>
-                        </div> --}}
+
                     </div>
                 </div>
             </div>
-            <!-- /User Card -->
-            <!-- Plan Card -->
-            <!-- /Plan Card -->
+
         </div>
-        <!--/ User Sidebar -->
-
-        <!-- User Content -->
-
-        <!--/ User Content -->
     </div>
 @endsection

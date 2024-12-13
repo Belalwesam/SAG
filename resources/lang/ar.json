@@ -35,5 +35,10 @@
     "ID": "رقم التذكرة",
     "ticket #": "تذكرة رقم #:ticket",
     "files": "الملفات المرفقة",
-    "details": "التفاصيل"
+    "details": "التفاصيل",
+    "ticket official": "مسؤول التذكرة",
+    "estimated time": "الوقت المقدر",
+    "time hours": "ساعة",
+    "minutes": "دقيقة",
+    "completed at": "تم انجازها بتاريخ"
 }
