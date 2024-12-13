@@ -1,7 +1,7 @@
 @extends('admin.layout.app')
 
 @section('title')
-    {{ __('client tickets' , ["client" => $client->name]) }}
+    {{ __('client tickets', ['client' => $client->name]) }}
 @endsection
 
 @section('css-vendor')
@@ -17,7 +17,7 @@
 @section('content')
     <div class="card">
         <div class="card-header border-bottom d-flex align-items-center justify-content-between">
-            <h5 class="card-title mb-0">{{ __('client tickets' , ["client" => $client->name]) }}</h5>
+            <h5 class="card-title mb-0">{{ __('client tickets', ['client' => $client->name]) }}</h5>
         </div>
         <div class="card-datatable table-responsive">
             <table class="datatables-categories table border-top">
@@ -69,7 +69,7 @@
                 ordering: false,
                 processing: true,
                 serverSide: true,
-                ajax: "{!! route('admin.tickets.client_tickets_list' , ['id' => $id]) !!}",
+                ajax: "{!! route('admin.tickets.client_tickets_list', ['id' => $id]) !!}",
                 columns: [{
                         data: 'ticket_id',
                         name: 'ticket_id'
