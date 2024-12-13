@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\Auth\AuthController;
@@ -82,6 +83,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::patch('/', 'update')->name('update');
                     Route::delete('/', 'destroy')->name('delete');
                     Route::get('/projects-list', 'getProjectsList')->name('projects_list'); // get role users for datatable
+                });
+            });
+
+
+            #tickets
+            Route::prefix('tickets')->group(function () {
+                Route::group(['as' => 'tickets.', 'controller' => TicketController::class, 'middleware' => ['can:see tickets']], function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::get('/tickets-list', 'getTicketsList')->name('tickets_list'); // get role users for datatable
                 });
             });
         });

@@ -74,6 +74,20 @@ class AdminPermissionsSeeder extends Seeder
                     "ar" => "تعديل المشاريع"
                 ],
             ],
+            "tickets" => [
+                [
+                    "en" => 'see tickets',
+                    "ar" => "عرض التذاكر"
+                ],
+                [
+                    "en" => 'create tickets',
+                    "ar" => "إنشاء التذاكر"
+                ],
+                [
+                    "en" => 'edit tickets',
+                    "ar" => "تعديل التذاكر"
+                ],
+            ],
         ];
 
         #loop over groups and create permissions accordingly
