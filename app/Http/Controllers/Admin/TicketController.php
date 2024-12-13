@@ -126,4 +126,11 @@ class TicketController extends Controller
         }
         return http_response_code(200);
     }
+
+
+    public function client_tickets($id)
+    {
+        dd($id);
+        return view('admin.pages.tickets.client-tickets', compact($id));
+    }
 }
