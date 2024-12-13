@@ -100,16 +100,22 @@
                     <div class="info-container">
                         <ul class="list-unstyled">
                             <li class="mb-3">
-                                <span class="fw-bold me-2">Username:</span>
-                                <span>violet.dev</span>
+                                <span class="fw-bold me-2">{{ __('admins.created_at') }}:</span>
+                                <span>{{ $ticket->created_at->format('d-y-Y h:i') }}</span>
                             </li>
                             <li class="mb-3">
-                                <span class="fw-bold me-2">Email:</span>
-                                <span>vafgot@vultukir.org</span>
+                                <span class="fw-bold me-2">{{ __('project') }}:</span>
+                                <span>{{ $ticket->project->name }}</span>
                             </li>
                             <li class="mb-3">
-                                <span class="fw-bold me-2">Status:</span>
-                                <span class="badge bg-label-success">Active</span>
+                                <span class="fw-bold me-2">{{ __('priority') }}:</span>
+                                @if ($ticket->priority == 'medium')
+                                    <span class="badge bg-label-success">{{ __($ticket->priority) }}</span>
+                                @elseif($ticket->priority == 'low')
+                                    <span class="badge bg-label-warning">{{ __($ticket->priority) }}</span>
+                                @elseif($ticket->priority == 'high')
+                                    <span class="badge bg-label-danger">{{ __($ticket->priority) }}</span>
+                                @endif
                             </li>
                             <li class="mb-3">
                                 <span class="fw-bold me-2">Role:</span>
