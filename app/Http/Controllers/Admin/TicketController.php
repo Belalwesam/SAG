@@ -65,7 +65,6 @@ class TicketController extends Controller
             ->addColumn('actions', function ($row) {
                 $show_text = __("show details");
                 $show_route = route('admin.tickets.show', $row->ticket_id);
-                $delete_text = trans('general.delete');
                 $btns = <<<HTML
                 <div class="dropdown d-flex justify-content-center">
                     <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -90,6 +89,41 @@ class TicketController extends Controller
         $admins = Admin::whereDoesntHave('roles', function ($query) {
             $query->where('name', 'Super Admin');
         })->get();
-        return view('admin.pages.tickets.show', compact('ticket' , 'admins'));
+        return view('admin.pages.tickets.show', compact('ticket', 'admins'));
+    }
+
+
+    public function update(Request $request)
+    {
+        $ticket = Ticket::findOrFail($request->id);
+
+        $ticket->update(['admin_id' => $request->admin_id]);
+
+
+        if ($request->status == 'rejected') {
+            $ticket->update(['status' => 'rejected']);
+            return response()->json(["message" => __("ticket rejected")]);
+        }
+
+
+        if ($request->estimated_hours) {
+            $ticket->update([
+                "status" => $request->status,
+                "estimated_hours" => $request->estimated_hours
+            ]);
+        } else {
+            if (in_array($request->status, ["processing", "completed"])) {
+                if (!$request->estimated_hours) {
+                    throw \Illuminate\Validation\ValidationException::withMessages([
+                        'estimated_hours' => [__("please provide hours")],
+                    ]);
+                }
+                $ticket->update([
+                    "status" => $request->status,
+                    "estimated_hours" => $request->estimated_hours
+                ]);
+            }
+        }
+        return http_response_code(200);
     }
 }
