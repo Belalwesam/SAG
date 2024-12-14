@@ -47,6 +47,6 @@
     "no admins found": "لا يوجد مدراء نظام",
     "ticket rejected": "تم رفض التذكرة و تعتبر مغلقة",
     "please provide hours": "يرجى تحديد الساعات",
-    "client tickets" : "تذاكر العميل :client"
-
+    "client tickets": "تذاكر العميل :client",
+    "closed ticket": "هذه التذكرة مغلقة لذلك لا يمكن عمل أي اجراءات"
 }

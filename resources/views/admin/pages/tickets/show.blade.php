@@ -174,9 +174,13 @@
                         {{ __('general.actions') }}
                     </h5>
                     <div class="card-body">
-                        <button class="btn btn-primary w-100" data-bs-target="#editTicketModal" data-bs-toggle="modal">
-                            {{ __('general.edit') }}
-                        </button>
+                        @if (in_array($ticket->status, ['rejected', 'completed']))
+                            {{ __('closed ticket') }}
+                        @else
+                            <button class="btn btn-primary w-100" data-bs-target="#editTicketModal" data-bs-toggle="modal">
+                                {{ __('general.edit') }}
+                            </button>
+                        @endif
                     </div>
                 </div>
             @endif
