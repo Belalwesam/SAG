@@ -8,6 +8,11 @@
     <h4 class="py-3 breadcrumb-wrapper mb-4">
         <span class="text-muted fw-light">{{ __('tickets list') }} /</span>
         {{ __('ticket #', ['ticket' => $ticket->ticket_id]) }}
+        @if ($ticket->status == 'rejected')
+            <span class="badge rounded-pill bg-danger">{{ __('rejected') }}</span>
+        @elseif($ticket->status == 'completed')
+            <span class="badge rounded-pill bg-success">{{ __('completed') }}</span>
+        @endif
     </h4>
     <div class="row gy-4">
         <div class="col-xl-8 col-lg-7 col-md-7">
