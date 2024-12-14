@@ -3,5 +3,114 @@
     @lang('nav.dashboard')
 @endsection
 @section('content')
-    client index page
+    <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="content-left">
+                            <span>{{ __('hours') }}</span>
+                            <div class="d-flex align-items-end mt-2">
+                                <h4 class="mb-0 me-2">{{ $client->hours }}</h4>
+                            </div>
+                            <small>{{ __('hours') }}</small>
+                        </div>
+                        <span class="badge bg-label-primary rounded p-2">
+                            <i class="bx bx-time bx-sm"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="content-left">
+                            <span>{{ __('pending tickets') }}</span>
+                            <div class="d-flex align-items-end mt-2">
+                                <h4 class="mb-0 me-2">{{ $pending_tickets }}</h4>
+                            </div>
+                            <small>{{ __('pending tickets') }}</small>
+                        </div>
+                        <span class="badge bg-label-warning rounded p-2">
+                            <i class="bx bx-time bx-sm"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="content-left">
+                            <span>{{ __('processing tickets') }}</span>
+                            <div class="d-flex align-items-end mt-2">
+                                <h4 class="mb-0 me-2">{{ $processing_tickets }}</h4>
+                            </div>
+                            <small>{{ __('processing tickets') }}</small>
+                        </div>
+                        <span class="badge bg-label-info rounded p-2">
+                            <i class="bx bx-cog bx-sm"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="content-left">
+                            <span>{{ __('completed tickets') }}</span>
+                            <div class="d-flex align-items-end mt-2">
+                                <h4 class="mb-0 me-2">{{ $completed_tickets }}</h4>
+                            </div>
+                            <small>{{ __('completed tickets') }}</small>
+                        </div>
+                        <span class="badge bg-label-success rounded p-2">
+                            <i class="bx bx-check bx-sm"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="content-left">
+                            <span>{{ __('total tickets') }}</span>
+                            <div class="d-flex align-items-end mt-2">
+                                <h4 class="mb-0 me-2">{{ $total_tickets }}</h4>
+                            </div>
+                            <small>{{ __('total tickets') }}</small>
+                        </div>
+                        <span class="badge bg-label-secondary rounded p-2">
+                            <i class="bx bx-list-ul bx-sm"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="content-left">
+                            <span>{{ __('total maintenance hours') }}</span>
+                            <div class="d-flex align-items-end mt-2">
+                                <h4 class="mb-0 me-2">{{ $total_maintenance_time }}</h4>
+                            </div>
+                            <small>{{ __('total maintenance hours') }}</small>
+                        </div>
+                        <span class="badge bg-label-secondary rounded p-2">
+                            <i class="bx bx-wrench bx-sm"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

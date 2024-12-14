@@ -49,5 +49,10 @@
     "ticket rejected": "Ticket rejected and considered closed.",
     "please provide hours": "Please specifie the hours",
     "client tickets" : "Client :client Tickets",
-    "closed ticket" : "This Ticket is closed no actions are allowed"
+    "closed ticket" : "This Ticket is closed no actions are allowed",
+    "pending tickets" : "Pending Tickets",
+    "processing tickets" : "Processing Tickets",
+    "completed tickets" : "Completed Tickets",
+    "total tickets" : "Total Tickets",
+    "total maintenance hours"  : "Spent Maintenance Time"
 }

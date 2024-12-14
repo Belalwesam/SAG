@@ -99,4 +99,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ticket::class, 'user_id')->withTrashed();
     }
+
+
+
+    public function ticketsFiltered($status = null)
+    {
+        if ($status == 'completed') {
+            return $this->hasMany(Ticket::class, 'user_id')
+                ->where('status', 'completed')
+                ->whereNotNull('handeled_at')
+                ->where('handeled', 1);
+        } else {
+            return $this->hasMany(Ticket::class, 'user_id')
+                ->where('status', $status);
+        }
+    }
 }

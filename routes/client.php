@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\AuthController;
+use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\TicketController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -28,7 +29,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         #routes that need authetication to interact with
         Route::group(['middleware' => 'auth', 'as' => 'client.'], function () {
             #placeholder route
-            Route::view('/', 'client.pages.index')->name('index');
+            Route::get('/', HomeController::class)->name('index');
 
 
             # tickets routes
