@@ -207,7 +207,7 @@
                             <label for="status" class="form-label">{{ __('status') }}</label>
                             <select name="status" id="status" class="form-select">
                                 <option value="rejected" @selected($ticket->status == 'rejected')>{{ __('rejected') }}</option>
-                                <option value="pending" @selected($ticket->status == 'pending')>{{ __('pending') }}</option>
+                                {{-- <option value="pending" @selected($ticket->status == 'pending')>{{ __('pending') }}</option> --}}
                                 <option value="processing" @selected($ticket->status == 'processing')>{{ __('processing') }}</option>
                                 <option value="completed" @selected($ticket->status == 'completed')>{{ __('completed') }}</option>
                             </select>
@@ -257,7 +257,7 @@
                 },
                 error: function(response) {
                     errorMessage("@lang('general.error')")
-                    displayErrors(response, true)
+                    displayErrors(response, false)
                 },
             }).done(function() {
                 formBtn.html("@lang('general.edit')")
