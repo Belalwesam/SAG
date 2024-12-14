@@ -14,7 +14,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $roles = Role::where('name' , '!=' , 'Super Admin')->get();
+        $roles = Role::where('name', '!=', 'Super Admin')->get();
         return view('admin.pages.admins.index', compact('roles'));
     }
 
@@ -41,7 +41,7 @@ class AdminController extends Controller
             ->addColumn('actions', function ($row) {
                 $edit_text = trans('general.edit');
                 $delete_text = trans('general.delete');
-                $role = $row->roles->firstWhere('name', $row->getRole());
+                $role = $row->roles[0];
                 $btns = <<<HTML
                     <div class="dropdown d-flex justify-content-center">
                         <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">

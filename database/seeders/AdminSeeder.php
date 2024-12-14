@@ -19,5 +19,12 @@ class AdminSeeder extends Seeder
             'email' => 'admin@tadbeer.com',
             'password' => 'admin'
         ]);
+
+        Admin::create([
+            'name' => 'Mohammad Omar',
+            'username' => 'momar',
+            'email' => 'mohammad@sag.com',
+            'password' => 'admin'
+        ]);
     }
 }

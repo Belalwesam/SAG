@@ -110,7 +110,16 @@ class AdminPermissionsSeeder extends Seeder
 
         $super_admin_role->syncPermissions(Permission::all());
 
+
+        $upervisor_role = Role::create([
+            'name' => 'Superviosr',
+            'name_ar' => "مشرف",
+            'guard_name' => 'admin'
+        ]);
+
+
         #assign the role to the super admin
         Admin::first()->syncRoles([$super_admin_role]);
+        Admin::find(2)->syncRoles([$upervisor_role]);
     }
 }
