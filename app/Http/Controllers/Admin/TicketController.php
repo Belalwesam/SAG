@@ -123,6 +123,14 @@ class TicketController extends Controller
                     "status" => $request->status,
                     "estimated_hours" => $request->estimated_hours
                 ]);
+
+
+                if ($request->status == 'completed') {
+                    $ticket->update([
+                        "handled" => 1,
+                        "handled_at" => now()
+                    ]);
+                }
             }
         }
         return http_response_code(200);
