@@ -54,5 +54,7 @@
     "processing tickets" : "Processing Tickets",
     "completed tickets" : "Completed Tickets",
     "total tickets" : "Total Tickets",
-    "total maintenance hours"  : "Spent Maintenance Time"
+    "total maintenance hours"  : "Spent Maintenance Time",
+    "no files attached" : "No Files Attached",
+    "ticket created" : "Ticket has been created , please keep checking it's status on your dashboard."
 }

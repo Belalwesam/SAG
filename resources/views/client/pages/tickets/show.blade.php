@@ -32,57 +32,61 @@
                 <h5 class="card-header">{{ __('files') }}</h5>
                 <div class="card-body">
                     <ul class="timeline">
-                        @foreach ($ticket->files as $file)
-                            @if ($file->type == 'pdf')
-                                <li class="timeline-item timeline-item-transparent">
-                                    <span class="timeline-point timeline-point-primary"></span>
-                                    <div class="timeline-event">
-                                        <div class="timeline-header mb-1">
-                                            <small class="text-muted">{{ $file->getSize() }}</small>
+                        @if ($ticket->files->count())
+                            @foreach ($ticket->files as $file)
+                                @if ($file->type == 'pdf')
+                                    <li class="timeline-item timeline-item-transparent">
+                                        <span class="timeline-point timeline-point-primary"></span>
+                                        <div class="timeline-event">
+                                            <div class="timeline-header mb-1">
+                                                <small class="text-muted">{{ $file->getSize() }}</small>
+                                            </div>
+                                            <div class="d-flex">
+                                                <a href="{{ Storage::url($file->path) }}" target="_blank" class="me-3">
+                                                    <img src="{{ asset('/dashboard/assets/img/icons/misc/pdf.png') }}"
+                                                        alt="PDF image" width="20" class="me-2">
+                                                    <span class="fw-bold text-body">{{ basename($file->path) }}</span>
+                                                </a>
+                                            </div>
                                         </div>
-                                        <div class="d-flex">
-                                            <a href="{{ Storage::url($file->path) }}" target="_blank" class="me-3">
-                                                <img src="{{ asset('/dashboard/assets/img/icons/misc/pdf.png') }}"
-                                                    alt="PDF image" width="20" class="me-2">
-                                                <span class="fw-bold text-body">{{ basename($file->path) }}</span>
-                                            </a>
+                                    </li>
+                                @elseif($file->type == 'video')
+                                    <li class="timeline-item timeline-item-transparent">
+                                        <span class="timeline-point timeline-point-danger"></span>
+                                        <div class="timeline-event">
+                                            <div class="timeline-header mb-1">
+                                                <small class="text-muted">{{ $file->getSize() }}</small>
+                                            </div>
+                                            <div class="d-flex">
+                                                <a href="{{ Storage::url($file->path) }}" target="_blank" class="me-3">
+                                                    <img src="{{ asset('/dashboard/assets/img/icons/misc/video.png') }}"
+                                                        alt="PDF image" width="20" class="me-2">
+                                                    <span class="fw-bold text-body">{{ basename($file->path) }}</span>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                            @elseif($file->type == 'video')
-                                <li class="timeline-item timeline-item-transparent">
-                                    <span class="timeline-point timeline-point-danger"></span>
-                                    <div class="timeline-event">
-                                        <div class="timeline-header mb-1">
-                                            <small class="text-muted">{{ $file->getSize() }}</small>
+                                    </li>
+                                @elseif($file->type == 'image')
+                                    <li class="timeline-item timeline-item-transparent">
+                                        <span class="timeline-point timeline-point-success"></span>
+                                        <div class="timeline-event">
+                                            <div class="timeline-header mb-1">
+                                                <small class="text-muted">{{ $file->getSize() }}</small>
+                                            </div>
+                                            <div class="d-flex">
+                                                <a href="{{ Storage::url($file->path) }}" target="_blank" class="me-3">
+                                                    <img src="{{ asset('/dashboard/assets/img/icons/misc/jpg.png') }}"
+                                                        alt="PDF image" width="20" class="me-2">
+                                                    <span class="fw-bold text-body">{{ basename($file->path) }}</span>
+                                                </a>
+                                            </div>
                                         </div>
-                                        <div class="d-flex">
-                                            <a href="{{ Storage::url($file->path) }}" target="_blank" class="me-3">
-                                                <img src="{{ asset('/dashboard/assets/img/icons/misc/video.png') }}"
-                                                    alt="PDF image" width="20" class="me-2">
-                                                <span class="fw-bold text-body">{{ basename($file->path) }}</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                            @elseif($file->type == 'image')
-                                <li class="timeline-item timeline-item-transparent">
-                                    <span class="timeline-point timeline-point-success"></span>
-                                    <div class="timeline-event">
-                                        <div class="timeline-header mb-1">
-                                            <small class="text-muted">{{ $file->getSize() }}</small>
-                                        </div>
-                                        <div class="d-flex">
-                                            <a href="{{ Storage::url($file->path) }}" target="_blank" class="me-3">
-                                                <img src="{{ asset('/dashboard/assets/img/icons/misc/jpg.png') }}"
-                                                    alt="PDF image" width="20" class="me-2">
-                                                <span class="fw-bold text-body">{{ basename($file->path) }}</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                            @endif
-                        @endforeach
+                                    </li>
+                                @endif
+                            @endforeach
+                        @else
+                            {{ __('no files attached') }}
+                        @endif
                     </ul>
                 </div>
             </div>

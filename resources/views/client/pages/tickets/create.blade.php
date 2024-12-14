@@ -17,6 +17,12 @@
                     class="d-none d-lg-inline-block">{{ __('tickets list') }}</span></a>
         </div>
         <div class="card-datatable table-responsive p-5">
+            @if (session('success'))
+                <div class="alert alert-solid-success d-flex align-items-center" role="alert">
+                    <i class="bx bx-xs bx-check me-2"></i>
+                    {{ __('ticket created') }}
+                </div>
+            @endif
             <form action="{{ route('client.tickets.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group mb-4">

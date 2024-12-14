@@ -122,37 +122,39 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-5 col-12">
-            <div class="card">
-                <h5 class="card-header">{{ __('tickets') }}</h5>
-                <div class="card-body">
-                    <canvas id="doughnutChart" class="chartjs mb-4" data-height="350"></canvas>
-                    <ul class="doughnut-legend d-flex justify-content-around ps-0 mb-2 pt-1">
-                        <li class="ct-series-0 d-flex flex-column">
-                            <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('rejected') }}</h5>
-                            <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
-                                style="background-color: rgb(214, 48, 48); width: 35px; height: 6px"></span>
-                        </li>
-                        <li class="ct-series-1 d-flex flex-column">
-                            <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('pending') }}</h5>
-                            <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
-                                style="background-color: rgb(205, 208, 40); width: 35px; height: 6px"></span>
-                        </li>
-                        <li class="ct-series-2 d-flex flex-column">
-                            <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('processing') }}</h5>
-                            <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
-                                style="background-color: rgb(52, 173, 253); width: 35px; height: 6px"></span>
-                        </li>
-                        <li class="ct-series-2 d-flex flex-column">
-                            <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('completed') }}</h5>
-                            <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
-                                style="background-color: rgb(132, 253, 52); width: 35px; height: 6px"></span>
-                        </li>
-                    </ul>
+    <div class="row justify-content-center">
+        @if ($total_tickets)
+            <div class="col-lg-5 col-12">
+                <div class="card">
+                    <h5 class="card-header">{{ __('tickets') }}</h5>
+                    <div class="card-body">
+                        <canvas id="doughnutChart" class="chartjs mb-4" data-height="350"></canvas>
+                        <ul class="doughnut-legend d-flex justify-content-around ps-0 mb-2 pt-1">
+                            <li class="ct-series-0 d-flex flex-column">
+                                <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('rejected') }}</h5>
+                                <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
+                                    style="background-color: rgb(214, 48, 48); width: 35px; height: 6px"></span>
+                            </li>
+                            <li class="ct-series-1 d-flex flex-column">
+                                <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('pending') }}</h5>
+                                <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
+                                    style="background-color: rgb(205, 208, 40); width: 35px; height: 6px"></span>
+                            </li>
+                            <li class="ct-series-2 d-flex flex-column">
+                                <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('processing') }}</h5>
+                                <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
+                                    style="background-color: rgb(52, 173, 253); width: 35px; height: 6px"></span>
+                            </li>
+                            <li class="ct-series-2 d-flex flex-column">
+                                <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('completed') }}</h5>
+                                <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
+                                    style="background-color: rgb(132, 253, 52); width: 35px; height: 6px"></span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         <div class="col-12 col-lg-7">
             <div class="card">
