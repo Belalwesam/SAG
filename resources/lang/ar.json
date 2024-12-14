@@ -52,5 +52,10 @@
     "no files attached": "لم يتم ارسال اي ملف",
     "ticket created": "تم اضافة التذكرة بنجاح , يرجى متابعة حالتها عبر لوحة التحكم.",
     "no enough hours": "العميل ليس لديه رصيد ساعات صيانة كافي",
-    "refill hours": "يرجى التواصل معنا لزيادة رصيد ساعات الدعم في حسابك."
+    "refill hours": "يرجى التواصل معنا لزيادة رصيد ساعات الدعم في حسابك.",
+    "pending tickets": "بانتظار التأكيد",
+    "processing tickets": "قيد المعالجة",
+    "completed tickets": "مكتملة",
+    "total tickets": "اجمالي التذاكر",
+    "total maintenance hours": "اجمالي وقت الصيانة الى الان"
 }
