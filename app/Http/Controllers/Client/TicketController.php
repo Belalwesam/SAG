@@ -19,7 +19,13 @@ class TicketController extends Controller
     public function create()
     {
         $projects = auth()->user()->projects;
-        return view('client.pages.tickets.create', compact('projects'));
+
+        $allow = true;
+
+        if (auth()->user()->hours <= 0) {
+            $allow = false;
+        }
+        return view('client.pages.tickets.create', compact('projects', 'allow'));
     }
 
     public function store(TicketSubmitRequest $request)

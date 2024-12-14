@@ -56,5 +56,7 @@
     "total tickets" : "Total Tickets",
     "total maintenance hours"  : "Spent Maintenance Time",
     "no files attached" : "No Files Attached",
-    "ticket created" : "Ticket has been created , please keep checking it's status on your dashboard."
+    "ticket created" : "Ticket has been created , please keep checking it's status on your dashboard.",
+    "no enough hours" : "Client does not have enough hours in his account.",
+    "refill hours" : "Please contact us to increase you maintenance hours balance"
 }

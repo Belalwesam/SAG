@@ -23,93 +23,97 @@
                     {{ __('ticket created') }}
                 </div>
             @endif
-            <form action="{{ route('client.tickets.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group mb-4">
-                    <label for="subject" class="form-label">
-                        {{ __('subject') }}
-                    </label>
-                    <input type="text" name="subject" id="subject" placeholder="{{ __('subject') }}"
-                        class="form-control">
-                    @error('subject')
-                        <small class="text-danger">
-                            {{ $message }}
-                        </small>
-                    @enderror
-                </div>
-                <div class="form-group mb-4">
-                    <label for="subject" class="form-label">
-                        {{ __('project') }}
-                    </label>
-                    <select name="project_id" id="project_id" class="form-select" id="project_id">
-                        @forelse ($projects as $project)
-                            <option value="{{ $project->id }}">
-                                {{ $project->name }}
-                            </option>
-                        @empty
-                            <option value="">{{ __('there are no options') }}</option>
-                        @endforelse
-                    </select>
-                    @error('project')
-                        <small class="text-danger">
-                            {{ $message }}
-                        </small>
-                    @enderror
-                </div>
-                <div class="form-group mb-4">
-                    <label for="subject" class="form-label">
-                        {{ __('priority') }}
-                    </label>
-                    <select name="priority" id="priority" class="form-select" id="priority">
-                        <option value="low">{{ __('low') }}</option>
-                        <option value="medium">{{ __('medium') }}</option>
-                        <option value="high">{{ __('high') }}</option>
-                    </select>
-                    @error('project')
-                        <small class="text-danger">
-                            {{ $message }}
-                        </small>
-                    @enderror
-                </div>
-                <div class="form-group mb-4">
-                    <label for="subject" class="form-label">
-                        {{ __('description') }}
-                    </label>
-                    <textarea name="description" class="form-control" id="description" cols="30" rows="5"
-                        placeholder="{{ __('description') }}"></textarea>
-                    @error('description')
-                        <small class="text-danger">
-                            {{ $message }}
-                        </small>
-                    @enderror
-                </div>
-                <div class="form-group mb-4">
-                    <label for="subject" class="form-label">
-                        {{ __('attachments') }}
-                    </label>
-                </div>
-                <input type="file" name="hiddenFileInput[]" id="hiddenFileInput"
-                    style="opacity: 0; visibility:hidden; height:0; position:absolute;">
-                <div class="form-group mb-4">
-                    <div class="dropzone needsclick" id="dropzone-multi">
-                        <div class="dz-message needsclick">
-                            Drop files here or click to upload
-                            <span class="note needsclick">(This is just a demo dropzone. Selected files are
-                                <strong>not</strong> actually
-                                uploaded.)</span>
-                        </div>
-                        <div class="fallback">
-                            <input name="file" type="file" />
+            @if ($allow)
+                <form action="{{ route('client.tickets.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group mb-4">
+                        <label for="subject" class="form-label">
+                            {{ __('subject') }}
+                        </label>
+                        <input type="text" name="subject" id="subject" placeholder="{{ __('subject') }}"
+                            class="form-control">
+                        @error('subject')
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="subject" class="form-label">
+                            {{ __('project') }}
+                        </label>
+                        <select name="project_id" id="project_id" class="form-select" id="project_id">
+                            @forelse ($projects as $project)
+                                <option value="{{ $project->id }}">
+                                    {{ $project->name }}
+                                </option>
+                            @empty
+                                <option value="">{{ __('there are no options') }}</option>
+                            @endforelse
+                        </select>
+                        @error('project')
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="subject" class="form-label">
+                            {{ __('priority') }}
+                        </label>
+                        <select name="priority" id="priority" class="form-select" id="priority">
+                            <option value="low">{{ __('low') }}</option>
+                            <option value="medium">{{ __('medium') }}</option>
+                            <option value="high">{{ __('high') }}</option>
+                        </select>
+                        @error('project')
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="subject" class="form-label">
+                            {{ __('description') }}
+                        </label>
+                        <textarea name="description" class="form-control" id="description" cols="30" rows="5"
+                            placeholder="{{ __('description') }}"></textarea>
+                        @error('description')
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="subject" class="form-label">
+                            {{ __('attachments') }}
+                        </label>
+                    </div>
+                    <input type="file" name="hiddenFileInput[]" id="hiddenFileInput"
+                        style="opacity: 0; visibility:hidden; height:0; position:absolute;">
+                    <div class="form-group mb-4">
+                        <div class="dropzone needsclick" id="dropzone-multi">
+                            <div class="dz-message needsclick">
+                                Drop files here or click to upload
+                                <span class="note needsclick">(This is just a demo dropzone. Selected files are
+                                    <strong>not</strong> actually
+                                    uploaded.)</span>
+                            </div>
+                            <div class="fallback">
+                                <input name="file" type="file" />
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('general.create') }}
-                    </button>
-                </div>
-            </form>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('general.create') }}
+                        </button>
+                    </div>
+                </form>
+            @else
+                <p class="lead text-center fw-bold">{{ __('refill hours') }}</p>
+            @endif
         </div>
     </div>
 @endsection

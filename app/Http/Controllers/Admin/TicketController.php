@@ -101,6 +101,7 @@ class TicketController extends Controller
         $ticket->update(['admin_id' => $request->admin_id]);
 
 
+
         if ($request->status == 'rejected') {
             $ticket->update([
                 'status' => 'rejected',
@@ -112,6 +113,11 @@ class TicketController extends Controller
             return response()->json(["message" => __("ticket rejected")]);
         }
 
+        if ($request->estimated_hours > $ticket->user->hours) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'estimated_hours' => [__("no enough hours")],
+            ]);
+        }
 
         if ($request->estimated_hours) {
             $ticket->update([
