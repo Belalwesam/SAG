@@ -17,6 +17,7 @@ class HomeController extends Controller
         $pending_tickets = $client->ticketsFiltered('pending')->count();
         $completed_tickets = $client->ticketsFiltered('completed')->count();
         $processing_tickets = $client->ticketsFiltered('processing')->count();
+        $rejected_tickets = $client->ticketsFiltered('rejected')->count();
         $total_tickets = $client->tickets->count();
 
         // total spent maintenance hours

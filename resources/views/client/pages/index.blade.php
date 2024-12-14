@@ -164,9 +164,14 @@
             const doughnutChartVar = new Chart(doughnutChart, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Tablet', 'Mobile', 'Desktop'],
+                    labels: ["{{ __('rejected') }}", "{{ __('pending') }}", '{{ __('processing') }}',
+                        '{{ __('completed') }}'
+                    ],
                     datasets: [{
-                        data: [10, 10, 80],
+                        data: ["{{ $rejected_tickets }}", "{{ $pending_tickets }}",
+                            "{{ $processing_tickets }}",
+                            "{{ $completed_tickets }}"
+                        ],
                         backgroundColor: [cyanColor, orangeLightColor, config.colors.primary],
                         borderWidth: 0,
                         pointStyle: 'rectRounded'
