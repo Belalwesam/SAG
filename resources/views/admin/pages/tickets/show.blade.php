@@ -197,7 +197,8 @@
                             <label for="admin_id" class="form-label">{{ __('admin') }}</label>
                             <select name="admin_id" id="admin_id" class="form-select">
                                 @forelse ($admins as $admin)
-                                    <option value="{{ $admin->id }}">{{ $admin->name }}</option>
+                                    <option value="{{ $admin->id }}" @selected($admin->id == $ticket->admin_id)>{{ $admin->name }}
+                                    </option>
                                 @empty
                                     <option value="">{{ __('no admins found') }}</option>
                                 @endforelse

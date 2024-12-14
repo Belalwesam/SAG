@@ -102,7 +102,13 @@ class TicketController extends Controller
 
 
         if ($request->status == 'rejected') {
-            $ticket->update(['status' => 'rejected']);
+            $ticket->update([
+                'status' => 'rejected',
+                'admin_id' => null,
+                "estimated_hours" => null,
+                "handled" => 0,
+                "handled_at" => null
+            ]);
             return response()->json(["message" => __("ticket rejected")]);
         }
 
