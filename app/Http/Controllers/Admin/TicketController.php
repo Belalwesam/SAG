@@ -120,7 +120,6 @@ class TicketController extends Controller
                 "estimated_hours" => $request->estimated_hours
             ]);
             if ($request->status == 'completed') {
-                return 'hello world';
                 $ticket->update([
                     "handeled" => 1,
                     "handeled_at" => now()
