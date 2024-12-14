@@ -93,7 +93,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                     Route::get('/', 'index')->name('index');
                     Route::get('/{ticket_id}/show', 'show')->name('show');
                     Route::get('/tickets-list', 'getTicketsList')->name('tickets_list'); // get role users for datatable
-
+                    Route::patch('/tickets/update-ticket/', 'update')->name('update');
 
                     Route::get('/client/{id}/tickets', 'client_tickets')->name('client-tickets');
                     Route::get('/client-tickets-list/{id}', 'getClientTicketsList')->name('client_tickets_list'); // get role users for datatable

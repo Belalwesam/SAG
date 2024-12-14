@@ -221,10 +221,51 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="submit-create-btn" class="btn btn-primary">@lang('general.edit')</button>
+                    <button type="button" id="submit-edit-btn" class="btn btn-primary">@lang('general.edit')</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('general.cancel')</button>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $('body').on('click', '#submit-edit-btn', function() {
+            let data = {
+                _token: "{!! csrf_token() !!}",
+                status: $('#status').val(),
+                estimated_hours: $('#estimated_hours').val(),
+                admin_id: $('#admin_id').val(),
+                id: "{{ $ticket->id }}"
+            }
+            let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
+
+            $.ajax({
+                method: 'PATCH',
+                url: "{!! route('admin.tickets.update') !!}",
+                data: data,
+                beforeSend: function() {
+                    formBtn.html(
+                        '<span class="spinner-border" role="status" aria-hidden="true"></span>'
+                    )
+                    formBtn.prop('disabled', true)
+                },
+                success: function(response) {
+                    successMessage("@lang('general.edit_success')")
+                    $('#editTicketModal').modal('toggle')
+                    datatable.ajax.reload()
+                },
+                error: function(response) {
+                    errorMessage("@lang('general.error')")
+                    displayErrors(response, true)
+                },
+            }).done(function() {
+                formBtn.html("@lang('general.edit')")
+                formBtn.prop('disabled', true)
+            }).fail(function() {
+                formBtn.html("@lang('general.edit')")
+                formBtn.prop('disabled', false)
+            })
+        })
+    </script>
 @endsection
