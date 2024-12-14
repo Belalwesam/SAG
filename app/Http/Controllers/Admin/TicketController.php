@@ -156,7 +156,16 @@ class TicketController extends Controller
     public function client_tickets($id)
     {
         $client = User::findOrFail($id);
-        return view('admin.pages.tickets.client-tickets', compact('id', 'client'));
+        $pending_tickets = $client->ticketsFiltered('pending')->count();
+        $completed_tickets = $client->ticketsFiltered('completed')->count();
+        $processing_tickets = $client->ticketsFiltered('processing')->count();
+        $rejected_tickets = $client->ticketsFiltered('rejected')->count();
+        $total_tickets = $client->tickets->count();
+
+        // total spent maintenance hours
+        $total_maintenance_time = $client->ticketsFiltered('completed')->sum('estimated_hours');
+
+        return view('admin.pages.tickets.client-tickets', get_defined_vars());
     }
 
 
