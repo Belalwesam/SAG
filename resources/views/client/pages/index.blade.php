@@ -115,29 +115,31 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-4 col-12">
+        <div class="col-lg-6 col-12">
             <div class="card">
-                <h5 class="card-header">User by Devices</h5>
+                <h5 class="card-header">{{ __('tickets') }}</h5>
                 <div class="card-body">
                     <canvas id="doughnutChart" class="chartjs mb-4" data-height="350"></canvas>
                     <ul class="doughnut-legend d-flex justify-content-around ps-0 mb-2 pt-1">
                         <li class="ct-series-0 d-flex flex-column">
-                            <h5 class="mb-0 fw-bold">Desktop</h5>
+                            <h5 class="mb-0 fw-bold">{{ __('rejected') }}</h5>
                             <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
-                                style="background-color: rgb(102, 110, 232); width: 35px; height: 6px"></span>
-                            <div class="text-muted">80 %</div>
+                                style="background-color: rgb(214, 48, 48); width: 35px; height: 6px"></span>
                         </li>
                         <li class="ct-series-1 d-flex flex-column">
-                            <h5 class="mb-0 fw-bold">Tablet</h5>
+                            <h5 class="mb-0 fw-bold">{{ __('pending') }}</h5>
                             <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
-                                style="background-color: rgb(40, 208, 148); width: 35px; height: 6px"></span>
-                            <div class="text-muted">10 %</div>
+                                style="background-color: rgb(205, 208, 40); width: 35px; height: 6px"></span>
                         </li>
                         <li class="ct-series-2 d-flex flex-column">
-                            <h5 class="mb-0 fw-bold">Mobile</h5>
+                            <h5 class="mb-0 fw-bold">{{ __('processing') }}</h5>
                             <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
-                                style="background-color: rgb(253, 172, 52); width: 35px; height: 6px"></span>
-                            <div class="text-muted">10 %</div>
+                                style="background-color: rgb(52, 173, 253); width: 35px; height: 6px"></span>
+                        </li>
+                        <li class="ct-series-2 d-flex flex-column">
+                            <h5 class="mb-0 fw-bold">{{ __('completed') }}</h5>
+                            <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
+                                style="background-color: rgb(132, 253, 52); width: 35px; height: 6px"></span>
                         </li>
                     </ul>
                 </div>
@@ -150,14 +152,14 @@
     <script>
         const purpleColor = '#836AF9',
             yellowColor = '#ffe800',
-            cyanColor = '#28dac6',
+            cyanColor = '#d63030',
             orangeColor = '#FF8132',
-            orangeLightColor = '#FDAC34',
+            orangeLightColor = '#cdd028',
             oceanBlueColor = '#299AFF',
             greyColor = '#4F5D70',
             greyLightColor = '#EDF1F4',
-            blueColor = '#2B9AFF',
-            blueLightColor = '#84D0FF';
+            blueColor = '#4ffd34',
+            blueLightColor = '#34adfd';
         let borderColor, axisColor;
         const doughnutChart = document.getElementById('doughnutChart');
         if (doughnutChart) {
@@ -172,7 +174,7 @@
                             "{{ $processing_tickets }}",
                             "{{ $completed_tickets }}"
                         ],
-                        backgroundColor: [cyanColor, orangeLightColor, config.colors.primary],
+                        backgroundColor: [cyanColor, orangeLightColor, blueLightColor, blueColor],
                         borderWidth: 0,
                         pointStyle: 'rectRounded'
                     }]
