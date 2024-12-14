@@ -96,7 +96,6 @@ class TicketController extends Controller
 
     public function update(Request $request)
     {
-
         $ticket = Ticket::findOrFail($request->id);
 
         $ticket->update(['admin_id' => $request->admin_id]);
@@ -115,7 +114,6 @@ class TicketController extends Controller
 
 
         if ($request->estimated_hours) {
-
             $ticket->update([
                 "status" => $request->status,
                 "estimated_hours" => $request->estimated_hours
@@ -127,7 +125,7 @@ class TicketController extends Controller
                 ]);
 
                 $client = $ticket->user;
-                $client->update(["maintenance_hours" => $client->maintenance_hours - $ticket->estimated_hours]);
+                $client->update(["hours" => $client->hours - $ticket->estimated_hours]);
             }
         } else {
             if (in_array($request->status, ["processing", "completed"])) {
@@ -147,7 +145,7 @@ class TicketController extends Controller
                     ]);
 
                     $client = $ticket->user;
-                    $client->update(["maintenance_hours" => $client->maintenance_hours - $ticket->estimated_hours]);
+                    $client->update(["hours" => $client->hours - $ticket->estimated_hours]);
                 }
             }
         }
