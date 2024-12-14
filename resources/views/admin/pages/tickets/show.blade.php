@@ -199,7 +199,7 @@
                     <form action="#" id="editTicketForm">
                         <div class="form-group mb-3">
                             <label for="estimated_hours" class="form-label">{{ __('estimated time') }}</label>
-                            <input type="number" step="0.5" name="estimated_hours"
+                            <input type="number" step="0.5" name="estimated_hours" value="{{ $ticket->estimated_hours }}"
                                 placeholder="{{ __('estimated time') }}" id="estimated_hours" class="form-control">
                         </div>
                         <div class="form-group mb-3">
@@ -248,6 +248,7 @@
                 admin_id: $('#admin_id').val(),
                 id: "{{ $ticket->id }}"
             }
+
             let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
 
             $.ajax({

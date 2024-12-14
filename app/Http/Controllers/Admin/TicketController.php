@@ -106,18 +106,26 @@ class TicketController extends Controller
                 'status' => 'rejected',
                 'admin_id' => null,
                 "estimated_hours" => null,
-                "handled" => 0,
-                "handled_at" => null
+                "handeled" => 0,
+                "handeled_at" => null
             ]);
             return response()->json(["message" => __("ticket rejected")]);
         }
 
 
         if ($request->estimated_hours) {
+
             $ticket->update([
                 "status" => $request->status,
                 "estimated_hours" => $request->estimated_hours
             ]);
+            if ($request->status == 'completed') {
+                return 'hello world';
+                $ticket->update([
+                    "handeled" => 1,
+                    "handeled_at" => now()
+                ]);
+            }
         } else {
             if (in_array($request->status, ["processing", "completed"])) {
                 if (!$request->estimated_hours) {
@@ -129,12 +137,10 @@ class TicketController extends Controller
                     "status" => $request->status,
                     "estimated_hours" => $request->estimated_hours
                 ]);
-
-
                 if ($request->status == 'completed') {
                     $ticket->update([
-                        "handled" => 1,
-                        "handled_at" => now()
+                        "handeled" => 1,
+                        "handeled_at" => now()
                     ]);
                 }
             }
