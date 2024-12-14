@@ -1,4 +1,12 @@
 @extends('client.layout.app')
+@section('css-vendor')
+    <link rel="stylesheet" href="{{ asset('/dashboard/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('/dashboard/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('/dashboard/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/dashboard/assets/vendor/libs/select2/select2.css') }}" />
+@endsection
 @section('title')
     @lang('nav.dashboard')
 @endsection
@@ -115,29 +123,29 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6 col-12">
+        <div class="col-lg-5 col-12">
             <div class="card">
                 <h5 class="card-header">{{ __('tickets') }}</h5>
                 <div class="card-body">
                     <canvas id="doughnutChart" class="chartjs mb-4" data-height="350"></canvas>
                     <ul class="doughnut-legend d-flex justify-content-around ps-0 mb-2 pt-1">
                         <li class="ct-series-0 d-flex flex-column">
-                            <h5 class="mb-0 fw-bold">{{ __('rejected') }}</h5>
+                            <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('rejected') }}</h5>
                             <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
                                 style="background-color: rgb(214, 48, 48); width: 35px; height: 6px"></span>
                         </li>
                         <li class="ct-series-1 d-flex flex-column">
-                            <h5 class="mb-0 fw-bold">{{ __('pending') }}</h5>
+                            <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('pending') }}</h5>
                             <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
                                 style="background-color: rgb(205, 208, 40); width: 35px; height: 6px"></span>
                         </li>
                         <li class="ct-series-2 d-flex flex-column">
-                            <h5 class="mb-0 fw-bold">{{ __('processing') }}</h5>
+                            <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('processing') }}</h5>
                             <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
                                 style="background-color: rgb(52, 173, 253); width: 35px; height: 6px"></span>
                         </li>
                         <li class="ct-series-2 d-flex flex-column">
-                            <h5 class="mb-0 fw-bold">{{ __('completed') }}</h5>
+                            <h5 class="mb-0 fw-bold" style="font-size: 0.9rem">{{ __('completed') }}</h5>
                             <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
                                 style="background-color: rgb(132, 253, 52); width: 35px; height: 6px"></span>
                         </li>
@@ -145,7 +153,38 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-12 col-lg-7">
+            <div class="card">
+                <div class="card-datatable table-responsive px-2">
+                    <table class="datatables-categories table border-top">
+                        <thead>
+                            <tr>
+                                <th>{{ __('ID') }}</th>
+                                <th>{{ __('project') }}</th>
+                                <th>{{ __('priority') }}</th>
+                                <th>{{ __('status') }}</th>
+                                <th>@lang('categories.created_at')</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+@endsection
+@section('script-vendor')
+    <script src="{{ asset('/dashboard/assets/vendor/libs/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/datatables-responsive/datatables.responsive.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/datatables-buttons/datatables-buttons.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/jszip/jszip.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/pdfmake/pdfmake.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/datatables-buttons/buttons.html5.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/datatables-buttons/buttons.print.js') }}"></script>
+    <script src="{{ asset('/dashboard/assets/vendor/libs/select2/select2.js') }}"></script>
 @endsection
 @section('script')
     <script src="{{ asset('/dashboard/assets/vendor/libs/chartjs/chartjs.js') }}"></script>
@@ -210,5 +249,55 @@
                 }
             });
         }
+
+        $('document').ready(function() {
+            //initialise datatbles
+            let datatable = $('.datatables-categories').DataTable({
+                language: {
+                    sLengthMenu: '_MENU_',
+                    search: '',
+                    searchPlaceholder: '@lang('general.search')..',
+                    paginate: {
+                        previous: '@lang('general.previous')',
+                        next: '@lang('general.next')'
+                    }
+                },
+                dom: 'rtip',
+                ordering: false,
+                pageLength: 5,
+                processing: true,
+                serverSide: true,
+                ajax: "{!! route('client.tickets.tickets_list') !!}",
+                columns: [{
+                        data: 'ticket_id',
+                        name: 'ticket_id'
+                    },
+                    {
+                        data: 'project_id',
+                        name: 'project_id'
+                    },
+                    {
+                        data: 'priority',
+                        name: 'priority'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                ],
+            })
+
+            // to make the datatables inputs appear larger
+            setTimeout(() => {
+                $('.dataTables_filter .form-control').removeClass('form-control-sm');
+                $('.dataTables_length .form-select').removeClass('form-select-sm');
+            })
+            // ----- crud operations
+            //delete btn (from table)
+        })
     </script>
 @endsection
