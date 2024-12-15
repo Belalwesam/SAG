@@ -41,6 +41,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
                 # view the ticket
                 Route::get('/{ticket_id}/show', 'show')->name('show');
+
+                Route::get('/{ticket_id}/conversation', 'conversation')->name('conversation');
             });
         });
     });

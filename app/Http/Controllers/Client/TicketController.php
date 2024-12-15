@@ -138,4 +138,11 @@ class TicketController extends Controller
         $ticket = Ticket::with('files', 'project')->where('ticket_id', $ticket_id)->firstOrFail();
         return view('client.pages.tickets.show', compact('ticket'));
     }
+
+
+    public function conversation($ticket_id)
+    {
+        $ticket = Ticket::where('ticket_id', $ticket_id)->firstOrFail();
+        return view('client.pages.tickets.conversation', compact('ticket'));
+    }
 }

@@ -168,7 +168,8 @@
             @if ($ticket->admin_id)
                 <div class="card">
                     <div class="card-body">
-                        <a href="#" class="btn btn-primary w-100 text-white">
+                        <a href="{{ route('client.tickets.conversation', $ticket->ticket_id) }}"
+                            class="btn btn-primary w-100 text-white">
                             <i class='bx bx-chat mx-2'></i> {{ __('go to conversation') }}
                         </a>
                     </div>
