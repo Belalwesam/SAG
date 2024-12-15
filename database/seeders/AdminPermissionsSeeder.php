@@ -112,7 +112,7 @@ class AdminPermissionsSeeder extends Seeder
 
 
         $upervisor_role = Role::create([
-            'name' => 'Superviosr',
+            'name' => 'Supervisor',
             'name_ar' => "مشرف",
             'guard_name' => 'admin'
         ]);

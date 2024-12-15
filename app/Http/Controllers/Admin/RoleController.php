@@ -17,7 +17,8 @@ class RoleController extends Controller
     {
 
         $permissions = Permission::all()->groupBy('permission_group');
-        $roles = Role::where('name', '!=', 'Super Admin')->get();
+        $roles = Role::where('name', '!=', 'Super Admin')
+            ->where('name', '!=', 'Supervisor')->get();
         foreach ($roles as $role) {
             $role_users = Admin::role($role)->get();
             $role->users = $role_users;
