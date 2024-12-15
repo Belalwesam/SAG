@@ -109,17 +109,18 @@ class AdminPermissionsSeeder extends Seeder
         ]);
 
         $super_admin_role->syncPermissions(Permission::all());
-
-
-        $upervisor_role = Role::create([
+        $supervisor_role = Role::create([
             'name' => 'Supervisor',
             'name_ar' => "مشرف",
             'guard_name' => 'admin'
         ]);
 
+        $supervisor_permissions = Permission::where('name', 'see tickets')->get();
+
+        $supervisor_role->syncPermissions($supervisor_permissions);
 
         #assign the role to the super admin
         Admin::first()->syncRoles([$super_admin_role]);
-        Admin::find(2)->syncRoles([$upervisor_role]);
+        Admin::find(2)->syncRoles([$supervisor_role]);
     }
 }
