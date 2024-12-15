@@ -257,68 +257,70 @@
         </div>
     @endif
 @endsection
-@section('script')
-    <script src="{{ asset('/dashboard/assets/vendor/libs/chartjs/chartjs.js') }}"></script>
-    <script>
-        const purpleColor = '#836AF9',
-            yellowColor = '#ffe800',
-            cyanColor = '#d63030',
-            orangeColor = '#FF8132',
-            orangeLightColor = '#cdd028',
-            oceanBlueColor = '#299AFF',
-            greyColor = '#4F5D70',
-            greyLightColor = '#EDF1F4',
-            blueColor = '#4ffd34',
-            blueLightColor = '#34adfd';
-        let borderColor, axisColor;
-        const doughnutChart = document.getElementById('doughnutChart');
-        if (doughnutChart) {
-            const doughnutChartVar = new Chart(doughnutChart, {
-                type: 'doughnut',
-                data: {
-                    labels: ["{{ __('rejected') }}", "{{ __('pending') }}", '{{ __('processing') }}',
-                        '{{ __('completed') }}'
-                    ],
-                    datasets: [{
-                        data: ["{{ $data['rejected_tickets'] }}", "{{ $data['pending_tickets'] }}",
-                            "{{ $data['processing_tickets'] }}",
-                            "{{ $data['completed_tickets'] }}"
+@if (auth('admin')->user()->getRoleNames()[0] == 'Super Admin')
+    @section('script')
+        <script src="{{ asset('/dashboard/assets/vendor/libs/chartjs/chartjs.js') }}"></script>
+        <script>
+            const purpleColor = '#836AF9',
+                yellowColor = '#ffe800',
+                cyanColor = '#d63030',
+                orangeColor = '#FF8132',
+                orangeLightColor = '#cdd028',
+                oceanBlueColor = '#299AFF',
+                greyColor = '#4F5D70',
+                greyLightColor = '#EDF1F4',
+                blueColor = '#4ffd34',
+                blueLightColor = '#34adfd';
+            let borderColor, axisColor;
+            const doughnutChart = document.getElementById('doughnutChart');
+            if (doughnutChart) {
+                const doughnutChartVar = new Chart(doughnutChart, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ["{{ __('rejected') }}", "{{ __('pending') }}", '{{ __('processing') }}',
+                            '{{ __('completed') }}'
                         ],
-                        backgroundColor: [cyanColor, orangeLightColor, blueLightColor, blueColor],
-                        borderWidth: 0,
-                        pointStyle: 'rectRounded'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    animation: {
-                        duration: 500
+                        datasets: [{
+                            data: ["{{ $data['rejected_tickets'] }}", "{{ $data['pending_tickets'] }}",
+                                "{{ $data['processing_tickets'] }}",
+                                "{{ $data['completed_tickets'] }}"
+                            ],
+                            backgroundColor: [cyanColor, orangeLightColor, blueLightColor, blueColor],
+                            borderWidth: 0,
+                            pointStyle: 'rectRounded'
+                        }]
                     },
-                    cutout: '68%',
-                    plugins: {
-                        legend: {
-                            display: false
+                    options: {
+                        responsive: true,
+                        animation: {
+                            duration: 500
                         },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const label = context.labels || '',
-                                        value = context.parsed;
-                                    const output = ' ' + label + ' : ' + value + ' %';
-                                    return output;
-                                }
+                        cutout: '68%',
+                        plugins: {
+                            legend: {
+                                display: false
                             },
-                            // Updated default tooltip UI
-                            rtl: isRtl,
-                            backgroundColor: config.colors.white,
-                            titleColor: config.colors.black,
-                            bodyColor: config.colors.black,
-                            borderWidth: 1,
-                            borderColor: borderColor
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.labels || '',
+                                            value = context.parsed;
+                                        const output = ' ' + label + ' : ' + value + ' %';
+                                        return output;
+                                    }
+                                },
+                                // Updated default tooltip UI
+                                rtl: isRtl,
+                                backgroundColor: config.colors.white,
+                                titleColor: config.colors.black,
+                                bodyColor: config.colors.black,
+                                borderWidth: 1,
+                                borderColor: borderColor
+                            }
                         }
                     }
-                }
-            });
-        }
-    </script>
-@endsection
+                });
+            }
+        </script>
+    @endsection
+@endif
