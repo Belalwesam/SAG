@@ -57,5 +57,7 @@
     "processing tickets": "قيد المعالجة",
     "completed tickets": "مكتملة",
     "total tickets": "اجمالي التذاكر",
-    "total maintenance hours": "اجمالي وقت الصيانة الى الان"
+    "total maintenance hours": "اجمالي وقت الصيانة الى الان",
+    "rejected tickets" : "التذاكر المرفوضة"
+
 }

@@ -20,7 +20,7 @@ class TicketController extends Controller
     {
         $data = Ticket::latest()->get();
 
-        if (auth('admin')->user()->getRoleNames()[0]) {
+        if (auth('admin')->user()->getRoleNames()[0] == 'Supervisor') {
             $data = auth('admin')->user()->tickets()->latest()->get();
         }
         return DataTables::of($data)
