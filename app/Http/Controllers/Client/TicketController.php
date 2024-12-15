@@ -142,7 +142,7 @@ class TicketController extends Controller
 
     public function conversation($ticket_id)
     {
-        $ticket = Ticket::where('ticket_id', $ticket_id)->firstOrFail();
+        $ticket = auth()->user()->tickets()->where('ticket_id', $ticket_id)->firstOrFail();
         return view('client.pages.tickets.conversation', compact('ticket'));
     }
 }
