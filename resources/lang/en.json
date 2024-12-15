@@ -60,5 +60,6 @@
     "no enough hours" : "Client does not have enough hours in his account.",
     "refill hours" : "Please contact us to increase you maintenance hours balance",
     "rejected tickets" : "Rejected Tickets",
-    "go to conversation" : "Go To Conversation"
+    "go to conversation" : "Go To Conversation",
+    "conversation" : ":ticket Conversation"
 }

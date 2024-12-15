@@ -59,5 +59,6 @@
     "total tickets": "اجمالي التذاكر",
     "total maintenance hours": "اجمالي وقت الصيانة الى الان",
     "rejected tickets": "التذاكر المرفوضة",
-    "go to conversation": "ذهاب الى المحادثة"
+    "go to conversation": "ذهاب الى المحادثة",
+    "conversation": "محادثة التذكرة :ticket"
 }

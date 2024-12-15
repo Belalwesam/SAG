@@ -1,3 +1,6 @@
-<div>
-    <!-- Act only according to that maxim whereby you can, at the same time, will that it should become a universal law. - Immanuel Kant -->
-</div>
+@extends('client.layout.app')
+@section('title')
+    {{ __("conversation" , ["ticket" => $ticket->ticket_id]) }}
+@endsection
+@section('content')
+@endsection
