@@ -32,7 +32,7 @@
         }
 
         /* Style the right image */
-        .container img.right {
+        .container .avatar.right {
             float: right;
             margin-left: 20px;
             margin-right: 0;
@@ -49,33 +49,47 @@
             float: left;
             color: #999;
         }
+
+        .left-float-test {
+            float: left;
+        }
     </style>
 @endsection
 @section('title')
     {{ __('conversation', ['ticket' => $ticket->ticket_id]) }}
 @endsection
 @section('content')
-    <div class="container">
-        <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar">
-        <p>Hello. How are you today?</p>
-        <span class="time-right">11:00</span>
-    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <div class="container">
+                <div class="avatar avatar-lg left-float-test me-3">
+                    <span class="avatar-initial rounded-circle bg-info">cl</span>
+                </div>
+                <p>Hello. How are you today?</p>
+                <span class="time-right">11:00</span>
+            </div>
 
-    <div class="container darker">
-        <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar" class="right">
-        <p>Hey! I'm fine. Thanks for asking!</p>
-        <span class="time-left">11:01</span>
-    </div>
-
-    <div class="container">
-        <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar">
-        <p>Sweet! So, what do you wanna do today?</p>
-        <span class="time-right">11:02</span>
-    </div>
-
-    <div class="container darker">
-        <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar" class="right">
-        <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-        <span class="time-left">11:05</span>
+            <div class="container darker">
+                <div class="avatar avatar-lg right">
+                    <span class="avatar-initial rounded-circle bg-info">cl</span>
+                </div>
+                <p>Hey! I'm fine. Thanks for asking!</p>
+                <span class="time-left">11:01</span>
+            </div>
+            <div class="container">
+                <div class="avatar avatar-lg left-float-test me-3">
+                    <span class="avatar-initial rounded-circle bg-info">cl</span>
+                </div>
+                <p>Hello. How are you today?</p>
+                <span class="time-right">11:00</span>
+            </div>
+            <div class="container darker">
+                <div class="avatar avatar-lg right">
+                    <span class="avatar-initial rounded-circle bg-info">cl</span>
+                </div>
+                <p>Hey! I'm fine. Thanks for asking!</p>
+                <span class="time-left">11:01</span>
+            </div>
+        </div>
     </div>
 @endsection
