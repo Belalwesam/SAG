@@ -165,6 +165,16 @@
                 </div>
             </div>
 
+            <div class="card">
+                {{-- <h5 class="card-header">
+                    {{ __('general.actions') }}
+                </h5> --}}
+                <div class="card-body">
+                    <a class="btn btn-primary w-100 text-white">
+                        <i class='bx bx-chat mx-2'></i> {{ __('go to conversation') }}
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

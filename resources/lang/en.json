@@ -59,5 +59,6 @@
     "ticket created" : "Ticket has been created , please keep checking it's status on your dashboard.",
     "no enough hours" : "Client does not have enough hours in his account.",
     "refill hours" : "Please contact us to increase you maintenance hours balance",
-    "rejected tickets" : "Rejected Tickets"
+    "rejected tickets" : "Rejected Tickets",
+    "go to conversation" : "Go To Conversation"
 }
