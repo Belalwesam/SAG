@@ -3,5 +3,9 @@
     @lang('nav.dashboard')
 @endsection
 @section('content')
-    the content goes here
+    @if (auth('admin')->user()->getRoleNames()[0] == 'Super Admin')
+        admin
+    @elseif(auth('admin')->user()->getRoleNames()[0] == 'Supervisor')
+        supervisor
+    @endif
 @endsection

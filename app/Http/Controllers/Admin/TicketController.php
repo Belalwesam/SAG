@@ -19,6 +19,10 @@ class TicketController extends Controller
     public function getTicketsList()
     {
         $data = Ticket::latest()->get();
+
+        if (auth('admin')->user()->getRoleNames()[0]) {
+            $data = auth('admin')->user()->tickets()->latest()->get();
+        }
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {

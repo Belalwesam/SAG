@@ -199,8 +199,9 @@
                     <form action="#" id="editTicketForm">
                         <div class="form-group mb-3">
                             <label for="estimated_hours" class="form-label">{{ __('estimated time') }}</label>
-                            <input type="number" step="0.5" name="estimated_hours" value="{{ $ticket->estimated_hours }}"
-                                placeholder="{{ __('estimated time') }}" id="estimated_hours" class="form-control">
+                            <input type="number" step="0.5" name="estimated_hours"
+                                value="{{ $ticket->estimated_hours }}" placeholder="{{ __('estimated time') }}"
+                                id="estimated_hours" class="form-control">
                         </div>
                         <div class="form-group mb-3">
                             <label for="admin_id" class="form-label">{{ __('admin') }}</label>

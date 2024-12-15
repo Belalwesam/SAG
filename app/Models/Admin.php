@@ -121,4 +121,9 @@ class Admin extends Authenticatable
     {
         return $this->hasRole('Super Admin') || $this->can($permission) ? true : false;
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'admin_id');
+    }
 }
