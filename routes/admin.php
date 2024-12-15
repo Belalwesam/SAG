@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ClientController;
@@ -33,7 +34,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         #routes that need authetication to interact with
         Route::group(['middleware' => 'auth:admin', 'as' => 'admin.'], function () {
             #placeholder route
-            Route::view('/', 'admin.pages.index')->name('index');
+            Route::get('/', HomeController::class)->name('index');
 
 
 
