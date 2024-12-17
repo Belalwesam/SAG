@@ -83,18 +83,18 @@
                                     </div>
                                 @endif
 
-                                <p>{{ $message->message }}</p>
+                                <p>{!! $message->message !!}</p>
                                 <span class="time-left">{{ $message->created_at->diffForHumans() }}</span>
                             </div>
-                        @else
+                        @elseif($message->sender == 'admin')
                             <div class="container">
                                 <div class="avatar avatar-lg left-float-test me-3">
                                     <span class="avatar-initial rounded-circle bg-info">
-                                        {{ $message->user->getInitials() }}
+                                        {{ $message->admin->getInitials() }}
                                     </span>
                                 </div>
-                                <p>Hello. How are you today?</p>
-                                <span class="time-right">11:00</span>
+                                <p>{!! $message->message !!}</p>
+                                <span class="time-right">{{ $message->created_at->diffForHumans() }}</span>
                             </div>
                         @endif
                     @empty
