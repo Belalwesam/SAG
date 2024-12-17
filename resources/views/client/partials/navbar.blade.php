@@ -378,7 +378,7 @@
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <div class="avatar">
                             <span
-                                class="avatar-initial rounded-circle bg-info">{{ auth()->user()->getInitials() }}</span>
+                                class="avatar-initial rounded-circle bg-primary">{{ auth()->user()->getInitials() }}</span>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -386,15 +386,13 @@
                             <a class="dropdown-item" href="pages-account-settings-account.html">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
-                                        <div class="avatar avatar-online">
-                                            @if (auth()->user()->image)
+                                        @if (auth()->user()->image)
+                                            <div class="avatar avatar-online">
                                                 <img src="{{ Storage::url(auth()->user()->image) }}"
                                                     alt = "users avatar" class="rounded-circle" />
-                                            @else
-                                                <img src="{{ asset('dashboard/assets/img/avatars/1.png') }}"
-                                                    alt = "users avatar" class="rounded-circle" />
-                                            @endif
-                                        </div>
+
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="flex-grow-1">
                                         <span class="fw-semibold d-block lh-1">{{ auth()->user()->name }}</span>

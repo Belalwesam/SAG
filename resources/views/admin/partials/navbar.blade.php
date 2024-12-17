@@ -8,14 +8,14 @@
 
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <!-- Search -->
-            <div class="navbar-nav align-items-center">
+            {{-- <div class="navbar-nav align-items-center">
                 <div class="nav-item navbar-search-wrapper mb-0">
                     <a class="nav-item nav-link search-toggler px-0" href="javascript:void(0);">
                         <i class="bx bx-search-alt bx-sm"></i>
                         <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
                     </a>
                 </div>
-            </div>
+            </div> --}}
             <!-- /Search -->
 
             <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -378,7 +378,7 @@
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <div class="avatar">
                             <span
-                                class="avatar-initial rounded-circle bg-info">{{ auth('admin')->user()->getInitials() }}</span>
+                                class="avatar-initial rounded-circle bg-primary">{{ auth('admin')->user()->getInitials() }}</span>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -386,10 +386,10 @@
                             <a class="dropdown-item" href="pages-account-settings-account.html">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
-                                        <div class="avatar avatar-online">
+                                        {{-- <div class="avatar avatar-online">
                                             <img src="{{ asset('dashboard/assets/img/avatars/1.png') }}"
                                                 alt = "users avatar" class="rounded-circle" />
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="flex-grow-1">
                                         <span class="fw-semibold d-block lh-1">{{ auth('admin')->user()->name }}</span>
