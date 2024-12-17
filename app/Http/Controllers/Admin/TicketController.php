@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MessageRequest;
 use Yajra\DataTables\Facades\DataTables;
 
 class TicketController extends Controller
@@ -246,5 +247,25 @@ class TicketController extends Controller
             })
             ->rawColumns(['actions', 'priority', 'status', 'ticket_id'])
             ->make(true);
+    }
+
+    public function conversation($ticket_id)
+    {
+        $ticket = Ticket::with('messages')->where('ticket_id', $ticket_id)->firstOrFail();
+        return view('admin.pages.tickets.conversation', compact('ticket'));
+    }
+
+    public function send_message(MessageRequest $request)
+    {
+        $ticket = Ticket::findOrFail($request->ticket_id);
+
+        $ticket->messages()->create([
+            "message" => $request->message,
+            "user_id" => $ticket->user->id,
+            "admin_id" => auth('admin')->user()->id,
+            "sender" => "admin"
+        ]);
+
+        return back();
     }
 }

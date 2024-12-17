@@ -98,6 +98,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
                     Route::get('/client/{id}/tickets', 'client_tickets')->name('client-tickets');
                     Route::get('/client-tickets-list/{id}', 'getClientTicketsList')->name('client_tickets_list'); // get role users for datatable
+
+
+                    Route::get('/{ticket_id}/conversation', 'conversation')->name('conversation');
+
+                    Route::post('/send-message', 'send_message')->name('send-message');
                 });
             });
         });

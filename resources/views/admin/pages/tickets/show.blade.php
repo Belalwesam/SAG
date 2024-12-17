@@ -185,14 +185,16 @@
                 </div>
             </div>
 
-            <div class="card mb-3">
-                <div class="card-body">
-                    <a href="{{ route('client.tickets.conversation', $ticket->ticket_id) }}"
-                        class="btn btn-primary w-100 text-white">
-                        <i class='bx bx-chat mx-2'></i> {{ __('go to conversation') }}
-                    </a>
+            @if (auth('admin')->user()->getRoleNames()[0] == 'Super Admin' || auth('admin')->user()->id == $ticket->admin_id)
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <a href="{{ route('admin.tickets.conversation', $ticket->ticket_id) }}"
+                            class="btn btn-primary w-100 text-white">
+                            <i class='bx bx-chat mx-2'></i> {{ __('go to conversation') }}
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 
