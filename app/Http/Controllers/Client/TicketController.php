@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MessageRequest;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\Client\TicketSubmitRequest;
@@ -142,7 +143,12 @@ class TicketController extends Controller
 
     public function conversation($ticket_id)
     {
-        $ticket = auth()->user()->tickets()->where('ticket_id', $ticket_id)->firstOrFail();
+        $ticket = auth()->user()->tickets()->with('messages')->where('ticket_id', $ticket_id)->firstOrFail();
         return view('client.pages.tickets.conversation', compact('ticket'));
+    }
+
+    public function send_message(MessageRequest $request)
+    {
+        dd($request->all());
     }
 }

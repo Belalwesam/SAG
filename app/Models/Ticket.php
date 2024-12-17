@@ -50,4 +50,9 @@ class Ticket extends Model
     {
         return $this->belongsTo(Admin::class, 'admin_id');
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'ticket_id');
+    }
 }
