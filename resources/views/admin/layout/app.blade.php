@@ -116,6 +116,14 @@
 
     <!-- Main JS -->
     <script src="{{ asset('/dashboard/assets/js/main.js') }}"></script>
+    <script>
+        let path = window.location.href
+        $('.menu-link').each(function() {
+            if (this.href === path) {
+                $(this).addClass('active').parent().addClass('active')
+            }
+        })
+    </script>
     @yield('script-vendor')
     @yield('script')
 </body>
