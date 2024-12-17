@@ -47,6 +47,12 @@
     <script src="{{ asset('/dashboard/assets/vendor/js/helpers.js') }}"></script>
 
     <script src="{{ asset('/dashboard/assets/js/config.js') }}"></script>
+
+    <style>
+        .authentication-inner::before,.authentication-inner::after {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
