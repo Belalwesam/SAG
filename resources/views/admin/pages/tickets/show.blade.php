@@ -96,6 +96,22 @@
         </div>
         <!-- User Sidebar -->
         <div class="col-xl-4 col-lg-5 col-md-5">
+            @if (auth('admin')->user()->hasAbilityTo('edit tickets'))
+                <div class="card mb-4">
+                    <h5 class="card-header">
+                        {{ __('general.actions') }}
+                    </h5>
+                    <div class="card-body">
+                        @if (in_array($ticket->status, ['rejected', 'completed']))
+                            {{ __('closed ticket') }}
+                        @else
+                            <button class="btn btn-primary w-100" data-bs-target="#editTicketModal" data-bs-toggle="modal">
+                                {{ __('general.edit') }}
+                            </button>
+                        @endif
+                    </div>
+                </div>
+            @endif
             <!-- User Card -->
             <div class="card mb-4">
                 <div class="card-body">
@@ -168,27 +184,21 @@
                     </div>
                 </div>
             </div>
-            @if (auth('admin')->user()->hasAbilityTo('edit tickets'))
-                <div class="card">
-                    <h5 class="card-header">
-                        {{ __('general.actions') }}
-                    </h5>
-                    <div class="card-body">
-                        @if (in_array($ticket->status, ['rejected', 'completed']))
-                            {{ __('closed ticket') }}
-                        @else
-                            <button class="btn btn-primary w-100" data-bs-target="#editTicketModal" data-bs-toggle="modal">
-                                {{ __('general.edit') }}
-                            </button>
-                        @endif
-                    </div>
+
+            <div class="card mb-3">
+                <div class="card-body">
+                    <a href="{{ route('client.tickets.conversation', $ticket->ticket_id) }}"
+                        class="btn btn-primary w-100 text-white">
+                        <i class='bx bx-chat mx-2'></i> {{ __('go to conversation') }}
+                    </a>
                 </div>
-            @endif
+            </div>
         </div>
     </div>
 
 
-    <div class="modal fade" id="editTicketModal" tabindex="-1" aria-labelledby="editTicketModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editTicketModal" tabindex="-1" aria-labelledby="editTicketModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
