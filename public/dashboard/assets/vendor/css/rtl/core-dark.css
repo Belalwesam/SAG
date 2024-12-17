@@ -1,6 +1,6 @@
 @charset "UTF-8";
 :root {
-  --bs-blue: #5a8dee;
+  --bs-blue: #669AB6;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
   --bs-pink: #e83e8c;
@@ -15,7 +15,7 @@
   --bs-gray-dark: rgba(0, 0, 0, 0.45);
   --bs-gray-25: rgba(255, 255, 255, 0.015);
   --bs-gray-50: rgba(255, 255, 255, 0.03);
-  --bs-primary: #5a8dee;
+  --bs-primary: #669AB6;
   --bs-secondary: #69809a;
   --bs-success: #39da8a;
   --bs-info: #00cfdd;
@@ -225,7 +225,7 @@ sup {
 }
 
 a {
-  color: #5a8dee;
+  color: #669AB6;
   text-decoration: none;
 }
 a:hover {
@@ -2791,7 +2791,7 @@ textarea.form-control-lg {
 
 .btn-link {
   font-weight: 400;
-  color: #5a8dee;
+  color: #669AB6;
   text-decoration: none;
 }
 .btn-link:hover {
@@ -3103,7 +3103,7 @@ textarea.form-control-lg {
   background-color: rgba(99, 123, 169, 0.08);
 }
 .dropdown-item.active, .dropdown-item:active {
-  color: #5a8dee;
+  color: #669AB6;
   text-decoration: none;
   background-color: rgba(90, 141, 238, 0.08);
 }
@@ -3145,7 +3145,7 @@ textarea.form-control-lg {
   background-color: rgba(255, 255, 255, 0.15);
 }
 .dropdown-menu-dark .dropdown-item.active, .dropdown-menu-dark .dropdown-item:active {
-  color: #5a8dee;
+  color: #669AB6;
   background-color: rgba(90, 141, 238, 0.08);
 }
 .dropdown-menu-dark .dropdown-item.disabled, .dropdown-menu-dark .dropdown-item:disabled {
@@ -4283,7 +4283,7 @@ textarea.form-control-lg {
   color: #fff;
   text-align: center;
   white-space: nowrap;
-  background-color: #5a8dee;
+  background-color: #669AB6;
   transition: width 0.6s ease;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -5510,7 +5510,7 @@ textarea.form-control-lg {
 }
 
 .link-primary {
-  color: #5a8dee;
+  color: #669AB6;
 }
 .link-primary:hover, .link-primary:focus {
   color: #517fd6;
@@ -11045,7 +11045,7 @@ html:not(.dark-style) .toast.bs-toast .toast-header:not([class*=bg-]) .btn-close
 }
 
 .border-primary {
-  border-color: #5a8dee !important;
+  border-color: #669AB6 !important;
 }
 
 .border-secondary {
@@ -20138,11 +20138,11 @@ html:not([dir=rtl]) .switches-stacked .switch {
   width: 1.5rem;
   text-align: center;
   border-radius: 50%;
-  border: 2px solid #5a8dee;
+  border: 2px solid #669AB6;
   background-color: #1c222f !important;
 }
 .timeline .timeline-item .timeline-indicator i {
-  color: #5a8dee;
+  color: #669AB6;
   font-size: 0.85rem;
   vertical-align: baseline;
 }
@@ -20155,7 +20155,7 @@ html:not([dir=rtl]) .switches-stacked .switch {
   height: 0.75rem;
   width: 0.75rem;
   border-radius: 50%;
-  background-color: #5a8dee;
+  background-color: #669AB6;
 }
 .timeline .timeline-item.timeline-item-transparent .timeline-event {
   top: -1.4rem;
