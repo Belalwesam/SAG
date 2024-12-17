@@ -231,3 +231,12 @@
         </div>
     </div>
 @endsection
+@section('script')
+    <script>
+        // Wait for the DOM to fully load
+        document.addEventListener("DOMContentLoaded", function() {
+            const scrollableElement = document.getElementById("messages-container");
+            scrollableElement.scrollTop = scrollableElement.scrollHeight;
+        });
+    </script>
+@endsection
