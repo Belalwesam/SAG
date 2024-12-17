@@ -43,6 +43,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                 Route::get('/{ticket_id}/show', 'show')->name('show');
 
                 Route::get('/{ticket_id}/conversation', 'conversation')->name('conversation');
+
+                Route::post('/send-message', 'send_message')->name('send-message');
             });
         });
     });

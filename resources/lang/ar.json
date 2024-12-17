@@ -60,5 +60,9 @@
     "total maintenance hours": "اجمالي وقت الصيانة الى الان",
     "rejected tickets": "التذاكر المرفوضة",
     "go to conversation": "ذهاب الى المحادثة",
-    "conversation": "محادثة التذكرة :ticket"
+    "conversation": "محادثة التذكرة :ticket",
+    "message": "الرسالة",
+    "send": "ارسال",
+    "no messages" : "ابدأ المحادثة بارسال رسالة."
+
 }

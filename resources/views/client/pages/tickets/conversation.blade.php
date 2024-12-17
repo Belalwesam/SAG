@@ -55,7 +55,7 @@
         }
 
         #messages-container {
-            height: 45vh;
+            max-height: 45vh;
             overflow-y: scroll;
         }
     </style>
@@ -68,158 +68,55 @@
         <div class="row justify-content-center">
             <div class="card-body">
                 <div id="messages-container">
-                    <div class="container">
-                        <div class="avatar avatar-lg left-float-test me-3">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
+                    @forelse ($ticket->messages as $message)
+                        @if ($message->sender == 'client')
+                            <div class="container darker">
+                                @if ($message->user->image)
+                                    <div class="avatar avatar-xl right">
+                                        <img src="{{ Storage::url($message->user->image) }}" alt="Avatar"
+                                            class="rounded-circle">
+                                    </div>
+                                @else
+                                    <div class="avatar avatar-lg right">
+                                        <span class="avatar-initial rounded-circle bg-info">
+                                            {{ $message->user->getInitials() }}</span>
+                                    </div>
+                                @endif
 
-                    <div class="container darker">
-                        <div class="avatar avatar-lg right">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hey! I'm fine. Thanks for asking!</p>
-                        <span class="time-left">11:01</span>
-                    </div>
-                    <div class="container">
-                        <div class="avatar avatar-lg left-float-test me-3">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container darker">
-                        <div class="avatar avatar-lg right">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hey! I'm fine. Thanks for asking!</p>
-                        <span class="time-left">11:01</span>
-                    </div>
-                    <div class="container">
-                        <div class="avatar avatar-lg left-float-test me-3">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container darker">
-                        <div class="avatar avatar-lg right">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hey! I'm fine. Thanks for asking!</p>
-                        <span class="time-left">11:01</span>
-                    </div>
-                    <div class="container">
-                        <div class="avatar avatar-lg left-float-test me-3">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container darker">
-                        <div class="avatar avatar-lg right">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hey! I'm fine. Thanks for asking!</p>
-                        <span class="time-left">11:01</span>
-                    </div>
-                    <div class="container">
-                        <div class="avatar avatar-lg left-float-test me-3">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container darker">
-                        <div class="avatar avatar-lg right">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hey! I'm fine. Thanks for asking!</p>
-                        <span class="time-left">11:01</span>
-                    </div>
-                    <div class="container">
-                        <div class="avatar avatar-lg left-float-test me-3">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container darker">
-                        <div class="avatar avatar-lg right">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hey! I'm fine. Thanks for asking!</p>
-                        <span class="time-left">11:01</span>
-                    </div>
-                    <div class="container">
-                        <div class="avatar avatar-lg left-float-test me-3">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container darker">
-                        <div class="avatar avatar-lg right">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hey! I'm fine. Thanks for asking!</p>
-                        <span class="time-left">11:01</span>
-                    </div>
-                    <div class="container">
-                        <div class="avatar avatar-lg left-float-test me-3">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container darker">
-                        <div class="avatar avatar-lg right">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hey! I'm fine. Thanks for asking!</p>
-                        <span class="time-left">11:01</span>
-                    </div>
-                    <div class="container">
-                        <div class="avatar avatar-lg left-float-test me-3">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container darker">
-                        <div class="avatar avatar-lg right">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hey! I'm fine. Thanks for asking!</p>
-                        <span class="time-left">11:01</span>
-                    </div>
-                    <div class="container">
-                        <div class="avatar avatar-lg left-float-test me-3">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hello. How are you today?</p>
-                        <span class="time-right">11:00</span>
-                    </div>
-                    <div class="container darker">
-                        <div class="avatar avatar-lg right">
-                            <span class="avatar-initial rounded-circle bg-info">cl</span>
-                        </div>
-                        <p>Hey! I'm fine. Thanks for asking!</p>
-                        <span class="time-left">11:01</span>
-                    </div>
+                                <p>{{ $message->message }}</p>
+                                <span class="time-left">{{ $message->created_at->diffForHumans() }}</span>
+                            </div>
+                        @else
+                            <div class="container">
+                                <div class="avatar avatar-lg left-float-test me-3">
+                                    <span class="avatar-initial rounded-circle bg-info">
+                                        {{ $message->user->getInitials() }}
+                                    </span>
+                                </div>
+                                <p>Hello. How are you today?</p>
+                                <span class="time-right">11:00</span>
+                            </div>
+                        @endif
+                    @empty
+                        <h1 class="text-center">
+                            {{ __('no messages') }}
+                        </h1>
+                    @endforelse
                 </div>
                 <div class="mt-2">
-                    <form action="#">
+                    <form action="{{ route('client.tickets.send-message') }}" method="POST">
                         @csrf
                         <div class="form-group mb-3">
                             <label for="message" class="form-label">
                                 {{ __('message') }}
                             </label>
-                            <textarea name="message" id="message" cols="30" rows="5" class="form-control"
+                            <textarea name="message" id="message" cols="30" rows="5"
+                                class="form-control @error('message')
+                                is-invalid
+                            @enderror"
                                 placeholder="{{ __('message') }}"></textarea>
                         </div>
+                        <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">
                                 {{ __('send') }}

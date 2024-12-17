@@ -149,6 +149,15 @@ class TicketController extends Controller
 
     public function send_message(MessageRequest $request)
     {
-        dd($request->all());
+        $ticket = Ticket::findOrFail($request->ticket_id);
+
+        $ticket->messages()->create([
+            "message" => $request->message,
+            "user_id" => auth()->user()->id,
+            "admin_id" => $ticket->admin->id,
+            "sender" => "client"
+        ]);
+
+        return back();
     }
 }
