@@ -2,8 +2,8 @@
 @section('css-vendor')
     <style>
         .container {
-            border: 2px solid #dedede;
-            background-color: #f1f1f1;
+            border: 2px solid #dededeb9;
+            background-color: #f1f1f19c;
             border-radius: 5px;
             padding: 10px;
             margin: 10px 0;
@@ -11,8 +11,8 @@
 
         /* Darker chat container */
         .darker {
-            border-color: #ccc;
-            background-color: #ddd;
+            border-color: #cccccca6;
+            background-color: #fdfcfc8c;
         }
 
         /* Clear floats */
@@ -57,6 +57,15 @@
         #messages-container {
             max-height: 45vh;
             overflow-y: scroll;
+        }
+
+        p {
+            font-size: .9rem;
+        }
+
+        .time-left,
+        .time-left {
+            font-size: 0.7rem;
         }
     </style>
 @endsection
