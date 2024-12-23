@@ -1,7 +1,7 @@
  <!-- Menu -->
  <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
      <div class="app-brand demo">
-         <a href="index.html" class="app-brand-link">
+         <a href="{{ route('admin.index') }}" class="app-brand-link">
              <span class="app-brand-logo demo">
                  <img src="{{ asset('icon.png') }}" width="30px" alt="icon">
              </span>
