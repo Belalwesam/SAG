@@ -84,7 +84,7 @@
                                 @endif
 
                                 <p>{!! $message->message !!}</p>
-                                <span class="time-left">{{ $message->created_at->diffForHumans() }}</span>
+                                <span class="time-left">{{ $message->created_at->format('d-m-Y h:i a') }}</span>
                             </div>
                         @elseif($message->sender == 'admin')
                             <div class="container">
@@ -94,7 +94,7 @@
                                     </span>
                                 </div>
                                 <p>{!! $message->message !!}</p>
-                                <span class="time-right">{{ $message->created_at->diffForHumans() }}</span>
+                                <span class="time-right">{{ $message->created_at->format('d-m-Y h:i a') }}</span>
                             </div>
                         @endif
                     @empty
