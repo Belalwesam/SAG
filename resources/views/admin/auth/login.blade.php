@@ -77,8 +77,8 @@
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2">@lang('auth.welcome') 🚀</h4>
-                        <p class="mb-4">@lang('auth.welcome_sub')</p>
+                        <h4 class="mb-4">@lang('auth.welcome') 🚀</h4>
+                        {{-- <p class="mb-4">@lang('auth.welcome_sub')</p> --}}
 
                         <form id="formAuthentication" class="mb-3" action="{{ route('admin.login') }}"
                             method="POST">
