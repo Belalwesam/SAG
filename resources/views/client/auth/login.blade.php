@@ -66,7 +66,7 @@
                         <!-- Logo -->
                         <div class="app-brand justify-content-center">
                             <a href="" class="app-brand-link gap-2">
-                                <img src="{{ asset('logo.png') }}" alt="" width="160px">
+                                <img src="{{ asset('icon.png') }}" alt="" width="160px">
                             </a>
                         </div>
                         <!-- /Logo -->
