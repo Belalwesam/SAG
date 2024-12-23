@@ -116,6 +116,8 @@
                                 @enderror
                             </div>
                             <button class="btn btn-primary d-grid w-100" type="submit">@lang('auth.login')</button>
+
+                            <p class="mt-4 px-4">@lang('auth.working_hours')</p>
                         </form>
 
                     </div>

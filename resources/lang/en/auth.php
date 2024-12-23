@@ -8,5 +8,6 @@ return [
     'login_field' => 'E-mail or username',
     'password' => 'password',
     'email_placeholder' => 'Enter Your E-mail',
-    'login_failed' => 'Please check your credentials and try again.'
+    'login_failed' => 'Please check your credentials and try again.',
+    "working_hours" => "Working hours from Sunday to Thursday from 10 am to 5 pm.",
 ];
