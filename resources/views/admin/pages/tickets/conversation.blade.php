@@ -2,8 +2,8 @@
 @section('css-vendor')
     <style>
         .container {
-            border: 2px solid #dedede;
-            background-color: #f1f1f1;
+            border: 2px solid #dededeb9;
+            background-color: #f1f1f19c;
             border-radius: 5px;
             padding: 10px;
             margin: 10px 0;
@@ -11,8 +11,8 @@
 
         /* Darker chat container */
         .darker {
-            border-color: #ccc;
-            background-color: #ddd;
+            border-color: #cccccca6;
+            background-color: #fdfcfc8c;
         }
 
         /* Clear floats */
@@ -58,6 +58,15 @@
             max-height: 45vh;
             overflow-y: scroll;
         }
+
+        p {
+            font-size: .9rem;
+        }
+
+        .time-left,
+        .time-left {
+            font-size: 0.7rem;
+        }
     </style>
 @endsection
 @section('title')
@@ -72,7 +81,7 @@
                         @if ($message->sender == 'client')
                             <div class="container darker">
                                 @if ($message->user->image)
-                                    <div class="avatar avatar-xl right">
+                                    <div class="avatar avatar-md right">
                                         <img src="{{ Storage::url($message->user->image) }}" alt="Avatar"
                                             class="rounded-circle">
                                     </div>
@@ -88,7 +97,7 @@
                             </div>
                         @elseif($message->sender == 'admin')
                             <div class="container">
-                                <div class="avatar avatar-lg left-float-test me-3">
+                                <div class="avatar avatar-md left-float-test me-3">
                                     <span class="avatar-initial rounded-circle bg-info">
                                         {{ $message->admin->getInitials() }}
                                     </span>
