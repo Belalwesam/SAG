@@ -5,7 +5,7 @@
              <span class="app-brand-logo demo">
                  <img src="{{ asset('icon.png') }}" width="30px" alt="icon">
              </span>
-             <span class="app-brand-text demo menu-text fw-bold ms-2">SAG</span>
+             {{-- <span class="app-brand-text demo menu-text fw-bold ms-2">SAG</span> --}}
          </a>
 
          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">

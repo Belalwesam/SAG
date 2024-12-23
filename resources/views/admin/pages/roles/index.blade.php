@@ -57,16 +57,16 @@
     <div class="col-xl-4 col-lg-6 col-md-6">
         <div class="card h-100">
             <div class="row h-100">
-                <div class="col-sm-5">
+                {{-- <div class="col-sm-5">
                     <div class="d-flex align-items-end h-100 justify-content-center mt-sm-0 mt-3">
                         <img src="{{ asset('/dashboard/assets/img/illustrations/lady-with-laptop-light.png') }}"
                             class="img-fluid" alt="Image" width="100"
                             data-app-light-img="illustrations/lady-with-laptop-light.png"
                             data-app-dark-img="illustrations/lady-with-laptop-dark.png">
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-sm-7">
-                    <div class="card-body text-sm-end text-center ps-sm-0">
+                    <div class="card-body">
                         @if (auth('admin')->user()->hasAbilityTo('create roles'))
                             <button data-bs-target="#addRoleModal" data-bs-toggle="modal"
                                 class="btn btn-primary mb-3 text-nowrap add-new-role">
@@ -142,8 +142,7 @@
                                         </td>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox"
-                                                    id="selectAllCheckbox">
+                                                <input class="form-check-input" type="checkbox" id="selectAllCheckbox">
                                                 <label class="form-check-label" for="selectAll">
                                                     @lang('general.select_all')</label>
                                             </div>
