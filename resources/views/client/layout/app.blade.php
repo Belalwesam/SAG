@@ -17,11 +17,11 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet" />
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('/dashboard/assets/vendor/fonts/boxicons.css') }}" />
@@ -47,6 +47,13 @@
     <script src="{{ asset('/dashboard/assets/vendor/js/helpers.js') }}"></script>
 
     <script src="{{ asset('/dashboard/assets/js/config.js') }}"></script>
+    <style>
+        body,
+        html,
+        * {
+            font-family: "Tajawal", serif;
+        }
+    </style>
     @yield('css-vendor')
 </head>
 
