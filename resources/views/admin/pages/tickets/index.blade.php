@@ -101,6 +101,118 @@
                         orderable: false
                     },
                 ],
+                dom: '<"row mx-2"' +
+                    '<"col-md-2"<"me-3"l>>' +
+                    '<"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>' +
+                    '>t' +
+                    '<"row mx-2"' +
+                    '<"col-sm-12 col-md-6"i>' +
+                    '<"col-sm-12 col-md-6"p>' +
+                    '>',
+                buttons: [{
+                        extend: 'collection',
+                        className: 'btn btn-label-secondary dropdown-toggle mx-3',
+                        text: '<i class="bx bx-upload me-2"></i>Export',
+                        buttons: [{
+                                extend: 'print',
+                                text: '<i class="bx bx-printer me-2" ></i>Print',
+                                className: 'dropdown-item',
+                                exportOptions: {
+                                    columns: [1, 2, 3, 4, 5],
+                                    // prevent avatar to be print
+                                    format: {
+                                        body: function(inner, coldex, rowdex) {
+                                            if (inner.length <= 0) return inner;
+                                            var el = $.parseHTML(inner);
+                                            var result = '';
+                                            $.each(el, function(index, item) {
+                                                if (item.classList !== undefined && item
+                                                    .classList.contains('user-name')) {
+                                                    result = result + item.lastChild
+                                                        .firstChild.textContent;
+                                                } else if (item.innerText ===
+                                                    undefined) {
+                                                    result = result + item.textContent;
+                                                } else result = result + item.innerText;
+                                            });
+                                            return result;
+                                        }
+                                    }
+                                },
+                                customize: function(win) {
+                                    //customize print view for dark
+                                    $(win.document.body)
+                                        .css('color', config.colors.headingColor)
+                                        .css('border-color', config.colors.borderColor)
+                                        .css('background-color', config.colors.body);
+                                    $(win.document.body)
+                                        .find('table')
+                                        .addClass('compact')
+                                        .css('color', 'inherit')
+                                        .css('border-color', 'inherit')
+                                        .css('background-color', 'inherit');
+                                }
+                            },
+                            {
+                                extend: 'csv',
+                                text: '<i class="bx bx-file me-2" ></i>Csv',
+                                className: 'dropdown-item',
+                                exportOptions: {
+                                    columns: [1, 2, 3, 4, 5],
+                                    // prevent avatar to be display
+                                    format: {
+                                        body: function(inner, coldex, rowdex) {
+                                            if (inner.length <= 0) return inner;
+                                            var el = $.parseHTML(inner);
+                                            var result = '';
+                                            $.each(el, function(index, item) {
+                                                if (item.classList !== undefined && item
+                                                    .classList.contains('user-name')) {
+                                                    result = result + item.lastChild
+                                                        .firstChild.textContent;
+                                                } else if (item.innerText ===
+                                                    undefined) {
+                                                    result = result + item.textContent;
+                                                } else result = result + item.innerText;
+                                            });
+                                            return result;
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                extend: 'excel',
+                                text: 'Excel',
+                                className: 'dropdown-item',
+                                exportOptions: {
+                                    columns: [1, 2, 3, 4, 5],
+                                    // prevent avatar to be display
+                                    format: {
+                                        body: function(inner, coldex, rowdex) {
+                                            if (inner.length <= 0) return inner;
+                                            var el = $.parseHTML(inner);
+                                            var result = '';
+                                            $.each(el, function(index, item) {
+                                                if (item.classList !== undefined && item
+                                                    .classList.contains('user-name')) {
+                                                    result = result + item.lastChild
+                                                        .firstChild.textContent;
+                                                } else if (item.innerText ===
+                                                    undefined) {
+                                                    result = result + item.textContent;
+                                                } else result = result + item.innerText;
+                                            });
+                                            return result;
+                                        }
+                                    }
+                                }
+                            },
+
+
+                        ]
+                    },
+
+                ]
             })
 
             // to make the datatables inputs appear larger
