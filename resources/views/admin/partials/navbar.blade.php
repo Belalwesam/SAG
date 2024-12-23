@@ -22,18 +22,23 @@
                 <!-- Language -->
                 <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                        <i
-                            class="fi {{ app()->getLocale() === 'en' ? 'fi-us' : 'fi-ae' }} fis rounded-circle fs-3 me-1"></i>
+                        @if (app()->getLocale() == 'ar')
+                            العربية
+                        @else
+                            English
+                        @endif
+                        {{-- <i
+                            class="fi {{ app()->getLocale() === 'en' ? 'fi-us' : 'fi-ae' }} fis rounded-circle fs-3 me-1"></i> --}}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         @foreach (LaravelLocalization::getSupportedLocales() as $key => $value)
                             <li>
                                 <a class="dropdown-item" href="{{ LaravelLocalization::getLocalizedURL($key) }}">
-                                    @if ($key === 'en')
+                                    {{-- @if ($key === 'en')
                                         <i class="fi fi-us fis rounded-circle fs-4 me-1"></i>
                                     @else
                                         <i class="fi fi-ae fis rounded-circle fs-4 me-1"></i>
-                                    @endif
+                                    @endif --}}
                                     <span class="align-middle">{{ $value['native'] }}</span>
                                 </a>
                             </li>
