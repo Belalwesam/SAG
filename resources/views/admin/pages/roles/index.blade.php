@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="{{ asset('/dashboard/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
 <link rel="stylesheet"
     href="{{ asset('/dashboard/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}" />
+<link rel="stylesheet"
+    href="{{ asset('/dashboard/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}" />
+<link rel="stylesheet" href="{{ asset('/dashboard/assets/vendor/libs/select2/select2.css') }}" />
 @endsection
 @section('content')
 <h4 class="py-3 breadcrumb-wrapper mb-2">@lang('roles.roles')</h4>
@@ -89,6 +92,7 @@
                             <th></th>
                             <th>@lang('tables.name')</th>
                             <th>@lang('tables.role')</th>
+                            <th>@lang('admins.created_at')</th>
                         </tr>
                     </thead>
                 </table>
@@ -297,6 +301,13 @@
 <script src="{{ asset('/dashboard/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
 <script src="{{ asset('/dashboard/assets/vendor/libs/datatables-responsive/datatables.responsive.js') }}"></script>
 <script src="{{ asset('/dashboard/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
+<script src="{{ asset('/dashboard/assets/vendor/libs/datatables-buttons/datatables-buttons.js') }}"></script>
+<script src="{{ asset('/dashboard/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js') }}"></script>
+<script src="{{ asset('/dashboard/assets/vendor/libs/jszip/jszip.js') }}"></script>
+<script src="{{ asset('/dashboard/assets/vendor/libs/pdfmake/pdfmake.js') }}"></script>
+<script src="{{ asset('/dashboard/assets/vendor/libs/datatables-buttons/buttons.html5.js') }}"></script>
+<script src="{{ asset('/dashboard/assets/vendor/libs/datatables-buttons/buttons.print.js') }}"></script>
+<script src="{{ asset('/dashboard/assets/vendor/libs/select2/select2.js') }}"></script>
 @endsection
 @section('script')
 <script>
@@ -323,6 +334,52 @@
                     data: 'role',
                     name: 'role'
                 },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+                },
+            ],
+            dom: '<"row mx-2"' +
+                '<"col-md-2"<"me-3"l>>' +
+                '<"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>' +
+                '>t' +
+                '<"row mx-2"' +
+                '<"col-sm-12 col-md-6"i>' +
+                '<"col-sm-12 col-md-6"p>' +
+                '>',
+            buttons: [{
+                    extend: 'collection',
+                    className: 'btn btn-label-secondary dropdown-toggle mx-3',
+                    text: '<i class="bx bx-upload me-2"></i>Export',
+                    buttons: [{
+                        extend: 'csv',
+                        text: '<i class="bx bx-file me-2" ></i>Csv',
+                        className: 'dropdown-item',
+                        exportOptions: {
+                            columns: [1,2 , 3],
+                            // prevent avatar to be display
+                            format: {
+                                body: function(inner, coldex, rowdex) {
+                                    if (inner.length <= 0) return inner;
+                                    var el = $.parseHTML(inner);
+                                    var result = '';
+                                    $.each(el, function(index, item) {
+                                        if (item.classList !== undefined && item
+                                            .classList.contains('user-name')) {
+                                            result = result + item.lastChild
+                                                .firstChild.textContent;
+                                        } else if (item.innerText ===
+                                            undefined) {
+                                            result = result + item.textContent;
+                                        } else result = result + item.innerText;
+                                    });
+                                    return result;
+                                }
+                            }
+                        }
+                    }]
+                },
+
             ]
         })
         //handle select all checkbox

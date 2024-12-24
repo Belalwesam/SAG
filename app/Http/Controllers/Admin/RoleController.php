@@ -57,6 +57,9 @@ class RoleController extends Controller
             ->addColumn('role', function ($row) {
                 return $row->getRole();
             })
+            ->editColumn('created_at' , function($row) {
+                return $row->created_at->format('d-m-Y');
+            })
             ->addColumn('initials', function ($row) {
                 $initials = "<div class='avatar'>
                             <span class='avatar-initial rounded-circle bg-info'>{$row->getInitials()}</span>
