@@ -114,102 +114,32 @@
                         className: 'btn btn-label-secondary dropdown-toggle mx-3',
                         text: '<i class="bx bx-upload me-2"></i>Export',
                         buttons: [{
-                                extend: 'print',
-                                text: '<i class="bx bx-printer me-2" ></i>Print',
-                                className: 'dropdown-item',
-                                exportOptions: {
-                                    columns: [1, 2, 3, 4, 5],
-                                    // prevent avatar to be print
-                                    format: {
-                                        body: function(inner, coldex, rowdex) {
-                                            if (inner.length <= 0) return inner;
-                                            var el = $.parseHTML(inner);
-                                            var result = '';
-                                            $.each(el, function(index, item) {
-                                                if (item.classList !== undefined && item
-                                                    .classList.contains('user-name')) {
-                                                    result = result + item.lastChild
-                                                        .firstChild.textContent;
-                                                } else if (item.innerText ===
-                                                    undefined) {
-                                                    result = result + item.textContent;
-                                                } else result = result + item.innerText;
-                                            });
-                                            return result;
-                                        }
-                                    }
-                                },
-                                customize: function(win) {
-                                    //customize print view for dark
-                                    $(win.document.body)
-                                        .css('color', config.colors.headingColor)
-                                        .css('border-color', config.colors.borderColor)
-                                        .css('background-color', config.colors.body);
-                                    $(win.document.body)
-                                        .find('table')
-                                        .addClass('compact')
-                                        .css('color', 'inherit')
-                                        .css('border-color', 'inherit')
-                                        .css('background-color', 'inherit');
-                                }
-                            },
-                            {
-                                extend: 'csv',
-                                text: '<i class="bx bx-file me-2" ></i>Csv',
-                                className: 'dropdown-item',
-                                exportOptions: {
-                                    columns: [1, 2, 3, 4, 5],
-                                    // prevent avatar to be display
-                                    format: {
-                                        body: function(inner, coldex, rowdex) {
-                                            if (inner.length <= 0) return inner;
-                                            var el = $.parseHTML(inner);
-                                            var result = '';
-                                            $.each(el, function(index, item) {
-                                                if (item.classList !== undefined && item
-                                                    .classList.contains('user-name')) {
-                                                    result = result + item.lastChild
-                                                        .firstChild.textContent;
-                                                } else if (item.innerText ===
-                                                    undefined) {
-                                                    result = result + item.textContent;
-                                                } else result = result + item.innerText;
-                                            });
-                                            return result;
-                                        }
+                            extend: 'csv',
+                            text: '<i class="bx bx-file me-2" ></i>Csv',
+                            className: 'dropdown-item',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5],
+                                // prevent avatar to be display
+                                format: {
+                                    body: function(inner, coldex, rowdex) {
+                                        if (inner.length <= 0) return inner;
+                                        var el = $.parseHTML(inner);
+                                        var result = '';
+                                        $.each(el, function(index, item) {
+                                            if (item.classList !== undefined && item
+                                                .classList.contains('user-name')) {
+                                                result = result + item.lastChild
+                                                    .firstChild.textContent;
+                                            } else if (item.innerText ===
+                                                undefined) {
+                                                result = result + item.textContent;
+                                            } else result = result + item.innerText;
+                                        });
+                                        return result;
                                     }
                                 }
-                            },
-                            {
-                                extend: 'excel',
-                                text: 'Excel',
-                                className: 'dropdown-item',
-                                exportOptions: {
-                                    columns: [1, 2, 3, 4, 5],
-                                    // prevent avatar to be display
-                                    format: {
-                                        body: function(inner, coldex, rowdex) {
-                                            if (inner.length <= 0) return inner;
-                                            var el = $.parseHTML(inner);
-                                            var result = '';
-                                            $.each(el, function(index, item) {
-                                                if (item.classList !== undefined && item
-                                                    .classList.contains('user-name')) {
-                                                    result = result + item.lastChild
-                                                        .firstChild.textContent;
-                                                } else if (item.innerText ===
-                                                    undefined) {
-                                                    result = result + item.textContent;
-                                                } else result = result + item.innerText;
-                                            });
-                                            return result;
-                                        }
-                                    }
-                                }
-                            },
-
-
-                        ]
+                            }
+                        }, ]
                     },
 
                 ]
