@@ -253,13 +253,54 @@
                         },
                         // Buttons with Dropdown
                         buttons: [{
-                            text: '<i class="bx bx-plus me-0 me-lg-2"></i><span class="d-none d-lg-inline-block">@lang('admins.add')</span>',
-                            className: 'add-new btn btn-primary ms-3',
-                            attr: {
-                                'data-bs-toggle': 'offcanvas',
-                                'data-bs-target': '#offcanvasAddAdmin'
-                            }
-                        }],
+                                text: '<i class="bx bx-plus me-0 me-lg-2"></i><span class="d-none d-lg-inline-block">@lang('admins.add')</span>',
+                                className: 'add-new btn btn-primary ms-3',
+                                attr: {
+                                    'data-bs-toggle': 'offcanvas',
+                                    'data-bs-target': '#offcanvasAddAdmin'
+                                },
+
+                            },
+                            {
+                                extend: 'collection',
+                                className: 'btn btn-label-secondary dropdown-toggle mx-3',
+                                text: '<i class="bx bx-upload me-2"></i>Export',
+                                buttons: [{
+                                    extend: 'csv',
+                                    text: '<i class="bx bx-file me-2" ></i>Csv',
+                                    className: 'dropdown-item',
+                                    exportOptions: {
+                                        columns: [1, 2, 3],
+                                        // prevent avatar to be display
+                                        format: {
+                                            body: function(inner, coldex, rowdex) {
+                                                if (inner.length <= 0) return inner;
+                                                var el = $.parseHTML(inner);
+                                                var result = '';
+                                                $.each(el, function(index, item) {
+                                                    if (item.classList !==
+                                                        undefined && item
+                                                        .classList.contains(
+                                                            'user-name')) {
+                                                        result = result + item
+                                                            .lastChild
+                                                            .firstChild.textContent;
+                                                    } else if (item.innerText ===
+                                                        undefined) {
+                                                        result = result + item
+                                                            .textContent;
+                                                    } else result = result + item
+                                                        .innerText;
+                                                });
+                                                return result;
+                                            }
+                                        }
+                                    }
+                                }, ]
+                            },
+
+
+                        ],
                         // For responsive popup
                         responsive: {
                             details: {
@@ -296,6 +337,8 @@
                                 }
                             }
                         },
+
+
                         initComplete: function() {
                             // Adding role filter once table initialized
                             this.api()
