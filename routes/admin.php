@@ -111,7 +111,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::prefix('profile')->group(function () {
                 Route::group(['as' => 'profile.', 'controller' => ProfileController::class], function () {
                     Route::get('/', 'index')->name('index');
-                    Route::patch('/update-profile', 'update')->name('update');
+                    Route::post('/update-profile', 'update')->name('update');
                 });
             });
         });
