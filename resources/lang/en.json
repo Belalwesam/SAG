@@ -64,5 +64,6 @@
     "conversation" : ":ticket Conversation",
     "message" : "Message",
     "send" : "Send",
-    "no messages" : "Start Conversation By Sending a Message"
+    "no messages" : "Start Conversation By Sending a Message",
+    "profile" : "Profile"
 }
