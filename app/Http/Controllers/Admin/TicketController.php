@@ -134,9 +134,9 @@ class TicketController extends Controller
             return response()->json(["message" => __("ticket rejected")]);
         }
 
-        if ($request->estimated_hours > $ticket->user->hours) {
+        if ($request->estimated_hours > $ticket->project->hours) {
             throw \Illuminate\Validation\ValidationException::withMessages([
-                'estimated_hours' => [__("no enough hours")],
+                'estimated_hours' => [__("no enough for project")],
             ]);
         }
 
