@@ -65,5 +65,7 @@
     "message" : "Message",
     "send" : "Send",
     "no messages" : "Start Conversation By Sending a Message",
-    "profile" : "Profile"
+    "profile" : "Profile",
+    "date from" : "Date From",
+    "date to" : "Date To"
 }

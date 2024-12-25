@@ -19,6 +19,32 @@
         <div class="card-header border-bottom d-flex align-items-center justify-content-between">
             <h5 class="card-title mb-0">{{ __('tickets list') }}</h5>
         </div>
+        <div class="container my-3">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <label for="date_from" class="form-label">
+                        {{ __('date from') }}
+                    </label>
+                    <input type="date" name="date_from" id="date_from" class="form-control">
+                </div>
+                <div class="col-12 col-md-4">
+                    <label for="date_to" class="form-label">
+                        {{ __('date to') }}
+                    </label>
+                    <input type="date" name="date_to" id="date_to" class="form-control">
+                </div>
+                <div class="col-12 col-md-4">
+                    <label for="status" class="form-label">
+                        {{ __('status') }}
+                    </label>
+                    <select name="status" id="status" class="form-select">
+                        <option value="pending">{{ __('pending') }}</option>
+                        <option value="processing">{{ __('processing') }}</option>
+                        <option value="completed">{{ __('completed') }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         <div class="card-datatable table-responsive">
             <table class="datatables-categories table border-top">
                 <thead>
