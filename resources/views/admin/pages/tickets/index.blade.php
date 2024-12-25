@@ -38,7 +38,7 @@
                         {{ __('status') }}
                     </label>
                     <select name="status" id="status" class="form-select search-field">
-                        <option value="">{{ __("please select") }}</option>
+                        <option value="">{{ __('please select') }}</option>
                         <option value="pending">{{ __('pending') }}</option>
                         <option value="processing">{{ __('processing') }}</option>
                         <option value="completed">{{ __('completed') }}</option>

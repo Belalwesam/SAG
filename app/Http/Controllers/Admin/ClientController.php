@@ -74,9 +74,19 @@ class ClientController extends Controller
         return http_response_code(200);
     }
 
-    public function getClientsList()
+    public function getClientsList(Request $request)
     {
-        $data = User::latest()->get();
+        $data = User::latest();
+        $data = $data->when($request->date_from, function ($query) use ($request) {
+            $query->where('created_at', '>=', $request->date_from);
+        })
+            ->when($request->date_to, function ($query) use ($request) {
+                $query->where('created_at', '<=', $request->date_to);
+            })
+            ->when($request->date_from && $request->date_to, function ($query) use ($request) {
+                $query->whereBetween('created_at', [$request->date_from, $request->date_to]);
+            });
+        $data = $data->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {
