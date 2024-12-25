@@ -18,13 +18,17 @@ class TicketController extends Controller
         return view('admin.pages.tickets.index');
     }
 
-    public function getTicketsList()
+    public function getTicketsList(Request $request)
     {
-        $data = Ticket::latest()->get();
+        $data = Ticket::latest();
 
         if (auth('admin')->user()->getRoleNames()[0] == 'Supervisor') {
-            $data = auth('admin')->user()->tickets()->latest()->get();
+            $data = auth('admin')->user()->tickets()->latest();
         }
+        $data = $data->when($request->status, function ($query) use ($request) {
+            return $query->where('status', $request->status);
+        });
+        $data = $data->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {

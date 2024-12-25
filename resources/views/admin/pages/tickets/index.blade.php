@@ -103,7 +103,7 @@
                         data: {
                             date_from: $('#date_from').val(),
                             date_to: $("#date_to").val(),
-                            status: $("status").val()
+                            status: $("#status").val()
                         }
                     },
                     columns: [{
