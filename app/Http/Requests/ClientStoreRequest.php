@@ -25,7 +25,6 @@ class ClientStoreRequest extends FormRequest
             "name" => "required|string",
             "username" => "required|string|unique:users,username",
             "email" => "required|email|unique:users,email",
-            "hours" => "required|integer|min:1",
             "image" => "nullable|image|mimes:png,jpg|max:2048",
             "password" => "required|min:8"
         ];

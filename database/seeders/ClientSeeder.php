@@ -18,7 +18,6 @@ class ClientSeeder extends Seeder
             "username" => "client",
             "email" => "client@sag.com",
             "password" => bcrypt('client'),
-            "hours" => 20,
             "image" => "public/clients/client.png"
         ]);
     }

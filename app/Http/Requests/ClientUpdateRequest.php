@@ -25,7 +25,6 @@ class ClientUpdateRequest extends FormRequest
             "name" => "required|string",
             "username" => "required|string|unique:users,username," . $this->id,
             "email" => "required|email|unique:users,email," . $this->id,
-            "hours" => "required|integer|min:1",
             "image" => "nullable|image|mimes:png,jpg|max:2048",
             "password" => "nullable|min:8"
         ];
