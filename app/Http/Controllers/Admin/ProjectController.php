@@ -36,52 +36,57 @@ class ProjectController extends Controller
         return http_response_code(200);
     }
 
-    public function getProjectsList()
+    public function getProjectsList(Request $request)
     {
-        $data = Project::latest()->get();
-
-        if (request()->client_id) {
-            $client = User::findOrFail(request()->client_id);
-            $data = $client->projects()->latest()->get();
+        $query = Project::query();
+    
+        // Apply the date filter if provided
+        if ($request->created_at) {
+            $query->whereDate('created_at', $request->created_at);
         }
-        return DataTables::of($data)
+    
+        return DataTables::of($query)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {
                 return $row->created_at->format('d-m-Y');
             })
             ->editColumn('user_id', function ($row) {
-                return $row->user->name;
+                return $row->user->name; // Assuming a relationship exists between Project and User
             })
             ->addColumn('actions', function ($row) {
                 $edit_text = trans('general.edit');
                 $delete_text = trans('general.delete');
                 $btns = <<<HTML
-                    <div class="dropdown d-flex justify-content-center">
-                        <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                          <i class="bx bx-dots-vertical-rounded"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item edit-btn"
-                             data-id="{$row->id}"
-                             data-name = "{$row->name}"
-                             data-user = "{$row->user_id}"
-                              data-bs-toggle="modal"
-                              data-bs-target = "#editProjectModal"
-                              href="javascript:void(0);"><i class="bx bx-edit me-0 me-2 text-primary"></i>{$edit_text}</a></li>
-                             <li>
-                              <a class="dropdown-item delete-btn"
-                                data-id = "{$row->id}"
-                              href="javascript:void(0);"><i class="bx bx-trash me-0 me-2 text-danger"></i>{$delete_text}</a></li>
-                          </ul>
-                        </div>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#" class="dropdown-item edit-btn"
+                                   data-id="{$row->id}" 
+                                   data-name="{$row->name}" 
+                                   data-user_id="{$row->user_id}" 
+                                   data-bs-toggle="modal" 
+                                   data-bs-target="#editProjectModal">
+                                   {$edit_text}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item delete-btn" 
+                                   data-id="{$row->id}">
+                                   {$delete_text}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 HTML;
-
+    
                 if (auth('admin')->user()->hasAbilityTo('edit projects')) {
                     return $btns;
                 }
-                return;
+                return '';
             })
-            ->rawColumns(['actions', 'user_id'])
+            ->rawColumns(['actions'])
             ->make(true);
     }
+    
 }

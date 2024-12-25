@@ -17,13 +17,35 @@ class TicketController extends Controller
         return view('admin.pages.tickets.index');
     }
 
-    public function getTicketsList()
+    public function getTicketsList(Request $request)
     {
-        $data = Ticket::latest()->get();
-
+        // Fetch all tickets
+        $query = Ticket::query();
+        
+        // Apply role-based restrictions for 'Supervisor'
         if (auth('admin')->user()->getRoleNames()[0] == 'Supervisor') {
-            $data = auth('admin')->user()->tickets()->latest()->get();
+            $query = auth('admin')->user()->tickets();
         }
+    
+        // Apply filtering based on priority
+        if ($request->has('priority') && $request->priority) {
+            $query->where('priority', $request->priority);
+        }
+    
+        // Apply filtering based on status
+        if ($request->has('status') && $request->status) {
+            $query->where('status', $request->status);
+        }
+    
+        // Apply filtering based on created date
+        if ($request->has('created_at') && $request->created_at) {
+            $query->whereDate('created_at', $request->created_at);
+        }
+    
+        // Get filtered data
+        $data = $query->latest()->get();
+    
+        // Prepare DataTable
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {
@@ -36,12 +58,10 @@ class TicketController extends Controller
                     "completed" => "success",
                     "rejected" => "danger"
                 ];
-
                 $status_text = __($row->status);
-                $btns = <<<HTML
-                        <span class="badge rounded-pill bg-{$colors_array[$row->status]}">{$status_text}</span>
-            HTML;
-                return $btns;
+                return <<<HTML
+                    <span class="badge rounded-pill bg-{$colors_array[$row->status]}">{$status_text}</span>
+                HTML;
             })
             ->editColumn('user_id', function ($row) {
                 return $row->user->name;
@@ -52,12 +72,10 @@ class TicketController extends Controller
                     "low" => "success",
                     "high" => "danger"
                 ];
-
                 $priority_text = __($row->priority);
-                $btns = <<<HTML
-                        <span class="badge rounded-pill bg-{$colors_array[$row->priority]}">{$priority_text}</span>
-            HTML;
-                return $btns;
+                return <<<HTML
+                    <span class="badge rounded-pill bg-{$colors_array[$row->priority]}">{$priority_text}</span>
+                HTML;
             })
             ->editColumn('project_id', function ($row) {
                 return $row->project->name;
@@ -65,29 +83,29 @@ class TicketController extends Controller
             ->editColumn('ticket_id', function ($row) {
                 $show_route = route('admin.tickets.show', $row->ticket_id);
                 return <<<HTML
-                        <a href="{$show_route}">{$row->ticket_id}</a>
-                     HTML;
+                    <a href="{$show_route}">{$row->ticket_id}</a>
+                HTML;
             })
             ->addColumn('actions', function ($row) {
                 $show_text = __("show details");
                 $show_route = route('admin.tickets.show', $row->ticket_id);
-                $btns = <<<HTML
-                <div class="dropdown d-flex justify-content-center">
-                    <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bx bx-dots-vertical-rounded"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item"
-                          href="{$show_route}"><i class="bx bx-show me-0 me-2 text-success"></i>{$show_text}</a></li>
-                         <li>
-                      </ul>
+                return <<<HTML
+                    <div class="dropdown d-flex justify-content-center">
+                        <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item"
+                              href="{$show_route}"><i class="bx bx-show me-0 me-2 text-success"></i>{$show_text}</a></li>
+                        </ul>
                     </div>
-            HTML;
-                return $btns;
+                HTML;
             })
             ->rawColumns(['actions', 'priority', 'status', 'ticket_id'])
             ->make(true);
     }
+    
+    
 
     public function show($ticket_id)
     {

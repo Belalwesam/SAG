@@ -69,8 +69,15 @@ class TicketController extends Controller
 
     public function getTicketsList()
     {
-        $data = auth()->user()->tickets()->latest()->get();
-
+        $query = auth()->user()->tickets()->latest();
+    
+        // Apply the date filter if provided
+        if (request()->has('created_at') && request('created_at') != null) {
+            $query->whereDate('created_at', request('created_at'));
+        }
+    
+        $data = $query->get();
+    
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {
@@ -83,7 +90,7 @@ class TicketController extends Controller
                     "completed" => "success",
                     "rejected" => "danger"
                 ];
-
+    
                 $status_text = __($row->status);
                 $btns = <<<HTML
                             <span class="badge rounded-pill bg-{$colors_array[$row->status]}">{$status_text}</span>
@@ -96,7 +103,7 @@ class TicketController extends Controller
                     "low" => "success",
                     "high" => "danger"
                 ];
-
+    
                 $priority_text = __($row->priority);
                 $btns = <<<HTML
                             <span class="badge rounded-pill bg-{$colors_array[$row->priority]}">{$priority_text}</span>
@@ -115,7 +122,6 @@ class TicketController extends Controller
             ->addColumn('actions', function ($row) {
                 $show_text = __("show details");
                 $show_route = route('client.tickets.show', $row->ticket_id);
-                $delete_text = trans('general.delete');
                 $btns = <<<HTML
                     <div class="dropdown d-flex justify-content-center">
                         <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -132,6 +138,8 @@ class TicketController extends Controller
             ->rawColumns(['actions', 'priority', 'status', 'ticket_id'])
             ->make(true);
     }
+    
+    
 
 
     public function show($ticket_id)

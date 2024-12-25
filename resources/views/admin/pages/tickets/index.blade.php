@@ -20,6 +20,32 @@
             <h5 class="card-title mb-0">{{ __('tickets list') }}</h5>
         </div>
         <div class="card-datatable table-responsive">
+            <div class="row m-3">
+                <div class="col-md-3">
+                    <label for="priority-select" class="form-label"><b>{{__('priority')}}</b></label>
+                    <select id="priority-select" class="form-select">
+                        <option value="">{{ __('All') }}</option>
+                        <option value="low">{{ __('low') }}</option>
+                        <option value="medium">{{ __('medium') }}</option>
+                        <option value="high">{{ __('high') }}</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="status-select" class="form-label"><b>{{__('status')}}</b></label>
+                    <select id="status-select" class="form-select">
+                        <option value="">{{ __('all') }}</option>
+                        <option value="pending">{{ __('pending') }}</option>
+                        <option value="processing">{{ __('processing') }}</option>
+                        <option value="completed">{{ __('completed') }}</option>
+                        <option value="rejected">{{ __('rejected') }}</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="created-at" class="form-label"><b>{{ __('date') }}</b></label>
+                    <input type="date" id="created-at" class="form-control" />
+                </div>
+            </div>
+            
             <table class="datatables-categories table border-top">
                 <thead>
                     <tr>
@@ -53,175 +79,95 @@
     <script src="{{ asset('/dashboard/assets/vendor/libs/select2/select2.js') }}"></script>
 @endsection
 @section('script')
-    <script>
-        $('document').ready(function() {
-            //initialise datatbles
-            let datatable = $('.datatables-categories').DataTable({
-                language: {
-                    sLengthMenu: '_MENU_',
-                    search: '',
-                    searchPlaceholder: '@lang('general.search')..',
-                    paginate: {
-                        previous: '@lang('general.previous')',
-                        next: '@lang('general.next')'
+<script>
+   $(document).ready(function() {
+    // Initialize datatables
+    let datatable = $('.datatables-categories').DataTable({
+        language: {
+            sLengthMenu: '_MENU_',
+            search: '',
+            searchPlaceholder: '@lang('general.search')..',
+            paginate: {
+                previous: '@lang('general.previous')',
+                next: '@lang('general.next')'
+            }
+        },
+        ordering: false,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{!! route('admin.tickets.tickets_list') !!}",
+            data: function(d) {
+                // Add filters to the ajax request
+                d.priority = $('#priority-select').val();
+                d.status = $('#status-select').val();
+                d.created_at = $('#created-at').val(); // Add date filter
+            }
+        },
+        columns: [
+            { data: 'ticket_id', name: 'ticket_id' },
+            { data: 'user_id', name: 'user_id' },
+            { data: 'project_id', name: 'project_id' },
+            { data: 'priority', name: 'priority' },
+            { data: 'status', name: 'status' },
+            { data: 'created_at', name: 'created_at' },
+            {
+                name: 'actions',
+                data: 'actions',
+                searchable: false,
+                orderable: false
+            }
+        ],
+        dom: '<"row mx-2"' +
+            '<"col-md-2"<"me-3"l>>' +
+            '<"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>' +
+            '>t' +
+            '<"row mx-2"' +
+            '<"col-sm-12 col-md-6"i>' +
+            '<"col-sm-12 col-md-6"p>' +
+            '>',
+        buttons: [
+            {
+                extend: 'collection',
+                className: 'btn btn-label-secondary dropdown-toggle mx-3',
+                text: '<i class="bx bx-upload me-2"></i>Export',
+                buttons: [
+                    {
+                        extend: 'print',
+                        text: '<i class="bx bx-printer me-2"></i>Print',
+                        className: 'dropdown-item',
+                        exportOptions: { columns: [1, 2, 3, 4, 5] }
+                    },
+                    {
+                        extend: 'csv',
+                        text: '<i class="bx bx-file me-2"></i>Csv',
+                        className: 'dropdown-item',
+                        exportOptions: { columns: [1, 2, 3, 4, 5] }
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        className: 'dropdown-item',
+                        exportOptions: { columns: [1, 2, 3, 4, 5] }
                     }
-                },
-                ordering: false,
-                processing: true,
-                serverSide: true,
-                ajax: "{!! route('admin.tickets.tickets_list') !!}",
-                columns: [{
-                        data: 'ticket_id',
-                        name: 'ticket_id'
-                    },
-                    {
-                        data: 'user_id',
-                        name: 'user_id'
-                    },
-                    {
-                        data: 'project_id',
-                        name: 'project_id'
-                    },
-                    {
-                        data: 'priority',
-                        name: 'priority'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    },
-                    {
-                        name: 'actions',
-                        data: 'actions',
-                        searchable: false,
-                        orderable: false
-                    },
-                ],
-                dom: '<"row mx-2"' +
-                    '<"col-md-2"<"me-3"l>>' +
-                    '<"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>' +
-                    '>t' +
-                    '<"row mx-2"' +
-                    '<"col-sm-12 col-md-6"i>' +
-                    '<"col-sm-12 col-md-6"p>' +
-                    '>',
-                buttons: [{
-                        extend: 'collection',
-                        className: 'btn btn-label-secondary dropdown-toggle mx-3',
-                        text: '<i class="bx bx-upload me-2"></i>Export',
-                        buttons: [{
-                                extend: 'print',
-                                text: '<i class="bx bx-printer me-2" ></i>Print',
-                                className: 'dropdown-item',
-                                exportOptions: {
-                                    columns: [1, 2, 3, 4, 5],
-                                    // prevent avatar to be print
-                                    format: {
-                                        body: function(inner, coldex, rowdex) {
-                                            if (inner.length <= 0) return inner;
-                                            var el = $.parseHTML(inner);
-                                            var result = '';
-                                            $.each(el, function(index, item) {
-                                                if (item.classList !== undefined && item
-                                                    .classList.contains('user-name')) {
-                                                    result = result + item.lastChild
-                                                        .firstChild.textContent;
-                                                } else if (item.innerText ===
-                                                    undefined) {
-                                                    result = result + item.textContent;
-                                                } else result = result + item.innerText;
-                                            });
-                                            return result;
-                                        }
-                                    }
-                                },
-                                customize: function(win) {
-                                    //customize print view for dark
-                                    $(win.document.body)
-                                        .css('color', config.colors.headingColor)
-                                        .css('border-color', config.colors.borderColor)
-                                        .css('background-color', config.colors.body);
-                                    $(win.document.body)
-                                        .find('table')
-                                        .addClass('compact')
-                                        .css('color', 'inherit')
-                                        .css('border-color', 'inherit')
-                                        .css('background-color', 'inherit');
-                                }
-                            },
-                            {
-                                extend: 'csv',
-                                text: '<i class="bx bx-file me-2" ></i>Csv',
-                                className: 'dropdown-item',
-                                exportOptions: {
-                                    columns: [1, 2, 3, 4, 5],
-                                    // prevent avatar to be display
-                                    format: {
-                                        body: function(inner, coldex, rowdex) {
-                                            if (inner.length <= 0) return inner;
-                                            var el = $.parseHTML(inner);
-                                            var result = '';
-                                            $.each(el, function(index, item) {
-                                                if (item.classList !== undefined && item
-                                                    .classList.contains('user-name')) {
-                                                    result = result + item.lastChild
-                                                        .firstChild.textContent;
-                                                } else if (item.innerText ===
-                                                    undefined) {
-                                                    result = result + item.textContent;
-                                                } else result = result + item.innerText;
-                                            });
-                                            return result;
-                                        }
-                                    }
-                                }
-                            },
-                            {
-                                extend: 'excel',
-                                text: 'Excel',
-                                className: 'dropdown-item',
-                                exportOptions: {
-                                    columns: [1, 2, 3, 4, 5],
-                                    // prevent avatar to be display
-                                    format: {
-                                        body: function(inner, coldex, rowdex) {
-                                            if (inner.length <= 0) return inner;
-                                            var el = $.parseHTML(inner);
-                                            var result = '';
-                                            $.each(el, function(index, item) {
-                                                if (item.classList !== undefined && item
-                                                    .classList.contains('user-name')) {
-                                                    result = result + item.lastChild
-                                                        .firstChild.textContent;
-                                                } else if (item.innerText ===
-                                                    undefined) {
-                                                    result = result + item.textContent;
-                                                } else result = result + item.innerText;
-                                            });
-                                            return result;
-                                        }
-                                    }
-                                }
-                            },
-
-
-                        ]
-                    },
-
                 ]
-            })
+            }
+        ]
+    });
 
-            // to make the datatables inputs appear larger
-            setTimeout(() => {
-                $('.dataTables_filter .form-control').removeClass('form-control-sm');
-                $('.dataTables_length .form-select').removeClass('form-select-sm');
-            })
-            // ----- crud operations
-            //delete btn (from table)
-        })
-    </script>
+    // Automatically reload table on filter change
+    $('#priority-select, #status-select, #created-at').on('change', function() {
+        datatable.ajax.reload();
+    });
+
+    // Ensure inputs are properly styled
+    setTimeout(() => {
+        $('.dataTables_filter .form-control').removeClass('form-control-sm');
+        $('.dataTables_length .form-select').removeClass('form-select-sm');
+    });
+});
+
+</script>
+
+
 @endsection

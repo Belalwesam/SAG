@@ -26,6 +26,13 @@
             @endif
         </div>
         <div class="card-datatable table-responsive">
+            <div class="row m-3">
+                <!-- Date Filter -->
+                <div class="col-md-3">
+                    <label for="created-at" class="form-label"><b>{{ __('date') }}</b></label>
+                    <input type="date" id="created-at" class="form-control">
+                </div>
+            </div>
             <table class="datatables-categories table border-top">
                 <thead>
                     <tr>
@@ -158,199 +165,184 @@
     <script src="{{ asset('/dashboard/assets/vendor/libs/select2/select2.js') }}"></script>
 @endsection
 @section('script')
-    <script>
-        $('document').ready(function() {
-            //initialise datatbles
-            let datatable = $('.datatables-categories').DataTable({
-                language: {
-                    sLengthMenu: '_MENU_',
-                    search: '',
-                    searchPlaceholder: '@lang('general.search')..',
-                    paginate: {
-                        previous: '@lang('general.previous')',
-                        next: '@lang('general.next')'
-                    }
+<script>
+    $('document').ready(function() {
+        // Initialize DataTable
+        let datatable = $('.datatables-categories').DataTable({
+            language: {
+                sLengthMenu: '_MENU_',
+                search: '',
+                searchPlaceholder: '@lang('general.search')..',
+                paginate: {
+                    previous: '@lang('general.previous')',
+                    next: '@lang('general.next')'
+                }
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{!! route('admin.clients.clients_list') !!}",
+                data: function(d) {
+                    // Pass the created_at filter value
+                    d.created_at = $('#created-at').val();
+                }
+            },
+            columns: [
+                { data: "image", name: "image" },
+                { data: 'name', name: 'name' },
+                { data: 'email', name: 'email' },
+                { data: 'hours', name: 'hours' },
+                { data: 'created_at', name: 'created_at' },
+                { name: 'actions', data: 'actions', searchable: false, orderable: false },
+            ],
+        });
+
+        // Reload DataTable when date filter changes
+        $('#created-at').on('change', function() {
+            datatable.ajax.reload();
+        });
+
+        // Adjust input styles
+        setTimeout(() => {
+            $('.dataTables_filter .form-control').removeClass('form-control-sm');
+            $('.dataTables_length .form-select').removeClass('form-select-sm');
+        });
+
+        // ----- CRUD Operations -----
+
+        // Create new AJAX request
+        $('body').on('click', '#submit-create-btn', function() {
+            let fd = new FormData();
+            fd.append('name', $('#name').val());
+            fd.append('username', $('#username').val());
+            fd.append('email', $('#email').val());
+            fd.append('password', $('#password').val());
+            fd.append('hours', $('#hours').val());
+            fd.append('_token', "{!! csrf_token() !!}");
+
+            if (document.getElementById('image').files[0]) {
+                fd.append('image', document.getElementById('image').files[0]);
+            }
+            let formBtn = $(this);
+
+            $.ajax({
+                method: 'POST',
+                url: "{!! route('admin.clients.store') !!}",
+                data: fd,
+                processData: false,
+                contentType: false,
+
+                beforeSend: function() {
+                    formBtn.html('<span class="spinner-border" role="status" aria-hidden="true"></span>');
+                    formBtn.prop('disabled', true);
                 },
-                processing: true,
-                serverSide: true,
-                ajax: "{!! route('admin.clients.clients_list') !!}",
-                columns: [{
-                        data: "image",
-                        name: "image"
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'hours',
-                        name: 'hours'
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    },
+                success: function(response) {
+                    successMessage("@lang('general.create_success')");
+                    $('#addClientModal').modal('toggle');
+                    document.getElementById("addClientForm").reset();
+                    datatable.ajax.reload();
+                },
+                error: function(response) {
+                    errorMessage("@lang('general.error')");
+                    displayErrors(response, false);
+                },
+            }).done(function() {
+                formBtn.html("@lang('general.create')");
+                formBtn.prop('disabled', false);
+            }).fail(function() {
+                formBtn.html("@lang('general.create')");
+                formBtn.prop('disabled', false);
+            });
+        });
 
-                    {
-                        name: 'actions',
-                        data: 'actions',
-                        searchable: false,
-                        orderable: false
-                    },
-                ],
-            })
+        // Populate table when pressing edit admin (from table)
+        $('body').on('click', '.edit-btn', function() {
+            $('#edit_name').val($(this).data('name'));
+            $('#edit_email').val($(this).data('email'));
+            $('#edit_hours').val($(this).data('hours'));
+            $('#edit_username').val($(this).data('username'));
+            $('#edit_id').val($(this).data('id'));
+        });
 
-            // to make the datatables inputs appear larger
-            setTimeout(() => {
-                $('.dataTables_filter .form-control').removeClass('form-control-sm');
-                $('.dataTables_length .form-select').removeClass('form-select-sm');
-            })
-            // ----- crud operations
+        // Edit AJAX request
+        $('body').on('click', '#submit-edit-btn', function() {
+            let fd = new FormData();
+            fd.append('name', $('#edit_name').val());
+            fd.append('id', $('#edit_id').val());
+            fd.append('username', $('#edit_username').val());
+            fd.append('email', $('#edit_email').val());
+            fd.append('password', $('#edit_password').val());
+            fd.append('hours', $('#edit_hours').val());
+            fd.append('_token', "{!! csrf_token() !!}");
+            fd.append('_method', "PATCH");
 
-            //create new ajax request
-            $('body').on('click', '#submit-create-btn', function() {
-                let fd = new FormData();
-                fd.append('name', $('#name').val())
-                fd.append('username', $('#username').val())
-                fd.append('email', $('#email').val())
-                fd.append('password', $('#password').val())
-                fd.append('hours', $('#hours').val())
-                fd.append('_token', "{!! csrf_token() !!}")
+            if (document.getElementById('edit_image').files[0]) {
+                fd.append('image', document.getElementById('edit_image').files[0]);
+            }
+            let formBtn = $(this);
 
-                if (document.getElementById('image').files[0]) {
-                    fd.append('image', document.getElementById('image').files[0])
-                }
-                let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
+            $.ajax({
+                method: 'POST',
+                url: "{!! route('admin.clients.update') !!}",
+                data: fd,
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    formBtn.html('<span class="spinner-border" role="status" aria-hidden="true"></span>');
+                    formBtn.prop('disabled', true);
+                },
+                success: function(response) {
+                    successMessage("@lang('general.edit_success')");
+                    $('#editClientModal').modal('toggle');
+                    datatable.ajax.reload();
+                },
+                error: function(response) {
+                    errorMessage("@lang('general.error')");
+                    displayErrors(response, true);
+                },
+            }).done(function() {
+                formBtn.html("@lang('general.edit')");
+                formBtn.prop('disabled', false);
+            }).fail(function() {
+                formBtn.html("@lang('general.edit')");
+                formBtn.prop('disabled', false);
+            });
+        });
 
-                $.ajax({
-                    method: 'POST',
-                    url: "{!! route('admin.clients.store') !!}",
-                    data: fd,
-                    processData: false,
-                    contentType: false,
-
-                    beforeSend: function() {
-                        formBtn.html(
-                            '<span class="spinner-border" role="status" aria-hidden="true"></span>'
-                        )
-                        formBtn.prop('disabled', true)
-                    },
-                    success: function(response) {
-                        successMessage("@lang('general.create_success')")
-                        $('#addClientModal').modal('toggle')
-                        document.getElementById("addClientForm").reset();
-                        datatable.ajax.reload()
-                    },
-                    error: function(response) {
-                        errorMessage("@lang('general.error')")
-                        displayErrors(response, false)
-                    },
-                }).done(function() {
-                    formBtn.html("@lang('general.create')")
-                    formBtn.prop('disabled', false)
-                    $('#addClientModal').modal('toggle')
-                }).fail(function() {
-                    formBtn.html("@lang('general.create')")
-                    formBtn.prop('disabled', false)
-                })
-            })
-
-            //populate table when pressing edit admin (from table)
-            $('body').on('click', '.edit-btn', function() {
-                $('#edit_name').val($(this).data('name'))
-                $('#edit_email').val($(this).data('email'))
-                $('#edit_hours').val($(this).data('hours'))
-                $('#edit_username').val($(this).data('username'))
-                $('#edit_id').val($(this).data('id'))
-            })
-            //edit ajax request
-            $('body').on('click', '#submit-edit-btn', function() {
-                let fd = new FormData();
-                fd.append('name', $('#edit_name').val())
-                fd.append('id', $('#edit_id').val())
-                fd.append('username', $('#edit_username').val())
-                fd.append('email', $('#edit_email').val())
-                fd.append('password', $('#edit_password').val())
-                fd.append('hours', $('#edit_hours').val())
-                fd.append('_token', "{!! csrf_token() !!}")
-                fd.append('_method', "PATCH")
-
-                if (document.getElementById('edit_image').files[0]) {
-                    fd.append('image', document.getElementById('edit_image').files[0])
-                }
-                let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
-
-                $.ajax({
-                    method: 'POST',
-                    url: "{!! route('admin.clients.update') !!}",
-                    data: fd,
-                    processData: false,
-                    contentType: false,
-                    beforeSend: function() {
-                        formBtn.html(
-                            '<span class="spinner-border" role="status" aria-hidden="true"></span>'
-                        )
-                        formBtn.prop('disabled', true)
-                    },
-                    success: function(response) {
-                        successMessage("@lang('general.edit_success')")
-                        $('#editClientModal').modal('toggle')
-                        datatable.ajax.reload()
-                    },
-                    error: function(response) {
-                        errorMessage("@lang('general.error')")
-                        displayErrors(response, true)
-                    },
-                }).done(function() {
-                    formBtn.html("@lang('general.edit')")
-                    formBtn.prop('disabled', false)
-                }).fail(function() {
-                    formBtn.html("@lang('general.edit')")
-                    formBtn.prop('disabled', false)
-                })
-            })
-
-            //delete btn (from table)
-            $('body').on('click', '.delete-btn', function() {
-                let id = $(this).data('id')
-                Swal.fire({
-                    title: "@lang('general.confirmation')",
-                    text: " @lang('general.cant_revert')",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: "@lang('general.cancel')",
-                    confirmButtonText: "@lang('general.delete')",
-                    customClass: {
-                        confirmButton: 'btn btn-danger me-3',
-                        cancelButton: 'btn btn-label-secondary'
-                    },
-                    buttonsStyling: false
-                }).then(function(result) {
-                    if (result.value) {
-                        //ajax delete call
-                        let data = {
-                            _token: "{!! csrf_token() !!}",
-                            id: id,
+        // Delete button (from table)
+        $('body').on('click', '.delete-btn', function() {
+            let id = $(this).data('id');
+            Swal.fire({
+                title: "@lang('general.confirmation')",
+                text: "@lang('general.cant_revert')",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: "@lang('general.cancel')",
+                confirmButtonText: "@lang('general.delete')",
+                customClass: {
+                    confirmButton: 'btn btn-danger me-3',
+                    cancelButton: 'btn btn-label-secondary'
+                },
+                buttonsStyling: false
+            }).then(function(result) {
+                if (result.value) {
+                    let data = { _token: "{!! csrf_token() !!}", id: id };
+                    $.ajax({
+                        method: 'DELETE',
+                        url: "{!! route('admin.clients.delete') !!}",
+                        data: data,
+                        success: function(response) {
+                            successMessage("@lang('general.delete_success')");
+                            datatable.ajax.reload();
+                        },
+                        error: function(response) {
+                            errorMessage("@lang('general.error')");
                         }
-                        $.ajax({
-                            method: 'DELETE',
-                            url: "{!! route('admin.clients.delete') !!}",
-                            data: data,
-                            success: function(response) {
-                                successMessage("@lang('general.delete_success')")
-                                datatable.ajax.reload()
-                            },
-                            error: function(response) {
-                                errorMessage("@lang('general.error')")
-                            },
-                        })
-                    }
-                });
-            })
-        })
-    </script>
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 @endsection

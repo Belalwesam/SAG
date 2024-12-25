@@ -24,6 +24,12 @@
                     class="d-none d-lg-inline-block">{{ __('submit new ticket') }}</span></a>
         </div>
         <div class="card-datatable table-responsive">
+            <div class="row m-3">
+                <!-- Filter by Created At -->
+                <div class="col-md-3">
+                    <label for="created-at" class="form-label"><b>{{ __('date') }}</b></label>
+                    <input type="date" id="created-at" class="form-control" />
+                </div>
             <table class="datatables-categories table border-top">
                 <thead>
                     <tr>
@@ -56,59 +62,64 @@
     <script src="{{ asset('/dashboard/assets/vendor/libs/select2/select2.js') }}"></script>
 @endsection
 @section('script')
-    <script>
-        $('document').ready(function() {
-            //initialise datatbles
-            let datatable = $('.datatables-categories').DataTable({
-                language: {
-                    sLengthMenu: '_MENU_',
-                    search: '',
-                    searchPlaceholder: '@lang('general.search')..',
-                    paginate: {
-                        previous: '@lang('general.previous')',
-                        next: '@lang('general.next')'
-                    }
-                },
-                ordering: false,
-                processing: true,
-                serverSide: true,
-                ajax: "{!! route('client.tickets.tickets_list') !!}",
-                columns: [{
-                        data: 'ticket_id',
-                        name: 'ticket_id'
-                    },
-                    {
-                        data: 'project_id',
-                        name: 'project_id'
-                    },
-                    {
-                        data: 'priority',
-                        name: 'priority'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    },
-                    {
-                        name: 'actions',
-                        data: 'actions',
-                        searchable: false,
-                        orderable: false
-                    },
-                ],
-            })
+<script>
+    $('document').ready(function() {
+        // Add a date input filter in the header
+        let dateFilter = `<div class="mb-3">
+            <label for="created-at" class="form-label">{{ __('Filter by Date') }}</label>
+            <input type="date" id="created-at" class="form-control" />
+        </div>`;
+        $('.dataTables_wrapper').before(dateFilter);
 
-            // to make the datatables inputs appear larger
-            setTimeout(() => {
-                $('.dataTables_filter .form-control').removeClass('form-control-sm');
-                $('.dataTables_length .form-select').removeClass('form-select-sm');
-            })
-            // ----- crud operations
-            //delete btn (from table)
-        })
-    </script>
+        // Initialize datatables
+        let datatable = $('.datatables-categories').DataTable({
+            language: {
+                sLengthMenu: '_MENU_',
+                search: '',
+                searchPlaceholder: '@lang('general.search')..',
+                paginate: {
+                    previous: '@lang('general.previous')',
+                    next: '@lang('general.next')'
+                }
+            },
+            ordering: false,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{!! route('client.tickets.tickets_list') !!}",
+                data: function(d) {
+                    d.created_at = $('#created-at').val(); // Add created_at filter to AJAX request
+                }
+            },
+            columns: [
+                { data: 'ticket_id', name: 'ticket_id' },
+                { data: 'project_id', name: 'project_id' },
+                { data: 'priority', name: 'priority' },
+                { data: 'status', name: 'status' },
+                { data: 'created_at', name: 'created_at' },
+                {
+                    name: 'actions',
+                    data: 'actions',
+                    searchable: false,
+                    orderable: false
+                },
+            ],
+        });
+
+        // Reload the table when the date filter changes
+        $('#created-at').on('change', function() {
+            datatable.ajax.reload();
+        });
+
+        // To make the datatables inputs appear larger
+        setTimeout(() => {
+            $('.dataTables_filter .form-control').removeClass('form-control-sm');
+            $('.dataTables_length .form-select').removeClass('form-select-sm');
+        });
+
+        // ----- CRUD operations 
+        // Delete btn (from table)
+    });
+</script>
+
 @endsection
