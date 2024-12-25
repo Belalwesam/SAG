@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Client;
 
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\ClientProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.profile.index');
+        return view('client.pages.profile.index');
     }
 
-    public function update(ProfileUpdateRequest $request)
+    public function update(ClientProfileUpdateRequest $request)
     {
 
-        $admin = Admin::findOrFail($request->id);
+        $client = User::findOrFail($request->id);
 
         $data = [
             "name" => $request->name,
@@ -31,9 +31,9 @@ class ProfileController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $data['image'] =   Storage::put('/public/admins', $request->image);
+            $data['image'] =   Storage::put('/public/clients', $request->image);
         }
-        $admin->update($data);
+        $client->update($data);
 
         return back()->with('success', __("general.edit_success"));
     }

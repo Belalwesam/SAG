@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\AuthController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\TicketController;
+use App\Http\Controllers\Client\ProfileController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -45,6 +46,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                 Route::get('/{ticket_id}/conversation', 'conversation')->name('conversation');
 
                 Route::post('/send-message', 'send_message')->name('send-message');
+            });
+
+            #profile crud routes (prefix is stand alone because of overlapping)
+            Route::prefix('profile')->group(function () {
+                Route::group(['as' => 'profile.', 'controller' => ProfileController::class], function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::post('/update-profile', 'update')->name('update');
+                });
             });
         });
     });
