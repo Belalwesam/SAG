@@ -67,10 +67,22 @@ class TicketController extends Controller
 
 
 
-    public function getTicketsList()
+    public function getTicketsList(Request $request)
     {
-        $data = auth()->user()->tickets()->latest()->get();
-
+        $data = auth()->user()->tickets()->latest();
+        $data = $data->when($request->status, function ($query) use ($request) {
+            return $query->where('status', $request->status);
+        })
+            ->when($request->date_from, function ($query) use ($request) {
+                $query->where('created_at', '>=', $request->date_from);
+            })
+            ->when($request->date_to, function ($query) use ($request) {
+                $query->where('created_at', '<=', $request->date_to);
+            })
+            ->when($request->date_from && $request->date_to, function ($query) use ($request) {
+                $query->whereBetween('created_at', [$request->date_from, $request->date_to]);
+            });
+        $data = $data->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {
