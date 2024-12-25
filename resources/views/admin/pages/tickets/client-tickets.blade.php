@@ -124,6 +124,42 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="content-left">
+                            <span>{{ __('last month tickets') }}</span>
+                            <div class="d-flex align-items-end mt-2">
+                                <h4 class="mb-0 me-2">{{ $last_month_tickets }}</h4>
+                            </div>
+                            <small>{{ __('last month tickets') }}</small>
+                        </div>
+                        <span class="badge bg-label-info rounded p-2">
+                            <i class="bx bx-list-ul bx-sm"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="content-left">
+                            <span>{{ __('this month tickets') }}</span>
+                            <div class="d-flex align-items-end mt-2">
+                                <h4 class="mb-0 me-2">{{ $this_month_tickets }}</h4>
+                            </div>
+                            <small>{{ __('this month tickets') }}</small>
+                        </div>
+                        <span class="badge bg-label-success rounded p-2">
+                            <i class="bx bx-list-ul bx-sm"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="card">
         <div class="card-header border-bottom d-flex align-items-center justify-content-between">

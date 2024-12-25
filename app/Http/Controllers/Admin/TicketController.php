@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Ticket;
@@ -176,6 +177,20 @@ class TicketController extends Controller
         // total spent maintenance hours
         $total_maintenance_time = $client->ticketsFiltered('completed')->sum('estimated_hours');
 
+
+        // month counts
+        $last_month_tickets = $client->tickets()->whereNot('status', 'rejected')->whereMonth(
+            'created_at',
+            '=',
+            Carbon::now()->subMonth()->month
+        )->count();
+
+
+        $this_month_tickets = $client->tickets()->whereNot('status', 'rejected')->whereMonth(
+            'created_at',
+            '=',
+            Carbon::now()->month
+        )->count();
         return view('admin.pages.tickets.client-tickets', get_defined_vars());
     }
 
