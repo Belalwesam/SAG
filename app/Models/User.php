@@ -113,4 +113,10 @@ class User extends Authenticatable
                 ->where('status', $status);
         }
     }
+
+
+    public function getTotalMaintenanceHours()
+    {
+        return $this->projects()->sum('hours');
+    }
 }
