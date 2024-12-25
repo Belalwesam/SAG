@@ -151,8 +151,8 @@ class TicketController extends Controller
                     "handeled_at" => now()
                 ]);
 
-                $client = $ticket->user;
-                $client->update(["hours" => $client->hours - $ticket->estimated_hours]);
+                $project = $ticket->project;
+                $project->update(["hours" => $project->hours - $ticket->estimated_hours]);
             }
         } else {
             if (in_array($request->status, ["processing", "completed"])) {
@@ -171,8 +171,8 @@ class TicketController extends Controller
                         "handeled_at" => now()
                     ]);
 
-                    $client = $ticket->user;
-                    $client->update(["hours" => $client->hours - $ticket->estimated_hours]);
+                    $project = $ticket->project;
+                    $project->update(["hours" => $project->hours - $ticket->estimated_hours]);
                 }
             }
         }
