@@ -74,6 +74,7 @@ class ProjectController extends Controller
                             <li><a class="dropdown-item edit-btn"
                              data-id="{$row->id}"
                              data-name = "{$row->name}"
+                             data-hours = "{$row->hours}"
                              data-user = "{$row->user_id}"
                               data-bs-toggle="modal"
                               data-bs-target = "#editProjectModal"

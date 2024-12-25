@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->integer('hours')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });
