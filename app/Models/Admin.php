@@ -13,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles , SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -127,5 +127,18 @@ class Admin extends Authenticatable
     public function tickets()
     {
         return $this->hasMany(Ticket::class, 'admin_id');
+    }
+
+    public function ticketsFiltered($status = null)
+    {
+        if ($status == 'completed') {
+            return $this->hasMany(Ticket::class, 'user_id')
+                ->where('status', 'completed')
+                ->whereNotNull('handeled_at')
+                ->where('handeled', 1);
+        } else {
+            return $this->hasMany(Ticket::class, 'user_id')
+                ->where('status', $status);
+        }
     }
 }

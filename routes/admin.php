@@ -54,10 +54,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::prefix('admins')->group(function () {
                 Route::group(['as' => 'admins.', 'controller' => AdminController::class, 'middleware' => ['can:see admins']], function () {
                     Route::get('/', 'index')->name('index');
+                    Route::get('/{id}/show', 'show')->name('show');
                     Route::post('/', 'store')->name('store');
                     Route::patch('/', 'update')->name('update');
                     Route::delete('/', 'destroy')->name('delete');
                     Route::get('/admins-list', 'getAdminsList')->name('admins_list'); // get role users for datatable
+
+                    Route::get('/admin-tickets-list/{id}', 'getAdminTicketsList')->name('admin_tickets_list'); // get role users for datatable
+
                 });
             });
 
