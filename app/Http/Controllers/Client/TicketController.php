@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Models\Ticket;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageRequest;
@@ -20,17 +21,20 @@ class TicketController extends Controller
     public function create()
     {
         $projects = auth()->user()->projects;
-
-        $allow = true;
-
-        if (auth()->user()->hours <= 0) {
-            $allow = false;
-        }
-        return view('client.pages.tickets.create', compact('projects', 'allow'));
+        return view('client.pages.tickets.create', compact('projects'));
     }
 
     public function store(TicketSubmitRequest $request)
     {
+
+        $maintenance_hours = Project::findOrFail($request->project_id)->hours;
+
+        if ($maintenance_hours < 1) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'project_id' => [__("project refill")],
+            ]);
+        }
+
         $ticket_id = uniqid();
         $ticket = auth()->user()->tickets()->create([
             "subject" => $request->subject,
@@ -64,6 +68,8 @@ class TicketController extends Controller
 
         return back()->with('success', __("general.create_success"));
     }
+
+
     public function getTicketsList(Request $request)
     {
         $data = auth()->user()->tickets()->latest();

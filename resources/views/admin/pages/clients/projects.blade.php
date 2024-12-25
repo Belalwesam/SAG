@@ -31,6 +31,7 @@
                     <tr>
                         <th>{{ __('name') }}</th>
                         <th>{{ __('client') }}</th>
+                        <th>{{ __('hours') }}</th>
                         <th>@lang('categories.created_at')</th>
                         <th class="d-flex justify-content-center" data-searchable="false" data-orderable="false">
                             @lang('general.actions')</th>
@@ -150,6 +151,10 @@
                     {
                         data: 'user_id',
                         name: 'user_id'
+                    },
+                    {
+                        data: 'hours',
+                        name: 'hours'
                     },
                     {
                         data: 'created_at',

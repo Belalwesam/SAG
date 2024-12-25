@@ -23,7 +23,6 @@ class User extends Authenticatable
         'email',
         'password',
         "username",
-        "hours",
         "image"
     ];
 
@@ -113,5 +112,11 @@ class User extends Authenticatable
             return $this->hasMany(Ticket::class, 'user_id')
                 ->where('status', $status);
         }
+    }
+
+
+    public function getTotalMaintenanceHours()
+    {
+        return $this->projects()->sum('hours');
     }
 }

@@ -48,7 +48,6 @@
                         <th>{{ __('image') }}</th>
                         <th>@lang('categories.name')</th>
                         <th>{{ __('email') }}</th>
-                        <th>{{ __('hours') }}</th>
                         <th>@lang('categories.created_at')</th>
                         <th class="d-flex justify-content-center" data-searchable="false" data-orderable="false">
                             @lang('general.actions')</th>
@@ -89,11 +88,7 @@
                             <input type="password" name="password" placeholder="{{ __('password') }}" id="password"
                                 class="form-control">
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="hours" class="form-label">{{ __('hours') }}</label>
-                            <input type="number" step="1" name="hours" placeholder="{{ __('hours') }}"
-                                id="hours" class="form-control">
-                        </div>
+
                         <div class="form-group mb-3">
                             <label for="image" class="form-label">{{ __('image') }}</label>
                             <input type="file" name="image" id="image" class="form-control">
@@ -139,11 +134,7 @@
                             <input type="password" name="edit_password" placeholder="{{ __('password') }}"
                                 id="edit_password" class="form-control">
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="edit_hours" class="form-label">{{ __('hours') }}</label>
-                            <input type="number" step="1" name="edit_hours" placeholder="{{ __('hours') }}"
-                                id="edit_hours" class="form-control">
-                        </div>
+
                         <div class="form-group mb-3">
                             <label for="edit_image" class="form-label">{{ __('image') }}</label>
                             <input type="file" name="edit_image" id="edit_image" class="form-control">
@@ -213,10 +204,7 @@
                             data: 'email',
                             name: 'email'
                         },
-                        {
-                            data: 'hours',
-                            name: 'hours'
-                        },
+
                         {
                             data: 'created_at',
                             name: 'created_at'
@@ -243,11 +231,6 @@
                 datatable.destroy();
                 populateTable()
             })
-
-
-
-
-
             // ----- crud operations
 
             //create new ajax request
@@ -257,7 +240,6 @@
                 fd.append('username', $('#username').val())
                 fd.append('email', $('#email').val())
                 fd.append('password', $('#password').val())
-                fd.append('hours', $('#hours').val())
                 fd.append('_token', "{!! csrf_token() !!}")
 
                 if (document.getElementById('image').files[0]) {
@@ -302,7 +284,6 @@
             $('body').on('click', '.edit-btn', function() {
                 $('#edit_name').val($(this).data('name'))
                 $('#edit_email').val($(this).data('email'))
-                $('#edit_hours').val($(this).data('hours'))
                 $('#edit_username').val($(this).data('username'))
                 $('#edit_id').val($(this).data('id'))
             })
@@ -314,7 +295,6 @@
                 fd.append('username', $('#edit_username').val())
                 fd.append('email', $('#edit_email').val())
                 fd.append('password', $('#edit_password').val())
-                fd.append('hours', $('#edit_hours').val())
                 fd.append('_token', "{!! csrf_token() !!}")
                 fd.append('_method', "PATCH")
 

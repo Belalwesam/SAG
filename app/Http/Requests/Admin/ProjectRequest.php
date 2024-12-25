@@ -23,7 +23,8 @@ class ProjectRequest extends FormRequest
     {
         return [
             "name" => "required|string",
-            "user_id" => "required|integer|exists:users,id"
+            "user_id" => "required|integer|exists:users,id",
+            "hours" => "required|integer|min:1"
         ];
     }
 }

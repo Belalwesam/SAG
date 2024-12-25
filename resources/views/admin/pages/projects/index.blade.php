@@ -47,6 +47,7 @@
                     <tr>
                         <th>{{ __('name') }}</th>
                         <th>{{ __('client') }}</th>
+                        <th>{{ __('hours') }}</th>
                         <th>@lang('categories.created_at')</th>
                         <th class="d-flex justify-content-center" data-searchable="false" data-orderable="false">
                             @lang('general.actions')</th>
@@ -69,6 +70,11 @@
                             <label for="name" class="form-label">{{ __('name') }}</label>
                             <input type="text" name="name" placeholder="{{ __('name') }}" id="name"
                                 class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="hours" class="form-label">{{ __('hours') }}</label>
+                            <input type="number" step="1" name="hours" placeholder="{{ __('hours') }}"
+                                id="hours" class="form-control">
                         </div>
                         <div class="form-group mb-3">
                             <label for="user_id" class="form-label">{{ __('client') }}</label>
@@ -104,6 +110,11 @@
                             <label for="edit_name" class="form-label">@lang('categories.name')</label>
                             <input type="text" name="edit_name" placeholder="@lang('categories.name')" id="edit_name"
                                 class="form-control">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="edit_hours" class="form-label">{{ __('hours') }}</label>
+                            <input type="number" step="1" name="edit_hours" placeholder="{{ __('hours') }}"
+                                id="edit_hours" class="form-control">
                         </div>
                         <div class="form-group mb-3">
                             <label for="edit_user_id" class="form-label">{{ __('client') }}</label>
@@ -177,6 +188,10 @@
                             name: 'user_id'
                         },
                         {
+                            data: 'hours',
+                            name: 'hours'
+                        },
+                        {
                             data: 'created_at',
                             name: 'created_at'
                         },
@@ -207,6 +222,7 @@
                 let data = {
                     _token: "{!! csrf_token() !!}",
                     name: $('#name').val(),
+                    hours: $('#hours').val(),
                     user_id: $('#user_id').val()
                 }
                 let formBtn = $(this) // the button that sends the reuquest (to minipulate ui)
@@ -244,6 +260,7 @@
             //populate table when pressing edit admin (from table)
             $('body').on('click', '.edit-btn', function() {
                 $('#edit_name').val($(this).data('name'))
+                $('#edit_hours').val($(this).data('hours'))
                 $('#edit_user_id').val($(this).data('user'))
                 $('#edit_id').val($(this).data('id'))
             })
@@ -252,6 +269,7 @@
                 let data = {
                     _token: "{!! csrf_token() !!}",
                     name: $('#edit_name').val(),
+                    hours: $('#edit_hours').val(),
                     user_id: $('#edit_user_id').val(),
                     id: $('#edit_id').val(),
                 }

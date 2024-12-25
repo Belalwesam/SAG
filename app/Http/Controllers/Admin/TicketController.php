@@ -134,9 +134,9 @@ class TicketController extends Controller
             return response()->json(["message" => __("ticket rejected")]);
         }
 
-        if ($request->estimated_hours > $ticket->user->hours) {
+        if ($request->estimated_hours > $ticket->project->hours) {
             throw \Illuminate\Validation\ValidationException::withMessages([
-                'estimated_hours' => [__("no enough hours")],
+                'estimated_hours' => [__("no enough for project")],
             ]);
         }
 
@@ -151,8 +151,8 @@ class TicketController extends Controller
                     "handeled_at" => now()
                 ]);
 
-                $client = $ticket->user;
-                $client->update(["hours" => $client->hours - $ticket->estimated_hours]);
+                $project = $ticket->project;
+                $project->update(["hours" => $project->hours - $ticket->estimated_hours]);
             }
         } else {
             if (in_array($request->status, ["processing", "completed"])) {
@@ -171,8 +171,8 @@ class TicketController extends Controller
                         "handeled_at" => now()
                     ]);
 
-                    $client = $ticket->user;
-                    $client->update(["hours" => $client->hours - $ticket->estimated_hours]);
+                    $project = $ticket->project;
+                    $project->update(["hours" => $project->hours - $ticket->estimated_hours]);
                 }
             }
         }

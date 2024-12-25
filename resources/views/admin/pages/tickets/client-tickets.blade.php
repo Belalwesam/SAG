@@ -23,7 +23,7 @@
                         <div class="content-left">
                             <span>{{ __('hours') }}</span>
                             <div class="d-flex align-items-end mt-2">
-                                <h4 class="mb-0 me-2">{{ $client->hours }}</h4>
+                                <h4 class="mb-0 me-2">{{ $client->getTotalMaintenanceHours() }}</h4>
                             </div>
                             <small>{{ __('hours') }}</small>
                         </div>
