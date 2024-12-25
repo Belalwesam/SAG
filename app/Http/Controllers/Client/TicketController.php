@@ -136,7 +136,7 @@ class TicketController extends Controller
 
     public function show($ticket_id)
     {
-        $ticket = Ticket::with('files', 'project')->where('ticket_id', $ticket_id)->firstOrFail();
+        $ticket = Ticket::with('files', 'project', 'messages')->where('ticket_id', $ticket_id)->firstOrFail();
         return view('client.pages.tickets.show', compact('ticket'));
     }
 
@@ -154,7 +154,7 @@ class TicketController extends Controller
         $ticket->messages()->create([
             "message" => $request->message,
             "user_id" => auth()->user()->id,
-            "admin_id" => $ticket->admin->id,
+            "admin_id" => $ticket->admin?->id,
             "sender" => "client"
         ]);
 
