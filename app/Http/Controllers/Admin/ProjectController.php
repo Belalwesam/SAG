@@ -36,14 +36,24 @@ class ProjectController extends Controller
         return http_response_code(200);
     }
 
-    public function getProjectsList()
+    public function getProjectsList(Request $request)
     {
-        $data = Project::latest()->get();
+        $data = Project::latest();
 
         if (request()->client_id) {
             $client = User::findOrFail(request()->client_id);
-            $data = $client->projects()->latest()->get();
+            $data = $client->projects()->latest();
         }
+        $data = $data->when($request->date_from, function ($query) use ($request) {
+            $query->where('created_at', '>=', $request->date_from);
+        })
+            ->when($request->date_to, function ($query) use ($request) {
+                $query->where('created_at', '<=', $request->date_to);
+            })
+            ->when($request->date_from && $request->date_to, function ($query) use ($request) {
+                $query->whereBetween('created_at', [$request->date_from, $request->date_to]);
+            });
+        $data = $data->get();
         return DataTables::of($data)
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {

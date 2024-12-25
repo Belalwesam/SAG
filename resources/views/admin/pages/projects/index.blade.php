@@ -25,6 +25,22 @@
                         class="d-none d-lg-inline-block">{{ __('add new project') }}</span></button>
             @endif
         </div>
+        <div class="container my-3">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <label for="date_from" class="form-label">
+                        {{ __('date from') }}
+                    </label>
+                    <input type="date" name="date_from" id="date_from" class="form-control search-field">
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="date_to" class="form-label">
+                        {{ __('date to') }}
+                    </label>
+                    <input type="date" name="date_to" id="date_to" class="form-control search-field">
+                </div>
+            </div>
+        </div>
         <div class="card-datatable table-responsive">
             <table class="datatables-categories table border-top">
                 <thead>
@@ -128,46 +144,61 @@
 @section('script')
     <script>
         $('document').ready(function() {
-            //initialise datatbles
-            let datatable = $('.datatables-categories').DataTable({
-                language: {
-                    sLengthMenu: '_MENU_',
-                    search: '',
-                    searchPlaceholder: '@lang('general.search')..',
-                    paginate: {
-                        previous: '@lang('general.previous')',
-                        next: '@lang('general.next')'
-                    }
-                },
-                ordering: false,
-                processing: true,
-                serverSide: true,
-                ajax: "{!! route('admin.projects.projects_list') !!}",
-                columns: [{
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'user_id',
-                        name: 'user_id'
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at'
-                    },
-                    {
-                        name: 'actions',
-                        data: 'actions',
-                        searchable: false,
-                        orderable: false
-                    },
-                ],
-            })
+            let datatable;
 
-            // to make the datatables inputs appear larger
-            setTimeout(() => {
-                $('.dataTables_filter .form-control').removeClass('form-control-sm');
-                $('.dataTables_length .form-select').removeClass('form-select-sm');
+            function populateTable() {
+                datatable = $('.datatables-categories').DataTable({
+                    language: {
+                        sLengthMenu: '_MENU_',
+                        search: '',
+                        searchPlaceholder: '@lang('general.search')..',
+                        paginate: {
+                            previous: '@lang('general.previous')',
+                            next: '@lang('general.next')'
+                        }
+                    },
+                    ordering: false,
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        method: "GET",
+                        url: "{!! route('admin.projects.projects_list') !!}",
+                        data: {
+                            date_from: $('#date_from').val(),
+                            date_to: $("#date_to").val(),
+                        }
+                    },
+                    columns: [{
+                            data: 'name',
+                            name: 'name'
+                        },
+                        {
+                            data: 'user_id',
+                            name: 'user_id'
+                        },
+                        {
+                            data: 'created_at',
+                            name: 'created_at'
+                        },
+                        {
+                            name: 'actions',
+                            data: 'actions',
+                            searchable: false,
+                            orderable: false
+                        },
+                    ],
+                })
+
+                // to make the datatables inputs appear larger
+                setTimeout(() => {
+                    $('.dataTables_filter .form-control').removeClass('form-control-sm');
+                    $('.dataTables_length .form-select').removeClass('form-select-sm');
+                })
+            }
+            populateTable()
+            $('body').on('change', '.search-field', function() {
+                datatable.destroy();
+                populateTable()
             })
             // ----- crud operations
 
