@@ -27,6 +27,8 @@ class TicketController extends Controller
         }
         $data = $data->when($request->status, function ($query) use ($request) {
             return $query->where('status', $request->status);
+        })->when($request->priority, function ($query) use ($request) {
+            return $query->where('priority', $request->priority);
         })
             ->when($request->date_from, function ($query) use ($request) {
                 $query->where('created_at', '>=', $request->date_from);
@@ -214,6 +216,8 @@ class TicketController extends Controller
         $data = $client->tickets()->latest();
         $data = $data->when($request->status, function ($query) use ($request) {
             return $query->where('status', $request->status);
+        })->when($request->priority, function ($query) use ($request) {
+            return $query->where('priority', $request->priority);
         })
             ->when($request->date_from, function ($query) use ($request) {
                 $query->where('created_at', '>=', $request->date_from);

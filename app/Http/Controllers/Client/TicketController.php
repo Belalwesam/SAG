@@ -64,14 +64,13 @@ class TicketController extends Controller
 
         return back()->with('success', __("general.create_success"));
     }
-
-
-
     public function getTicketsList(Request $request)
     {
         $data = auth()->user()->tickets()->latest();
         $data = $data->when($request->status, function ($query) use ($request) {
             return $query->where('status', $request->status);
+        })->when($request->priority, function ($query) use ($request) {
+            return $query->where('priority', $request->priority);
         })
             ->when($request->date_from, function ($query) use ($request) {
                 $query->where('created_at', '>=', $request->date_from);

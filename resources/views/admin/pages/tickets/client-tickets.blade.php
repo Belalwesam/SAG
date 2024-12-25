@@ -167,19 +167,19 @@
         </div>
         <div class="container my-3">
             <div class="row">
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3">
                     <label for="date_from" class="form-label">
                         {{ __('date from') }}
                     </label>
                     <input type="date" name="date_from" id="date_from" class="form-control search-field">
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3">
                     <label for="date_to" class="form-label">
                         {{ __('date to') }}
                     </label>
                     <input type="date" name="date_to" id="date_to" class="form-control search-field">
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3">
                     <label for="status" class="form-label">
                         {{ __('status') }}
                     </label>
@@ -188,6 +188,17 @@
                         <option value="pending">{{ __('pending') }}</option>
                         <option value="processing">{{ __('processing') }}</option>
                         <option value="completed">{{ __('completed') }}</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="priority" class="form-label">
+                        {{ __('priority') }}
+                    </label>
+                    <select name="priority" id="priority" class="form-select search-field">
+                        <option value="">{{ __('please select') }}</option>
+                        <option value="low">{{ __('low') }}</option>
+                        <option value="medium">{{ __('medium') }}</option>
+                        <option value="high">{{ __('high') }}</option>
                     </select>
                 </div>
             </div>
@@ -251,7 +262,8 @@
                         data: {
                             date_from: $('#date_from').val(),
                             date_to: $("#date_to").val(),
-                            status: $("#status").val()
+                            status: $("#status").val(),
+                            priority: $("#priority").val(),
                         }
                     },
                     columns: [{
