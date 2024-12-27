@@ -26,7 +26,6 @@ class TicketController extends Controller
 
     public function store(TicketSubmitRequest $request)
     {
-
         $maintenance_hours = Project::findOrFail($request->project_id)->hours;
 
         if ($maintenance_hours < 1) {
@@ -44,6 +43,13 @@ class TicketController extends Controller
             "ticket_id" => $ticket_id
         ]);
         if ($request->hiddenFileInput && count($request->hiddenFileInput) > 0) {
+
+            $folderName = $ticket_id;
+            $path = storage_path('app/public/tickets/' . $folderName);
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true); // Create the folder with 0777 permissions and ensure directories are created recursively
+                chmod($path, 0777); // Set permissions to 777
+            }
             foreach ($request->hiddenFileInput as $file) {
                 $file_type = '';
                 $mime_type = $file->getMimeType();
@@ -57,8 +63,8 @@ class TicketController extends Controller
                     $file_type = 'pdf';
                 }
 
-                $storage_path = 'public/tickets/' . $ticket->ticket_id;
-                $path = Storage::putFileAs($storage_path, $file, $file->getClientOriginalName());
+                $storage_path = $path;
+                $path = Storage::putFileAs('public/tickets/' . $ticket_id, $file, $file->getClientOriginalName());
                 $ticket->files()->create([
                     "type" => $file_type,
                     "path" => $path
