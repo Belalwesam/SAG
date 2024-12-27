@@ -24,12 +24,30 @@
                     class="d-none d-lg-inline-block">{{ __('submit new ticket') }}</span></a>
         </div>
         <div class="card-datatable table-responsive">
-            <div class="row m-3">
-                <!-- Filter by Created At -->
-                <div class="col-md-3">
-                    <label for="created-at" class="form-label"><b>{{ __('date') }}</b></label>
-                    <input type="date" id="created-at" class="form-control" />
-                </div>
+                <div class="row m-3">
+                    <div class="col-md-3">
+                        <label for="priority-select" class="form-label"><b>{{__('priority')}}</b></label>
+                        <select id="priority-select" class="form-select">
+                            <option value="">{{ __('All') }}</option>
+                            <option value="low">{{ __('low') }}</option>
+                            <option value="medium">{{ __('medium') }}</option>
+                            <option value="high">{{ __('high') }}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="status-select" class="form-label"><b>{{__('status')}}</b></label>
+                        <select id="status-select" class="form-select">
+                            <option value="">{{ __('all') }}</option>
+                            <option value="pending">{{ __('pending') }}</option>
+                            <option value="processing">{{ __('processing') }}</option>
+                            <option value="completed">{{ __('completed') }}</option>
+                            <option value="rejected">{{ __('rejected') }}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="created-at" class="form-label"><b>{{ __('date') }}</b></label>
+                        <input type="date" id="created-at" class="form-control" />
+                    </div>
             <table class="datatables-categories table border-top">
                 <thead>
                     <tr>
@@ -88,7 +106,9 @@
             ajax: {
                 url: "{!! route('client.tickets.tickets_list') !!}",
                 data: function(d) {
-                    d.created_at = $('#created-at').val(); // Add created_at filter to AJAX request
+                    d.created_at = $('#created-at').val(); 
+                    d.priority = $('#priority-select').val();
+                    d.status = $('#status-select').val();
                 }
             },
             columns: [
@@ -106,8 +126,8 @@
             ],
         });
 
-        // Reload the table when the date filter changes
-        $('#created-at').on('change', function() {
+        
+        $('#created-at, #priority-select, #status-select').on('change', function() {
             datatable.ajax.reload();
         });
 
