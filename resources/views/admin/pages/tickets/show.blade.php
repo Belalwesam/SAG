@@ -163,6 +163,9 @@
             <!-- /Activity Timeline -->
             <!-- /Invoice table -->
             <div class="card">
+                <h5 class="card-header text-center">
+                    {{ __('messages') }}
+                </h5>
                 <div class="row justify-content-center">
                     <div class="card-body">
                         <div id="messages-container">

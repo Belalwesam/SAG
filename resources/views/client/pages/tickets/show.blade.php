@@ -162,6 +162,9 @@
             </div>
 
             <div class="card">
+                <h5 class="card-header text-center">
+                    {{ __("messages") }}
+                </h5>
                 <div class="row justify-content-center">
                     <div class="card-body">
                         <div id="messages-container">
@@ -228,8 +231,11 @@
             <!-- /Activity Timeline -->
             <!-- /Invoice table -->
         </div>
+
         <!-- User Sidebar -->
         <div class="col-xl-4 col-lg-5 col-md-5">
+
+
             <!-- User Card -->
             <div class="card mb-4">
                 <div class="card-body">
