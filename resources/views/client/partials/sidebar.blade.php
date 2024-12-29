@@ -48,6 +48,14 @@
                  </li>
              </ul>
          </li>
+         <li class="menu-header small text-uppercase"><span class="menu-header-text">{{ __('projects list') }}</span>
+         </li>
+         <li class="menu-item">
+             <a href="{{ route('client.projects.index') }}" class="menu-link">
+                 <i class="menu-icon tf-icons bx bx-cog"></i>
+                 <div data-i18n="{{ __('projects list') }}">{{ __('projects list') }}</div>
+             </a>
+         </li>
      </ul>
  </aside>
  <!-- / Menu -->

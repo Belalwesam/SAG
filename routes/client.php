@@ -5,6 +5,7 @@ use App\Http\Controllers\Client\AuthController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\TicketController;
 use App\Http\Controllers\Client\ProfileController;
+use App\Http\Controllers\Client\ProjectController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -53,6 +54,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
                 Route::group(['as' => 'profile.', 'controller' => ProfileController::class], function () {
                     Route::get('/', 'index')->name('index');
                     Route::post('/update-profile', 'update')->name('update');
+                });
+            });
+
+            Route::prefix('projects')->group(function () {
+                Route::group(['as' => 'projects.', 'controller' => ProjectController::class], function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::get('/projects-list', 'getProjectsList')->name('projects_list');
                 });
             });
         });
