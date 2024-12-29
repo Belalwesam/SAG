@@ -70,5 +70,6 @@
     "date to" : "Date To",
     "please select" : "Please Select",
     "project refill" : "Project does not have enough maintenance hours , please contact us to increase.",
-    "no enough for project" : "Project does not have enough maintenance hours"
+    "no enough for project" : "Project does not have enough maintenance hours",
+    "messages" : "Messages"
 }
