@@ -183,7 +183,7 @@
                                                     {{ $message->user->getInitials() }}</span>
                                             </div>
                                         @endif
-
+                                        <p class="mb-0 fw-bold">{!! $message->user->name !!}</p>
                                         <p>{!! $message->message !!}</p>
                                         <span class="time-left">{{ $message->created_at->format('d-m-Y h:i a') }}</span>
                                     </div>
@@ -194,6 +194,7 @@
                                                 {{ $message->admin->getInitials() }}
                                             </span>
                                         </div>
+                                        <p class="mb-0 fw-bold">{!! $message->admin->name !!}</p>
                                         <p>{!! $message->message !!}</p>
                                         <span class="time-right">{{ $message->created_at->format('d-m-Y h:i a') }}</span>
                                     </div>

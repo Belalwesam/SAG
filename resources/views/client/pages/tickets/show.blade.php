@@ -68,7 +68,7 @@
         }
 
         .time-left,
-        .time-left {
+        .time-right {
             font-size: 0.7rem;
         }
     </style>
@@ -163,7 +163,7 @@
 
             <div class="card">
                 <h5 class="card-header text-center">
-                    {{ __("messages") }}
+                    {{ __('messages') }}
                 </h5>
                 <div class="row justify-content-center">
                     <div class="card-body">
@@ -182,7 +182,7 @@
                                                     {{ $message->user->getInitials() }}</span>
                                             </div>
                                         @endif
-
+                                        <p class="mb-0 fw-bold">{!! $message->user->name !!}</p>
                                         <p>{!! $message->message !!}</p>
                                         <span class="time-left">{{ $message->created_at->format('d-m-Y h:i a') }}</span>
                                     </div>
@@ -193,6 +193,7 @@
                                                 {{ $message->admin->getInitials() }}
                                             </span>
                                         </div>
+                                        <p class="mb-0 fw-bold">{!! $message->admin->name !!}</p>
                                         <p>{!! $message->message !!}</p>
                                         <span class="time-right">{{ $message->created_at->format('d-m-Y h:i a') }}</span>
                                     </div>
