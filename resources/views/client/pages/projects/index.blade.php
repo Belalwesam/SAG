@@ -43,8 +43,6 @@
                         <th>{{ __('client') }}</th>
                         <th>{{ __('hours') }}</th>
                         <th>@lang('categories.created_at')</th>
-                        <th class="d-flex justify-content-center" data-searchable="false" data-orderable="false">
-                            @lang('general.actions')</th>
                     </tr>
                 </thead>
             </table>
@@ -108,12 +106,6 @@
                         {
                             data: 'created_at',
                             name: 'created_at'
-                        },
-                        {
-                            name: 'actions',
-                            data: 'actions',
-                            searchable: false,
-                            orderable: false
                         },
                     ],
 
