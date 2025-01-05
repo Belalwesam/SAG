@@ -15,6 +15,7 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $data = null;
         $admin = auth('admin')->user();
         if ($admin->getRoleNames()[0] == 'Supervisor') {
             $processing_tickets = Ticket::where('status', 'processing')->count();
